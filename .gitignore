@@ -1,5 +1,6 @@
 tmp/
 output/
+log/
+*.log
 .ruby-version
 .ruby-gemset
-
