@@ -1,0 +1,33 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    adsf (1.2.1)
+      rack (>= 1.0.0)
+    colored (1.2)
+    concurrent-ruby (1.0.5)
+    cri (2.9.1)
+      colored (~> 1.2)
+    ddplugin (1.0.1)
+    hamster (3.0.0)
+      concurrent-ruby (~> 1.0)
+    nanoc (4.8.7)
+      addressable (~> 2.5)
+      cri (~> 2.8)
+      ddplugin (~> 1.0)
+      hamster (~> 3.0)
+      ref (~> 2.0)
+    public_suffix (3.0.0)
+    rack (2.0.3)
+    ref (2.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  adsf
+  nanoc
+
+BUNDLED WITH
+   1.15.4
