@@ -28,3 +28,5 @@ log/
 # Ignore .DS_store file
 .DS_Store
 
+# Don't commit your AWS credentials
+/.s3_sync

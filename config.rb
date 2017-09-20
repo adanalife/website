@@ -66,3 +66,12 @@ configure :build do
   # Minify Javascript on build
   # activate :minify_javascript
 end
+
+activate :s3_sync do |s3_sync|
+  s3_sync.bucket         = 'www.whalecore.com'
+  s3_sync.region         = 'us-west-1'
+  s3_sync.after_build    = false # do not sync after building
+  #s3_sync.prefix         = ''
+  s3_sync.index_document = 'index.html'
+  s3_sync.error_document = '404.html'
+end
