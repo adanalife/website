@@ -80,3 +80,8 @@ activate :s3_sync do |s3_sync|
   s3_sync.index_document = 'index.html'
   s3_sync.error_document = '404.html'
 end
+
+activate :google_analytics do |ga|
+  ga.tracking_id = 'UA-106768329-1'
+end
+

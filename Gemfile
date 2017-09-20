@@ -6,8 +6,11 @@ gem 'middleman', '~> 4.1'
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
 
-# for development
+# for making development easier
 gem 'middleman-livereload'
+
+# for google analytics
+gem 'middleman-google-analytics'
 
 # for uploading to S3
 gem 'middleman-s3_sync', '~> 4.0'
