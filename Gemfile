@@ -6,8 +6,9 @@ gem 'middleman', '~> 4.1'
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
 
-# what follows came from the middleman init command
-#gem 'redcarpet', '~> 3.3', '>= 3.3.3'
-
 # For feed.xml.builder
-#gem "builder", "~> 3.0"
+gem 'builder', '~> 3.2'
+
+# For parsing Markdown
+gem 'redcarpet', '~> 3.4'
+
