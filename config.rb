@@ -12,6 +12,9 @@ page '/*.txt', layout: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
+# allow omission of .html suffixes
+activate :directory_indexes
+
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
@@ -45,11 +48,13 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
+# Generate a feed
 page "/feed.xml", layout: false
+
 # Reload the browser automatically whenever files change
-# configure :development do
-#   activate :livereload
-# end
+configure :development do
+  activate :livereload
+end
 
 # Methods defined in the helpers block are available in templates
 # helpers do
