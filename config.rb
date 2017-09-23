@@ -12,12 +12,24 @@ page '/*.txt', layout: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
-# allow omission of .html suffixes
+# Integrate Dotenv
+#activate :dotenv
+
+# Activate directory indexes for pretty urls
 activate :directory_indexes
+
+# Active sitemap generator
+#activate :search_engine_sitemap
+
+# Automatic image dimensions on image_tag helper
+#activate :automatic_image_sizes
 
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
+
+# Define 404 page
+page '/404.html', :directory_index => false
 
 ###
 # Helpers
