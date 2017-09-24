@@ -22,3 +22,12 @@ tags:
 <%= lorem.paragraphs 2 %><%= marginnote('example2', lorem.word.capitalize) %>
 <%= lorem.paragraph %>
 
+```ruby
+helpers do
+  def sidenote(id, content)
+    tag(:label, for: "sn-#{id}", class: 'margin-toggle sidenote-number') +
+    input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
+    content_tag(:span, class: 'sidenote') { content }
+  end
+end
+```

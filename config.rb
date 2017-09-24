@@ -24,12 +24,17 @@ activate :directory_indexes
 # Automatic image dimensions on image_tag helper
 #activate :automatic_image_sizes
 
+# Allow syntax highlighting
+set :markdown_engine, :redcarpet
+set :markdown, fenced_code_blocks: true, smartypants: true
+activate :syntax
+
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
 # Define 404 page
-page '/404.html', :directory_index => false
+page '/404.html', directory_index: false
 
 ###
 # Helpers
@@ -73,7 +78,7 @@ helpers do
   #TODO: maybe some day we will want this to take a block?
   def sidenote(id, content)
     tag(:label, for: "sn-#{id}", class: 'margin-toggle sidenote-number') +
-    input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
+    input_tag(:checkbox, id: "sn-#{id}", class: 'margin-toggle') +
     content_tag(:span, class: 'sidenote') { content }
   end
   #TODO: maybe some day we will want this to take a block?

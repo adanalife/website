@@ -7,10 +7,14 @@ gem 'middleman', '~> 4.1'
 gem 'middleman-blog'
 
 # for making development easier
+#TODO: move to development group?
 gem 'middleman-livereload'
 
 # for google analytics
 gem 'middleman-google-analytics'
+
+# for syntax highlighting
+gem 'middleman-syntax'
 
 # for uploading to S3
 gem 'middleman-s3_sync', '~> 4.0'
