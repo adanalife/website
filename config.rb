@@ -133,12 +133,23 @@ helpers do
     end
   end
 
+  # upcase the first few words in a paragraph
   def newthought(content)
     content_tag(:span, class: 'newthought') { content }
   end
 
-  def figure
-    content_tag(:figure) { yield }
+  # used for images and other figures
+  def figure(img_src, alt_text = '')
+    content_tag(:figure) do
+      tag(:img, src: img_src, alt: alt_text)
+    end
+  end
+
+  # take up the whole screen
+  def full_figure(img_src, alt_text = '')
+    content_tag(:figure, class: 'fullwidth') do
+      tag(:img, src: img_src, alt: alt_text)
+    end
   end
 
   def iframe_wrapper

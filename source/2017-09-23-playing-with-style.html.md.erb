@@ -28,6 +28,9 @@ private: true
 <%= newthought(lorem.words(4).capitalize) + ' ' + lorem.words(15) + '.' %>
 <%= lorem.paragraph %>
 
+
+### Code Samples
+
 ```ruby
 helpers do
   def sidenote(id, content)
@@ -38,11 +41,20 @@ helpers do
 end
 ```
 
-<% figure do %>
-  ![example](https://edwardtufte.github.io/tufte-css/img/exports-imports.png)
-<% end %>
+
+### Images
+
+<%= figure lorem.image('300x400', random_color: true), lorem.sentence %>
+
+
+### Wide Images
+
+<%= full_figure lorem.image('1600x400', random_color: true) %>
+
+
+### YouTube embeds
 
 <% iframe_wrapper do %>
-  <iframe width="693" height="734" src="https://www.youtube.com/embed/YslQ2625TR4" frameborder="0" allowfullscreen></iframe>
+  <iframe width="693" height="734" src="https://www.youtube.com/embed/rjKyHNtJKNk?ecver=1" frameborder="0" allowfullscreen></iframe>
 <% end %>
 
