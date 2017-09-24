@@ -72,9 +72,17 @@ end
 helpers do
   #TODO: maybe some day we will want this to take a block?
   def sidenote(id, content)
-    tag(:label, for: id, class: 'margin-toggle sidenote-number') +
-    input_tag(:checkbox, id: id, class: 'margin-toggle') +
+    tag(:label, for: "sn-#{id}", class: 'margin-toggle sidenote-number') +
+    input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
     content_tag(:span, class: 'sidenote') do
+      content
+    end
+  end
+  #TODO: maybe some day we will want this to take a block?
+  def marginnote(id, content)
+    tag(:label, for: "mn-#{id}", class: 'margin-toggle') +
+    input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
+    content_tag(:span, class: 'marginnote') do
       content
     end
   end
