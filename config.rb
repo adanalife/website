@@ -82,6 +82,6 @@ activate :s3_sync do |s3_sync|
 end
 
 activate :google_analytics do |ga|
-  ga.tracking_id = 'UA-106768329-1'
+  ga.tracking_id = 'UA-XXXXXX-1'
 end
 
