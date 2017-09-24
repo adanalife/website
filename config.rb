@@ -70,6 +70,7 @@ end
 
 # Methods defined in the helpers block are available in templates
 helpers do
+  #TODO: maybe some day we will want this to take a block?
   def sidenote(id, content)
     tag(:label, for: id, class: 'margin-toggle sidenote-number') +
     input_tag(:checkbox, id: id, class: 'margin-toggle') +
