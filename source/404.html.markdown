@@ -1,5 +1,8 @@
 ---
-title: "Error"
+title: "Error 404"
 ---
 
-# 404
+This page doesn't exist.
+
+Does anything really exist, though?
+
