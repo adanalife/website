@@ -14,12 +14,18 @@ private: true
 <%= lorem.sentences 2 %><%= sidenote(lorem.words(5).capitalize) %>
 <%= lorem.sentences 2 %>
 
-<%= lorem.paragraph %>
+<%= epigraph(lorem.sentences(4)) %>
 
+<%= lorem.paragraph %>
 
 ### <%= lorem.words(5).capitalize %>
 
+<%= epigraph(lorem.sentences(2), "#{lorem.name}, #{lorem.date}") %>
+
 <%= lorem.paragraphs 2 %><%= marginnote(lorem.word.capitalize) %>
+<%= lorem.paragraph %>
+
+<%= newthought(lorem.words(4).capitalize) + ' ' + lorem.words(15) + '.' %>
 <%= lorem.paragraph %>
 
 ```ruby
@@ -31,3 +37,12 @@ helpers do
   end
 end
 ```
+
+<% figure do %>
+  ![example](https://edwardtufte.github.io/tufte-css/img/exports-imports.png)
+<% end %>
+
+<% iframe_wrapper do %>
+  <iframe width="693" height="734" src="https://www.youtube.com/embed/YslQ2625TR4" frameborder="0" allowfullscreen></iframe>
+<% end %>
+

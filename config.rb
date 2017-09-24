@@ -74,33 +74,6 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
-###
-# Helpers
-###
-
-# Methods defined in the helpers block are available in templates
-helpers do
-  #TODO: maybe some day we will want this to take a block?
-  def sidenote(content)
-    # auto-magically create incremental CSS ids
-    @sidenote ||= 0
-    @sidenote += 1
-    tag(:label, for: "sn-#{@sidenote}", class: 'margin-toggle sidenote-number') +
-    input_tag(:checkbox, id: "sn-#{@sidenote}", class: 'margin-toggle') +
-    content_tag(:span, class: 'sidenote') { content }
-  end
-  #TODO: maybe some day we will want this to take a block?
-  def marginnote(content)
-    # auto-magically create incremental CSS ids
-    @@marginnote ||= 0
-    @@marginnote += 1
-    icon = '&#8853;' # expand icon looks like: ⊕
-    content_tag(:label, for: "mn-#{@@marginnote}", class: 'margin-toggle') { icon } +
-    input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
-    content_tag(:span, class: 'marginnote') { content }
-  end
-end
-
 # Build-specific configuration
 configure :build do
   # Minify CSS on build
@@ -120,5 +93,57 @@ end
 
 activate :google_analytics do |ga|
   ga.tracking_id = 'UA-106768329-1'
+end
+
+###
+# Helpers
+###
+
+# Methods defined in the helpers block are available in templates
+helpers do
+
+  def sidenote(content = nil)
+    # auto-magically create incremental CSS ids
+    @@sidenote ||= 0
+    tag(:label, for: "sn-#{@@sidenote += 1}", class: 'margin-toggle sidenote-number') +
+    input_tag(:checkbox, id: "sn-#{@@sidenote}", class: 'margin-toggle') +
+    content_tag(:span, class: 'sidenote') { content || yield }
+  end
+
+  def marginnote(content = nil)
+    # auto-magically create incremental CSS ids
+    @@marginnote ||= 0
+    icon = '&#8853;' # expand icon looks like: ⊕
+    content_tag(:label, for: "mn-#{@@marginnote += 1}", class: 'margin-toggle') { icon } +
+    input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
+    content_tag(:span, class: 'marginnote') { content || yield }
+  end
+
+  #TODO: maybe some day we will want this to take a block?
+  def epigraph(content = nil, footer = nil)
+    content_tag(:div, class: 'epigraph') do
+      content_tag(:blockquote) do
+        if footer
+          footer = content_tag(:footer) { footer }
+        end
+        content_tag(:p) do
+          content || yield
+        end + footer
+      end
+    end
+  end
+
+  def newthought(content)
+    content_tag(:span, class: 'newthought') { content }
+  end
+
+  def figure
+    content_tag(:figure) { yield }
+  end
+
+  def iframe_wrapper
+    content_tag(:figure, class: 'iframe-wrapper') { yield }
+  end
+
 end
 
