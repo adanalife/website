@@ -1,0 +1,38 @@
+---
+
+title: How This Site Works (p. 1)
+date: 2017-09-24 16:51 UTC
+tags: meta, code
+
+---
+
+In this article I'll talk about my technical goals for this project and how it began.
+
+My goals on this project were as follows:
+
+ * articles should a simple directory of Markdown files
+ * the site should be static
+
+### Markdown
+
+I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents. I feel like Markdown files are very readable and the syntax rarely gets in my way. This way I can spend more time writing articles, and less time fighting with HTML.
+
+You can view my articles (and even more nitty-gritty internals of this site) on my Github repo [here](https://github.com/dmerrick/whalecore/tree/master/source).
+
+### Static Site
+
+After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive. 
+
+Ideally, this site would be a simple directory of HTML files that I could host anywhere.<%= marginnote('I opted to put them up on Amazon S3') %>
+It's really easy to serve a website that's all static files, hell, I could even just email someone a zip of the directory and they'd have the whole site.
+
+
+## Enter Middleman
+
+I looked at a number of tools that would achieve my goals, before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/). I spent many hours building up a "boilerplate" project that basically contains everything but the style and content of the blog.
+
+You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. Periodically I will move stuff from [this project's main Github repo](https://github.com/dmerrick/whalecore) over to the boilerplate repo, but I will try to do so sparingly. The boilerplate project is only intended to be a bare-minimum starting point for creating a new website if someone wishes to in the future.
+
+With Middleman I can create new articles with `middleman article "New Article Title"`, which generates a markdown template that I can start writing in. If I run `middleman` on my workstation, a development server spins up that allows me to view my changes in realtime before I publish them. When I am happy with the article, I can run `middleman build` and the article will be compliled to HTML and uploaded to S3 for the world to see.
+
+In part 2 I will talk about the visual design of the site and how I did it.

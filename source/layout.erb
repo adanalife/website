@@ -12,7 +12,7 @@
   </head>
   <body>
     <article>
-      <h1>Dana's Very Unfinished Blog</h1>
+      <h1><%= current_article.nil? ? "Dana's Very Unfinished Blog" : current_article.title %></h1>
 
       <div id="main" role="main">
         <%= yield %>

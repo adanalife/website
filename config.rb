@@ -81,16 +81,22 @@ end
 # Methods defined in the helpers block are available in templates
 helpers do
   #TODO: maybe some day we will want this to take a block?
-  def sidenote(id, content)
-    tag(:label, for: "sn-#{id}", class: 'margin-toggle sidenote-number') +
-    input_tag(:checkbox, id: "sn-#{id}", class: 'margin-toggle') +
+  def sidenote(content)
+    # auto-magically create incremental CSS ids
+    @sidenote ||= 0
+    @sidenote += 1
+    tag(:label, for: "sn-#{@sidenote}", class: 'margin-toggle sidenote-number') +
+    input_tag(:checkbox, id: "sn-#{@sidenote}", class: 'margin-toggle') +
     content_tag(:span, class: 'sidenote') { content }
   end
   #TODO: maybe some day we will want this to take a block?
-  def marginnote(id, content)
+  def marginnote(content)
+    # auto-magically create incremental CSS ids
+    @@marginnote ||= 0
+    @@marginnote += 1
     icon = '&#8853;' # expand icon looks like: ⊕
-    content_tag(:label, for: "mn-#{id}", class: 'margin-toggle') { icon } +
-    input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
+    content_tag(:label, for: "mn-#{@@marginnote}", class: 'margin-toggle') { icon } +
+    input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
     content_tag(:span, class: 'marginnote') { content }
   end
 end
