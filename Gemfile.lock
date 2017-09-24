@@ -116,6 +116,9 @@ GEM
       parallel
       ruby-progressbar
       unf
+    middleman-search_engine_sitemap (1.4.0)
+      builder
+      middleman-core (~> 4.0)
     middleman-syntax (3.0.0)
       middleman-core (>= 3.2)
       rouge (~> 2.0)
@@ -168,6 +171,7 @@ DEPENDENCIES
   middleman-google-analytics
   middleman-livereload
   middleman-s3_sync (~> 4.0)
+  middleman-search_engine_sitemap
   middleman-syntax
   mime-types
   redcarpet (~> 3.4)

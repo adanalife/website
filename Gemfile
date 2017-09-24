@@ -10,6 +10,9 @@ gem 'middleman-blog'
 #TODO: move to development group?
 gem 'middleman-livereload'
 
+# for automatically generating a sitemap
+gem 'middleman-search_engine_sitemap'
+
 # for google analytics
 gem 'middleman-google-analytics'
 
