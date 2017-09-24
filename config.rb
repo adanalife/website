@@ -74,17 +74,14 @@ helpers do
   def sidenote(id, content)
     tag(:label, for: "sn-#{id}", class: 'margin-toggle sidenote-number') +
     input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
-    content_tag(:span, class: 'sidenote') do
-      content
-    end
+    content_tag(:span, class: 'sidenote') { content }
   end
   #TODO: maybe some day we will want this to take a block?
   def marginnote(id, content)
-    tag(:label, for: "mn-#{id}", class: 'margin-toggle') +
+    icon = '&#8853;' # expand icon looks like: ⊕
+    content_tag(:label, for: "mn-#{id}", class: 'margin-toggle') { icon } +
     input_tag(:checkbox, id: "mn-#{id}", class: 'margin-toggle') +
-    content_tag(:span, class: 'marginnote') do
-      content
-    end
+    content_tag(:span, class: 'marginnote') { content }
   end
 end
 
