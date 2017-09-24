@@ -69,11 +69,15 @@ configure :development do
 end
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+  def sidenote(id, content)
+    tag(:label, for: id, class: 'margin-toggle sidenote-number') +
+    input_tag(:checkbox, id: id, class: 'margin-toggle') +
+    content_tag(:span, class: 'sidenote') do
+      content
+    end
+  end
+end
 
 # Build-specific configuration
 configure :build do

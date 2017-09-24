@@ -6,13 +6,24 @@ tags:
 
 ---
 
-<%= lorem.sentences 2 %>
+
+<%= lorem.sentence %>
 
 ## <%= lorem.words(5).capitalize %>
 
+<%= lorem.sentence %><%= tag :label, for: 'sn-demo', class: 'margin-toggle sidenote-number' %>
+<%= input_tag :checkbox, id: 'sn-demo', class: 'margin-toggle' %>
+<% content_tag :span, class: 'sidenote' do %>
+  <%= lorem.words(5).capitalize %>
+<% end %>
+<%= lorem.sentences 2 %>
+
 <%= lorem.paragraph %>
+
+<%= sidenote('sn-new', lorem.word.capitalize) %>
 
 ### <%= lorem.words(5).capitalize %>
 
 <%= lorem.paragraphs 2 %>
+
 
