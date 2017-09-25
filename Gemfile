@@ -20,9 +20,7 @@ gem 'middleman-google-analytics'
 gem 'middleman-syntax'
 
 # for uploading to S3
-gem 'middleman-s3_sync', '~> 4.0'
-# this was included to fix an issue with fog
-gem 'mime-types'
+gem 's3_website'
 
 # For feed.xml.builder
 gem 'builder', '~> 3.2'

@@ -29,4 +29,4 @@ log/
 .DS_Store
 
 # Don't commit your AWS credentials
-/.s3_sync
+/s3_website.yml

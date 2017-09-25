@@ -83,14 +83,6 @@ configure :build do
   # activate :minify_javascript
 end
 
-activate :s3_sync do |s3_sync|
-  s3_sync.bucket         = 'www.dana.lol'
-  s3_sync.region         = 'us-east-1'
-  s3_sync.after_build    = true # sync after building
-  s3_sync.index_document = 'index.html'
-  s3_sync.error_document = '404.html'
-end
-
 activate :google_analytics do |ga|
   ga.tracking_id = 'UA-106965485-1'
 end
