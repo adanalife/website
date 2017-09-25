@@ -22,7 +22,7 @@ page '/404.html', directory_index: false
 activate :directory_indexes
 
 # Active sitemap generator
-set :url_root, 'http://www.whalecore.com'
+set :url_root, 'http://www.dana.lol'
 activate :search_engine_sitemap,
   default_change_frequency: 'weekly',
   exclude_attr: 'private'
@@ -84,15 +84,15 @@ configure :build do
 end
 
 activate :s3_sync do |s3_sync|
-  s3_sync.bucket         = 'www.whalecore.com'
-  s3_sync.region         = 'us-west-1'
+  s3_sync.bucket         = 'www.dana.lol'
+  s3_sync.region         = 'us-east-1'
   s3_sync.after_build    = true # sync after building
   s3_sync.index_document = 'index.html'
   s3_sync.error_document = '404.html'
 end
 
 activate :google_analytics do |ga|
-  ga.tracking_id = 'UA-106768329-1'
+  ga.tracking_id = 'UA-106965485-1'
 end
 
 ###
