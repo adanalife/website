@@ -1,7 +1,7 @@
 
 # Welcome to the Website
 
-Live site available here: [http://www.whalecore.com](http://www.whalecore.com.s3-website-us-west-1.amazonaws.com)
+Live site available here: [https://www.dana.lol](http://www.dana.lol)
 
 ```
                                                  _..-,--.._
