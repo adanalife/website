@@ -19,6 +19,15 @@ gem 'middleman-syntax'
 # for uploading to S3
 gem 's3_website'
 
+# for loading ENV vars from a .env file
+gem 'dotenv'
+
+# provides a pry-based `middleman console`
+gem 'middleman-pry'
+
+# why isn't this part of the standard library?
+gem 'awesome_print'
+
 # For feed.xml.builder
 gem 'builder', '~> 3.2'
 

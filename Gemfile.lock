@@ -8,6 +8,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    awesome_print (1.8.0)
     aws-sdk (2.10.52)
       aws-sdk-resources (= 2.10.52)
     aws-sdk-core (2.10.52)
@@ -18,6 +19,7 @@ GEM
     aws-sigv4 (1.0.2)
     backports (3.8.0)
     builder (3.2.3)
+    coderay (1.1.2)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -55,6 +57,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
     memoist (0.16.0)
+    method_source (0.8.2)
     middleman (4.2.1)
       coffee-script (~> 2.2)
       compass-import-once (= 1.0.5)
@@ -96,6 +99,9 @@ GEM
       em-websocket (~> 0.5.1)
       middleman-core (>= 3.3)
       rack-livereload (~> 0.3.15)
+    middleman-pry (1.0.1)
+      middleman (>= 3.3, < 5)
+      pry (~> 0.9)
     middleman-search_engine_sitemap (1.4.0)
       builder
       middleman-core (~> 4.0)
@@ -110,6 +116,9 @@ GEM
     padrino-support (0.13.3.4)
       activesupport (>= 3.1)
     parallel (1.12.0)
+    pry (0.11.0)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
     public_suffix (3.0.0)
     rack (2.0.3)
     rack-livereload (0.3.16)
@@ -139,10 +148,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   builder (~> 3.2)
+  dotenv
   middleman (~> 4.1)
   middleman-blog
   middleman-livereload
+  middleman-pry
   middleman-search_engine_sitemap
   middleman-syntax
   redcarpet (~> 3.4)
