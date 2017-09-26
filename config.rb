@@ -94,6 +94,29 @@ end
 # Methods defined in the helpers block are available in templates
 helpers do
 
+  # upcase the first few words in a paragraph
+  def newthought(content)
+    content_tag(:span, class: 'newthought') { content }
+  end
+
+  # used for images and other figures
+  def figure(img_src, alt_text = '')
+    content_tag(:figure) do
+      tag(:img, src: img_src, alt: alt_text)
+    end
+  end
+
+  # take up the whole screen
+  def full_figure(img_src, alt_text = '')
+    content_tag(:figure, class: 'fullwidth') do
+      tag(:img, src: img_src, alt: alt_text)
+    end
+  end
+
+  def iframe_wrapper
+    content_tag(:figure, class: 'iframe-wrapper') { yield }
+  end
+
   def sidenote(content = nil)
     # auto-magically create incremental CSS ids
     @@sidenote ||= 0
@@ -123,29 +146,6 @@ helpers do
         end + footer
       end
     end
-  end
-
-  # upcase the first few words in a paragraph
-  def newthought(content)
-    content_tag(:span, class: 'newthought') { content }
-  end
-
-  # used for images and other figures
-  def figure(img_src, alt_text = '')
-    content_tag(:figure) do
-      tag(:img, src: img_src, alt: alt_text)
-    end
-  end
-
-  # take up the whole screen
-  def full_figure(img_src, alt_text = '')
-    content_tag(:figure, class: 'fullwidth') do
-      tag(:img, src: img_src, alt: alt_text)
-    end
-  end
-
-  def iframe_wrapper
-    content_tag(:figure, class: 'iframe-wrapper') { yield }
   end
 
 end
