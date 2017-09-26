@@ -149,7 +149,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  builder (~> 3.2)
+  builder
   dotenv
   middleman (~> 4.1)
   middleman-blog
@@ -157,7 +157,7 @@ DEPENDENCIES
   middleman-pry
   middleman-search_engine_sitemap
   middleman-syntax
-  redcarpet (~> 3.4)
+  redcarpet
   s3_website
 
 BUNDLED WITH
