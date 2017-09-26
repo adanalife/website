@@ -16,6 +16,7 @@
 
     <title>Dana's Very Unfinished Blog<%= ' - ' + current_article.title unless current_article.nil? %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+    <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
     <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
     <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
   </head>
