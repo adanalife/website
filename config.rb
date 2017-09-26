@@ -83,10 +83,6 @@ configure :build do
   # activate :minify_javascript
 end
 
-activate :google_analytics do |ga|
-  ga.tracking_id = 'UA-106965485-1'
-end
-
 ###
 # Helpers
 ###
@@ -146,6 +142,11 @@ helpers do
         end + footer
       end
     end
+  end
+
+  # just a simple way to keep this somewhere central
+  def google_analytics
+    'UA-106965485-1'
   end
 
 end

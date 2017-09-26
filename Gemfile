@@ -13,9 +13,6 @@ gem 'middleman-livereload'
 # for automatically generating a sitemap
 gem 'middleman-search_engine_sitemap'
 
-# for google analytics
-gem 'middleman-google-analytics'
-
 # for syntax highlighting
 gem 'middleman-syntax'
 
