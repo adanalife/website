@@ -22,6 +22,9 @@ gem 'middleman-syntax'
 # provides a pry-based `middleman console`
 gem 'middleman-pry'
 
+# this will remove whitespace around HTML files
+gem 'middleman-minify-html'
+
 # for uploading to S3
 gem 's3_website'
 

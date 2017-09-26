@@ -44,6 +44,19 @@ activate :syntax
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
+
+# Build-specific configuration
+configure :build do
+  # Minify CSS on build
+  activate :minify_css
+
+  # Minify HTML on build
+  activate :minify_html
+
+  # Minify Javascript on build
+  # activate :minify_javascript
+end
+
 # Reload the browser automatically whenever files change
 configure :development do
   activate :livereload
@@ -72,15 +85,6 @@ activate :blog do |blog|
   # blog.paginate = true
   # blog.per_page = 10
   # blog.page_link = "page/{num}"
-end
-
-# Build-specific configuration
-configure :build do
-  # Minify CSS on build
-  activate :minify_css
-
-  # Minify Javascript on build
-  # activate :minify_javascript
 end
 
 ###
