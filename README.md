@@ -21,3 +21,8 @@ Live site available here: [https://www.dana.lol](http://www.dana.lol)
                         /:::_.'     "        "                "
                      _.:.'''   "                       "
 ```
+
+### CloudFormation
+
+To build out the infrastructure required to run this site, you can use the CloudFormation templates found in `cloudformation/`
+
