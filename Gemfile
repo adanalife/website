@@ -34,6 +34,9 @@ gem 's3_website'
 # for loading ENV vars from a .env file
 gem 'dotenv'
 
+# for managing git hooks
+gem 'overcommit'
+
 # For feed.xml.builder
 gem 'builder'
 
