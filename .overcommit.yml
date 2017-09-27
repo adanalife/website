@@ -24,3 +24,8 @@ PrePush:
     description: 'Build static site'
     required_executable: 'middleman'
     flags: ['build']
+  S3WebsitePush:
+    enabled: true
+    description: 'Push static files to S3'
+    required_executable: 's3_website'
+    flags: ['push']
