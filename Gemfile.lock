@@ -112,6 +112,8 @@ GEM
     middleman-syntax (3.0.0)
       middleman-core (>= 3.2)
       rouge (~> 2.0)
+    middleman-title (1.0.0)
+      middleman-core (>= 4.0)
     minitest (5.10.3)
     padrino-helpers (0.13.3.4)
       i18n (~> 0.6, >= 0.6.7)
@@ -162,6 +164,7 @@ DEPENDENCIES
   middleman-pry
   middleman-search_engine_sitemap
   middleman-syntax
+  middleman-title
   redcarpet
   s3_website
 

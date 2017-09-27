@@ -19,6 +19,9 @@ gem 'middleman-search_engine_sitemap'
 # for syntax highlighting
 gem 'middleman-syntax'
 
+# for dynamically generating page titles
+gem 'middleman-title'
+
 # provides a pry-based `middleman console`
 gem 'middleman-pry'
 

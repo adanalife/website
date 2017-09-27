@@ -21,6 +21,8 @@ page '/404.html', directory_index: false
 # Activate directory indexes for pretty urls
 activate :directory_indexes
 
+activate :title, site: "Dana's Very Unfinished Blog"
+
 # Active sitemap generator
 set :url_root, 'http://www.dana.lol'
 activate :search_engine_sitemap,
