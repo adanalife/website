@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/apple-touch-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-touch-icon-60x60.png">
 
-    <title><%= page_title %></title>
+    <title><%= '[d] ' if development? %><%= page_title %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
     <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
