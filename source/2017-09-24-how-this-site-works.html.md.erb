@@ -17,7 +17,7 @@ My goals on this project were as follows:
 
 I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents. I feel like Markdown files are very readable and the syntax rarely gets in my way. This way I can spend more time writing articles, and less time fighting with HTML.
 
-You can view my articles (and even more nitty-gritty internals of this site) on my Github repo [here](https://github.com/dmerrick/danalol/tree/master/source).
+You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
 
 ### Static Site
 
@@ -29,10 +29,10 @@ It's really easy to serve a website that's all static files, hell, I could even 
 
 ## Enter Middleman
 
-I looked at a number of tools that would achieve my goals, before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/). With Middleman I can still use code in my articles, but insted of that code running whenever a user visits my page, it runs only once (at the time I generate the site).
+I looked at a number of tools that would achieve my goals, before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/). With Middleman I can still use code in my articles, but instep of that code running whenever a user visits my page, it runs only once (at the time I generate the site).
 
-I spent a few hours building up a "boilerplate" project that basically contains everything but the style and content of this site.<%= marginnote('"Boilerplate" projects give developers a starting place if they wish to create their own') %> You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. Periodically I will move stuff from [this project's main Github repo](https://github.com/dmerrick/danalol) over to the boilerplate repo, but I will try to do so sparingly. The boilerplate project is only intended to be a bare-minimum starting point for creating a new website if someone wishes to in the future.
+I spent a few hours building up a "boilerplate" project that basically contains everything but the style and content of this site.<%= marginnote('"Boilerplate" projects give developers a starting place if they wish to create their own') %> You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. Periodically I will move stuff from [this project's main GitHub repo](https://github.com/dmerrick/danalol) over to the boilerplate repo, but I will try to do so sparingly. The boilerplate project is only intended to be a bare-minimum starting point for creating a new website if someone wishes to in the future.
 
-With Middleman I can create new articles with `middleman article "New Article Title"`, which generates a markdown template that I can start writing in. If I run `middleman` on my workstation, a development server spins up that allows me to view my changes in realtime before I publish them. When I am happy with the article, I can run `middleman build` and the article will be compliled to HTML and uploaded to S3 for the world to see.
+With Middleman I can create new articles with `middleman article "New Article Title"`, which generates a markdown template that I can start writing in. If I run `middleman` on my workstation, a development server spins up that allows me to view my changes in realtime before I publish them. When I am happy with the article, I can run `middleman build` and the article will be compiled to HTML and uploaded to S3 for the world to see.
 
 In part 2 I will talk about the visual design of the site and how I did it.
