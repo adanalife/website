@@ -35,7 +35,8 @@ cache_control:
 #   - those_folders_of_stuff
 #   - i_wouldnt_want_to_upload
 
-# s3_reduced_redundancy: true
+# reduces the cost of storing things on S3
+s3_reduced_redundancy: true
 
 cloudfront_distribution_id: <%= ENV['STATIC_SITE_CLOUDFRONT'] %>
 
