@@ -1,5 +1,5 @@
 module Overcommit::Hook::PrePush
-  class S3WebsitePush < Base
+  class DeploySite < Base
     def run
       system(command, flags.join(' '), out: $stdout, err: :out)
       result = $?

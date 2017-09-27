@@ -1,5 +1,5 @@
 module Overcommit::Hook::PrePush
-  class MiddlemanBuild < Base
+  class BuildSite < Base
     def run
       system(command, flags.join(' '), out: $stdout, err: :out)
       result = $?
