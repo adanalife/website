@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Your Name -- Creator -- @example
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Middleman, Ruby, Markdown
