@@ -13,9 +13,6 @@
 
     <title><%= '[d] ' if development? %><%= page_title %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
-    <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
-    <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
-    <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
   </head>
   <body>
     <article>
@@ -49,6 +46,26 @@
         <% end %>
       </ol>
     </aside>
+
+    <%# load stylesheets last %>
+    <noscript id="deferred-styles">
+	  <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
+	  <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
+	  <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
+    </noscript>
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
 
     <%# only include google analytics on the live site %>
     <% if build? %>
