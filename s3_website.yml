@@ -18,6 +18,10 @@ error_document: 404.html
 
 cache_control:
   'assets/*': public, max-age=86400
+  'favicon.ico': public, max-age=86400
+  'browserconfig.xml': public, max-age=86400
+  'robots.txt': public, max-age=86400
+  'humans.txt': public, max-age=86400
   '*': no-cache, no-store
 
 # gzip:
