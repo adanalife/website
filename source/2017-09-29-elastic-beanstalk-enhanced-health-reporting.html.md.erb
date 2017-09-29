@@ -14,7 +14,7 @@ The issue is that Elastic Beanstalk fetches the data for these tables _from the 
 
 **Note:** This document assumes you're using nginx, but the steps should be similar if you're using a different server.
 
-## Step 1: Sharing a volume between the container and the host machine
+## Step 1: Sync a directory between the container and the host machine
 
 To do this in Elastic Beanstalk, you must edit your `Dockerrun.aws.json` and add the following two sections:
 
@@ -43,7 +43,7 @@ You have to add both the `mountPoints` section and the `volumes` section in orde
 
 
 
-## Step 2: Prep your instances for the new logs
+## Step 2: Prep your host machine for the new logs
 
 Your host machine won't have the right directory structures initially, so we will have to create an ebextension to set up the system.
 
@@ -64,13 +64,15 @@ commands:
     command: "mkdir -p /var/log/nginx/healthd"
 ```
 
-Now your instances should come up with the correct directory structure, as well as the timezone bugfix if necessary.
+Now your instances should come up with the correct directory structure when they come up, so the next step is creating the log files for Elastic Beanstalk to parse.
 
 
 
 ## Step 3: Update your nginx config to create the healthd log file
 
 Next you will have to tell nginx to create the log file in the format that Elastic Beanstalk expects. Luckily they have written [some pretty useful docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-serverlogs.html) on how to do this, but I'll skip right to the point here.
+
+Add this to the nginx config inside your container:
 
 ```
 # set up log format for Elastic Beanstalk enhanced health logs
