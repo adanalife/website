@@ -47,15 +47,12 @@ You have to add both the `mountPoints` section and the `volumes` section in orde
 
 Your host machine won't have the right directory structures initially, so we will have to create an ebextension to set up the system.
 
-**Note:** My servers are set up to use US/Pacific time zone, which unearthed [a bug](https://forums.aws.amazon.com/thread.jspa?messageID=714862#714862) in Amazon's healthd agent. I have included a minorly-hacky fix for this bug as step `03a` and `03b`, but you can omit these if you host machine is already on UTC time (the default).
-
 Create `healthd.config` file in your `.ebextensions` directory with the following content:
 
 ```yaml
 # this file contains the requirements for enhanced health metrics on the EB console
 # the basic idea is we need to have nginx write to some logs and make them available
 # on the EB _host machine_, which means we need to share them from the docker container.
-
 # c.p. https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-serverlogs.html
 
 # this directory will be shared with the docker container it is used to pass enhanced
@@ -65,12 +62,6 @@ commands:
     command: "mkdir -p /var/log/nginx"
   02_create_healthd_log_dirs:
     command: "mkdir -p /var/log/nginx/healthd"
-  # without this, the healthd daemon is hardcoded to UTC so the metrics will be missing
-  # c.p. https://forums.aws.amazon.com/thread.jspa?messageID=714862#714862
-  03a_fix_amazons_utc_bug:
-    command: "sed -i -e 's/\\.utc//' /opt/elasticbeanstalk/lib/ruby/lib/ruby/gems/2.2.0/gems/healthd-appstat-1.0.1/lib/healthd-appstat/log_file.rb"
-  03b_restart_healthd_daemon:
-    command: "ps aux | grep [h]ealthd | head -1 | awk '{print $2}' | xargs kill"
 ```
 
 Now your instances should come up with the correct directory structure, as well as the timezone bugfix if necessary.
