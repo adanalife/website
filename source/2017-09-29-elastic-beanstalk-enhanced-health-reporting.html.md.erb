@@ -42,14 +42,17 @@ To do this in Elastic Beanstalk, you must edit your `Dockerrun.aws.json` and add
 You have to add both the `mountPoints` section and the `volumes` section in order to make both the container and the host machine aware of the directory. Once you have this change in place, creating a file in `/var/log/nginx` on the container should also create the same file on the host machine.
 
 
+
 ## Step 2: Prep your instances for the new logs
 
 Your host machine won't have the right directory structures initially, so we will have to create an ebextension to set up the system.
 
-My servers are set up to use US Pacific time zone, which caused a problem wherein our stats were always behind by 8 hours(!). I have included a minorly-hacky fix for this bug as step `03a_fix_amazons_utc_bug`, but you can ommit this if you host machine is already on UTC time (the default).
+**Note:** My servers are set up to use US/Pacific time zone, which unearthed [a bug](https://forums.aws.amazon.com/thread.jspa?messageID=714862#714862) in Amazon's healthd agent. I have included a minorly-hacky fix for this bug as step `03a` and `03b`, but you can omit these if you host machine is already on UTC time (the default).
+
+Create `healthd.config` file in your `.ebextensions` directory with the following content:
 
 ```yaml
-# this file contains the requirements for enchanced health metrics on the EB console
+# this file contains the requirements for enhanced health metrics on the EB console
 # the basic idea is we need to have nginx write to some logs and make them available
 # on the EB _host machine_, which means we need to share them from the docker container.
 
@@ -69,6 +72,9 @@ commands:
   03b_restart_healthd_daemon:
     command: "ps aux | grep [h]ealthd | head -1 | awk '{print $2}' | xargs kill"
 ```
+
+Now your instances should come up with the correct directory structure, as well as the timezone bugfix if necessary.
+
 
 
 ## Step 3: Update your nginx config to create the healthd log file
@@ -95,6 +101,8 @@ access_log /var/log/nginx/healthd/application.log.$year-$month-$day-$hour health
 ```
 
 Now when you visit your application, a new log file should be created that looks something like `/var/log/nginx/healthd/application.log.2017-09-29-15`.
+
+
 
 ## Step 4: Confirm everything is working
 
