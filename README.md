@@ -4,22 +4,37 @@
 Live site available here: [https://www.dana.lol](http://www.dana.lol)
 
 ```
-                                                 _..-,--.._
-                                           ,`. ,',','      `.
-                                           `. `,/`/          \
-                                             :'.`:            :
-                  ____ _          _ __       | |`|            |
-                _(    `.)        ( (  )`.    : `-'            ;     _
-               ( (    ) ))      ( (    ))    ,\_            _/.  (`','
-              ( (   )  _)        `-(__.'    '.  ```------'''  .`
-               '.__)--'       .-..           |``-...____...-''|
-                             (_)_))          |                |
-                        ,'`.        ___...---|                |--..._
-            ,'`. ,'`. ,'   _`.---'''         |                | "
-          -'..._`.   `.   /`-._  "      "    |    _           |
-                 ```-..`./:::::)             `-...||______...-'    "
-                        /:::_.'     "        "                "
-                     _.:.'''   "                       "
+
+                          mNNMMMMNNm
+                   ./oydNMMMMMMMMMMMMNmho/.
+               `/ymMMMMMMMMMMMMMMMMMMMMMMMMNy/`.m:m.
+             /hMMMMMMMNdyo/:--..--:/oydNMMMMMMMMMMMMMy.
+          `oNMMMMMNy/.                  ./yNMMMMMMMMMMM:
+         +NMMMMMy:                         yMMMMMMMMMMMh
+       -mMMMMNo`                           oMMMMMMMMMMMs
+      +MMMMMy`                              sMMMMMMMMMMo
+     oMMMMN:                                 .ohmmmNMMMMs
+    +MMMMN.                                        .mMMMMo
+   -MMMMN.                  .://:.                  .NMMMM:
+   hMMMM+                /hNMMMMMMMh/                /MMMMm:
+  sMMMMm               -mMMMMMMMMMMMMm:               dMMMMs
+  mMMMMo              .NMMMMMMMMMMMMMMM-              +MMMMm
+  MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
+  MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
+  mMMMMo              -MMMMMMMMMMMMMMMM-              +MMMMm
+  sMMMMm               -mMMMMMMMMMMMMN:               dMMMMs
+   dMMMM/                /hMMMMMMMMd+`               :MMMMm/
+   -MMMMN.                  -://:-                  .NMMMM:
+    +MMMMm.                                        `mMMMMs
+     oMMMMN:                                      -NMMMMy
+      +MMMMMs`                                  `sMMMMMo
+       -mMMMMNo`                              `+NMMMMm:
+         oNMMMMNy:                          -sNMMMMNo`
+          `oNMMMMMNy/.                  ./yNMMMMMNs`
+             /hMMMMMMMNhs+/:-....-:/+shNMMMMMMMd/`
+               `/yNMMMMMMMMMMMMMMMMMMMMMMMMNy+`
+                   ./shmMMMMMMMMMMMMMMmhs/.
+                          mNNMMMMNNm
 ```
 
 ### CloudFormation
