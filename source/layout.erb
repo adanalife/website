@@ -42,13 +42,6 @@
         <% end %>
       </ol>
 
-      <h2>By Year</h2>
-      <ol>
-        <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
-          <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
-        <% end %>
-      </ol>
-
       <h2>Meta</h2>
       <ul>
         <li><%= link_to 'About Me', '/about' %></li>
