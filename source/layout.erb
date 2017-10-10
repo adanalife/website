@@ -48,6 +48,12 @@
           <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
         <% end %>
       </ol>
+
+      <h2>Meta</h2>
+      <ul>
+        <li><%= link_to 'About Me', '/about' %></li>
+        <li><%= link_to 'Contact', '/contact' %></li>
+      </ul>
     </aside>
 
     <%# only include google analytics on the live site %>
