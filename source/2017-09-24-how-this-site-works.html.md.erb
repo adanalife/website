@@ -21,7 +21,7 @@ You can view my articles (and even more nitty-gritty internals of this site) on 
 
 ### Static Site
 
-[Static sites](https://en.wikipedia.org/wiki/Static_web_page) are delivered to the user exactly as they are stored on the server, as opposed to a dynamic site which has pages that are generated on the fly. After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive. 
+[Static sites](https://en.wikipedia.org/wiki/Static_web_page) are delivered to the user exactly as they are stored on the server, as opposed to a dynamic site which has pages that are generated on the fly. After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive.
 
 Ideally, this site would be a simple directory of HTML files that I could host anywhere.<%= marginnote('I opted to host this site on Amazon S3') %>
 It's really easy to serve a website that's all static files, hell, I could even just email someone a zip of the directory and they'd have the whole site.
@@ -35,4 +35,4 @@ I spent a few hours building up a "boilerplate" project that basically contains 
 
 With Middleman I can create new articles with `middleman article "New Article Title"`, which generates a markdown template that I can start writing in. If I run `middleman` on my workstation, a development server spins up that allows me to view my changes in realtime before I publish them. When I am happy with the article, I can run `middleman build` and the article will be compiled to HTML and uploaded to S3 for the world to see.
 
-In part 2 I will talk about the visual design of the site and how I did it.
+In <%= link_to('part 2', '/2017/10/10/how-this-site-works-p-2/') %>, I talk about the visual design of the site and how I did it.

@@ -1,0 +1,20 @@
+---
+
+title: How This Site Works (p. 2)
+date: 2017-10-10 20:39 UTC
+tags: meta, code, design
+published: false
+
+---
+
+In this article I'll talk the design of the site and how I did it. For technical implementation details, check out <%= link_to('part 1', '/2017/09/24/how-this-site-works/') %>.
+
+I'm really not a fan of CSS. When I used to work as a web developer, I avoided all design tasks like the plague. As a backend developer to the core, designing a website is a daunting task, full of wishy-washy decisions and hours of testing on multiple platforms. When I first started making websites, we put styling inside HTML tags and we liked it. Nowadays that is horrible practice, and I want to follow best practices wherever possible.
+
+### The Work of Edward Tufte
+
+Years ago I came across a project called <%= link_to('tufte-css', 'www.daveliepmann.com/tufte-css/') %>, which is a CSS stylesheet designed to emulate the design work of <%= link_to('Edward Tufte', 'https://en.wikipedia.org/wiki/Edward_Tufte') %>, a champion in the field of information design. If you've never seen his work, I can't recommend him enough. He uses very simple design, copious whitespace, and tightly-coupled images to present a ton of information in a very digestable way. His most famous work, <%= link_to('his book _The Visual Display of Quantitative Information_', 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>, is a wonderful guide to presenting complex information using graphics, charts, and tables. This book belongs on the shelves of anyone who loves data.
+
+<%= link_to(figure("#{current_article.url}the-visual-display-of-quantitative-information.jpg"), 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>
+
+<%= epigraph('The minimum we should hope for with any display technology is that it should do no harm.', 'Edward Tufte') %>
