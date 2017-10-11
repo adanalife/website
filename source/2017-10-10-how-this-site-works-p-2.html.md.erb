@@ -8,17 +8,23 @@ tags: meta, code, design
 
 In this article I'll talk the design of the site and how I did it. For technical implementation details, check out <%= link_to('part 1', '/2017/09/24/how-this-site-works/') %>.
 
-I'm really not a fan of CSS.<%= marginnote '[CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets), or Cascading Style Sheets, is the current web standard for the look and feel of a site' %> When I used to work as a web developer, I avoided all design tasks like the plague. As a backend developer to the core, designing a website is a daunting task, full of wishy-washy decisions and hours of testing on multiple platforms. When I first started making websites, we put styling inside HTML tags and we liked it. Nowadays that is horrible practice, and I want to follow best practices wherever possible.
+<br>
+
+<%= newthought "I'm not a" %> big fan of CSS<%= marginnote '[CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets), or Cascading Style Sheets, is the current web standard for the look and feel of a site' %>. When I used to work as a web developer, I avoided all design tasks like the plague. As a backend developer to the core, designing a website is a daunting task, full of wishy-washy decisions and hours of testing on multiple platforms. When I first started making websites, we put styling inside HTML tags and we liked it. Nowadays that is horrible practice, and I want to follow best practices wherever possible.
 
 So I know that I needed an off-the-shelf template for the visual design. I wanted something that followed best practices so I wouldn't have to figure them out, or embarass myself by reinventing the wheel.
-
-### My Crush on Edward Tufte
-
 <%= marginnote(link_to(tag(:img, src: "#{current_article.url}the-visual-display-of-quantitative-information.jpg"), 'https://smile.amazon.com', class: 'no-underline')) %>
+
+<br>
+
+### Footsteps of Giants
+
 
 This site attempts to mirror the work of <%= link_to('Edward Tufte', 'https://en.wikipedia.org/wiki/Edward_Tufte') %>, a champion in the field of information design. If you've never seen his work, I can't recommend him enough. He uses very simple design, copious whitespace, and tightly-coupled images to present a ton of information in a very digestible way.
 His most famous work, <%= link_to('his book _The Visual Display of Quantitative Information_', 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>, is a wonderful guide to presenting complex information using graphics, charts, and tables. This book belongs on the shelf of anyone who loves data or infographics.
 
-<%= epigraph('The minimum we should hope for with any display technology is that it should do no harm.', 'Edward Tufte') %>
+<%= epigraph('My books are <a href="https://github.com/dmerrick/danalol/blob/master/source/2017-10-10-how-this-site-works-p-2.html.md.erb">self-exemplifying</a>; the objects themselves embody the ideas written about.', 'Edward Tufte, "<em>Beautiful Evidence</em>"') %>
 
-If you've seen this book, the design of this site should feel very familiar. I am using an incredible project called <%= link_to('tufte-css', 'http://www.daveliepmann.com/tufte-css/') %>, which is a CSS stylesheet designed to emulate Tufte's handouts. I'm sure I'm going to break his rules, but at least now I _have_ rules, which is an issue I have with web design in general.
+If you've seen this book or any of Tufte's other awesome books, the design of this site should feel very familiar. I am using an incredible project called <%= link_to('tufte-css', 'http://www.daveliepmann.com/tufte-css/') %>, which is a CSS stylesheet designed to emulate Tufte's handouts. I can't thank that project enough, it's made my job so much easier.
+
+What appeals to me about about this design is that someone has provided me with a set of opinionated "best practices" for design. I'm sure I'm going to break the rules, but at least now I _have_ rules, which is an issue I have with web design in general.
