@@ -8,8 +8,6 @@ tags: meta, code
 
 In this article I'll talk about my technical goals for this project and how it began. For details about the visual design, check out <%= link_to('part 2', '/2017/10/10/how-this-site-works-p-2/') %>.
 
-<br>
-
 
 My goals on this project were as follows:
 
@@ -23,6 +21,7 @@ My goals on this project were as follows:
 ### Goal 1: Markdown
 
 I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents. I feel like Markdown files are very readable and the syntax rarely gets in my way. This way I can spend more time writing articles, and less time fighting with HTML.
+<%= marginnote(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
 
 
 Getting this to work was really easy, because almost every language has a good markdown parser. You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
