@@ -136,6 +136,13 @@ helpers do
     content_tag(:span, class: 'marginnote') { content || yield }
   end
 
+  #TODO: add alt text support
+  def marginfigure(opts = {})
+    marginnote do
+      image = tag(:img, src: opts[:src], alt_text: opts[:alt_text])
+    end
+  end
+
   #TODO: maybe some day we will want this to take a block?
   def epigraph(content = nil, footer = nil)
     content_tag(:div, class: 'epigraph') do

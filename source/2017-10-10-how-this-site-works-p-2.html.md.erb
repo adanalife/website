@@ -14,10 +14,13 @@ So I know that I needed an off-the-shelf template for the visual design. I wante
 
 ### My Crush on Edward Tufte
 
-This site strives to mirror the work of <%= link_to('Edward Tufte', 'https://en.wikipedia.org/wiki/Edward_Tufte') %>, a champion in the field of information design. If you've never seen his work, I can't recommend him enough. He uses very simple design, copious whitespace, and tightly-coupled images to present a ton of information in a very digestible way. His most famous work, <%= link_to('his book _The Visual Display of Quantitative Information_', 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>, is a wonderful guide to presenting complex information using graphics, charts, and tables. This book belongs on the shelf of anyone who loves data or infographics.
+<%= marginfigure("#{current_article.url}the-visual-display-of-quantitative-information.jpg") %>
+This site strives to mirror the work of <%= link_to('Edward Tufte', 'https://en.wikipedia.org/wiki/Edward_Tufte') %>, a champion in the field of information design. If you've never seen his work, I can't recommend him enough. He uses very simple design, copious whitespace, and tightly-coupled images to present a ton of information in a very digestible way.
+His most famous work, <%= link_to('his book _The Visual Display of Quantitative Information_', 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>, is a wonderful guide to presenting complex information using graphics, charts, and tables. This book belongs on the shelf of anyone who loves data or infographics.
 
 <%= epigraph('The minimum we should hope for with any display technology is that it should do no harm.', 'Edward Tufte') %>
 
-<%= link_to(figure("#{current_article.url}the-visual-display-of-quantitative-information.jpg"), 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>
+<%#= link_to(figure("#{current_article.url}the-visual-display-of-quantitative-information.jpg"), 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20') %>
+
 
 If you've seen this book, the design of this site should feel very familiar. I am using an incredible project called <%= link_to('tufte-css', 'http://www.daveliepmann.com/tufte-css/') %>, which is a CSS stylesheet designed to emulate Tufte's handouts. I'm sure I'm going to break his rules, but at least now I _have_ rules, which is an issue I have with web design in general.
