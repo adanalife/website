@@ -18,10 +18,6 @@ CommitMsg:
     # disable all of the defaults
     enabled: false
 
-PreCommit:
-  TrailingWhitespace:
-    enabled: true
-
 PrePush:
   BuildSite:
     enabled: true
