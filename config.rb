@@ -83,6 +83,9 @@ activate :blog do |blog|
   blog.tag_template = 'tag.html'
   blog.calendar_template = 'calendar.html'
 
+  #TODO: remove this
+  blog.publish_future_dated = true
+
   # Enable pagination
   # blog.paginate = true
   # blog.per_page = 10
