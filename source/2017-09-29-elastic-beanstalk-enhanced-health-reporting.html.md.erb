@@ -14,7 +14,9 @@ The issue is that Elastic Beanstalk fetches the data for these tables _from the 
 
 **Note:** This document assumes you're using nginx, but the steps should be similar if you're using a different server.
 
-## Step 1: Sync a directory between the container and the host machine
+<br>
+
+### Step 1: Sync a directory between the container and the host machine
 
 To do this in Elastic Beanstalk, you must edit your `Dockerrun.aws.json` and add the following two sections:
 
@@ -41,9 +43,9 @@ To do this in Elastic Beanstalk, you must edit your `Dockerrun.aws.json` and add
 
 You have to add both the `mountPoints` section and the `volumes` section in order to make both the container and the host machine aware of the directory. Once you have this change in place, creating a file in `/var/log/nginx` on the container should also create the same file on the host machine.
 
+<br>
 
-
-## Step 2: Prep your host machine for the new logs
+### Step 2: Prep your host machine for the new logs
 
 Your host machine won't have the right directory structures initially, so we will have to create an ebextension to set up the system.
 
@@ -66,9 +68,9 @@ commands:
 
 Now your instances should come up with the correct directory structure when they come up, so the next step is creating the log files for Elastic Beanstalk to parse.
 
+<br>
 
-
-## Step 3: Update your nginx config to create the healthd log file
+### Step 3: Update your nginx config to create the healthd log file
 
 Next you will have to tell nginx to create the log file in the format that Elastic Beanstalk expects. Luckily they have written [some pretty useful docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-serverlogs.html) on how to do this, but I'll skip right to the point here.
 
@@ -95,9 +97,9 @@ access_log /var/log/nginx/healthd/application.log.$year-$month-$day-$hour health
 
 Now when you visit your application, a new log file should be created that looks something like `/var/log/nginx/healthd/application.log.2017-09-29-15`.
 
+<br>
 
-
-## Step 4: Confirm everything is working
+### Step 4: Confirm everything is working
 
 Check the following:
 
@@ -110,3 +112,4 @@ If the answer to both of these is yes, you should be done! Visit the Health dash
 
 Thanks for reading. I hope this helps you, and <%= link_to('please reach out to me', '/contact') %> with anything I could do to improve these instructions.
 
+<br>
