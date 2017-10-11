@@ -20,7 +20,7 @@
   </head>
   <body>
     <article>
-      <h1><%= current_article.nil? ? website_name : current_article.title %></h1>
+      <h1><%= current_article.title unless current_article.nil? %></h1>
       <div id="main" role="main">
         <section>
           <%= yield %>
