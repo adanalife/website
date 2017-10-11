@@ -1,0 +1,5 @@
+/* Just a way to remove the default underline from links */
+a.no-underline {
+  background: none;
+}
+
