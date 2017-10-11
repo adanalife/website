@@ -15,7 +15,7 @@ My goals on this project were as follows:
 
  * Articles should a simple directory of Markdown files
  * The site should be static
- * Preferably an "Off the Shelf" tool so I don't need to start from scratch
+ * Start with an "off the shelf" tool, so I don't need to start from scratch
 
 <br>
 
@@ -50,9 +50,11 @@ I spent a few hours building up a "boilerplate" project that basically contains 
 I wanted to share it because if you know Ruby and want to run a static blog, this is a solid place to start. You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. It's intended to be a comfortable starting point for creating a new website if someone wishes to in the future.
 
 The process of writing an article is running `middleman article`, which generates a markdown template that I can customize with the content of the new article.
-I can run `middleman server`, which goes into development mode, allowing me to make changes to the article and view them in my browser in real-time.
+To make my life easier, I can run `middleman server`, which launches a development server, allowing me to make changes to the article and view them in my browser in real-time.
 When I'm content with the way the article looks, I run `middleman build` and the article will be compiled to HTML for uploding to S3 for the world to see.
 
 For example, <%= link_to "the source code for this article is available for you to check out here", "https://github.com/dmerrick/danalol/blob/master/source/2017-09-24-how-this-site-works.html.md.erb" %>.
+
+<br>
 
 In <%= link_to('part 2', '/2017/10/10/how-this-site-works-p-2/') %>, I talk about the visual design of the site and how I did it.
