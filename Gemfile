@@ -28,6 +28,9 @@ gem 'middleman-pry'
 # this will remove whitespace around HTML files
 gem 'middleman-minify-html'
 
+# for generating pretty FB link previews
+gem 'middleman-ogp'
+
 # for uploading to S3
 gem 's3_website'
 

@@ -92,6 +92,17 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
+activate :ogp do |ogp|
+  # register namespace with default options
+  ogp.namespaces = {
+    fb: data.ogp.fb,
+    # from data/ogp/fb.yml
+    og: data.ogp.og
+    # from data/ogp/og.yml
+  }
+  ogp.blog = true
+end
+
 ###
 # Helpers
 ###
@@ -137,13 +148,6 @@ helpers do
     content_tag(:label, for: "mn-#{@@marginnote += 1}", class: 'margin-toggle') { icon } +
     input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
     content_tag(:span, class: 'marginnote') { content || yield }
-  end
-
-  #TODO: add alt text support
-  def marginfigure(opts = {})
-    marginnote do
-      image = tag(:img, src: opts[:src], alt_text: opts[:alt_text])
-    end
   end
 
   #TODO: maybe some day we will want this to take a block?

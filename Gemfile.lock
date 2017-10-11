@@ -106,6 +106,8 @@ GEM
     middleman-minify-html (3.4.1)
       htmlcompressor (~> 0.2.0)
       middleman-core (>= 3.2)
+    middleman-ogp (1.1.0)
+      middleman-core (>= 3.2)
     middleman-pry (1.0.1)
       middleman (>= 3.3, < 5)
       pry (~> 0.9)
@@ -167,6 +169,7 @@ DEPENDENCIES
   middleman-blog
   middleman-livereload
   middleman-minify-html
+  middleman-ogp
   middleman-pry
   middleman-search_engine_sitemap
   middleman-syntax

@@ -1,0 +1,8 @@
+image:
+  '': http://mydomain.tld/path/to/fbimage.png
+  secure_url: https://secure.mydomain.tld/path/to/fbimage.png
+  type: image/png
+  width: 400
+  height: 300
+locale:
+  '': en_us
