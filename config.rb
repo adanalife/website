@@ -95,7 +95,9 @@ end
 # use Open Graph Protocol to generate URL previews
 activate :ogp do |ogp|
   ogp.namespaces = {
-    og: data.ogp.og # defined in data/ogp/og.yml
+    # these are defined in data/ogp/
+    og: data.ogp.og,
+    fb: data.ogp.fb
   }
   # turn on article support
   ogp.blog = true
