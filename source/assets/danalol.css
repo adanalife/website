@@ -3,3 +3,11 @@ a.no-underline {
   background: none;
 }
 
+img.footer-logo {
+  width: 44px;
+  height: auto;
+  /* move the image so it's centered on the line */
+  position: relative;
+  top: 10px;
+  right: 5px;
+}
