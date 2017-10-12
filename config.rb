@@ -21,7 +21,7 @@ page '/404.html', directory_index: false
 # Activate directory indexes for pretty urls
 activate :directory_indexes
 
-activate :title, site: "Dana's Very Unfinished Blog"
+activate :title, site: "Dana's Blog"
 
 # Active sitemap generator
 set :url_root, 'http://www.dana.lol'
@@ -83,7 +83,7 @@ activate :blog do |blog|
   blog.tag_template = 'tag.html'
   blog.calendar_template = 'calendar.html'
 
-  #TODO: remove this
+  # disabling this prevents future-dated posts from being published
   blog.publish_future_dated = true
 
   # Enable pagination
