@@ -92,12 +92,12 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
+# use Open Graph Protocol to generate URL previews
 activate :ogp do |ogp|
-  # register namespace with default options
   ogp.namespaces = {
-    # from data/ogp/og.yml
-    og: data.ogp.og
+    og: data.ogp.og # defined in data/ogp/og.yml
   }
+  # turn on article support
   ogp.blog = true
 end
 
