@@ -1,5 +1,5 @@
 image:
-  url: https://dana.lol/assets/ogp-image.png
+  '': https://dana.lol/assets/ogp-image.png
   secure_url: https://dana.lol/assets/ogp-image.png
   alt: 'a dot with a smaller dot orbiting it in a circle, akin to an atom or a satellite'
   type: image/png
