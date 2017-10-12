@@ -42,11 +42,11 @@
       </ol>
 
       <h2>Tags</h2>
-      <ol>
-        <% blog.tags.each do |tag, articles| %>
-          <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
+      <p>
+        <% blog.tags.sort_by{|_, articles| articles.size}.reverse.each do |tag, articles| %>
+          <%= link_to "#{tag}", tag_path(tag) %>, 
         <% end %>
-      </ol>
+      </p>
 
       <h2><a href='/'>Dana.lol</a></h2>
       <ul>
