@@ -11,3 +11,12 @@ img.footer-logo {
   top: 10px;
   right: 5px;
 }
+
+img.header-logo {
+  width: 60px;
+  height: auto;
+  /* tuck the image in the corner of the page */
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}
