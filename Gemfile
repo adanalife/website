@@ -31,6 +31,9 @@ gem 'middleman-minify-html'
 # for generating pretty FB link previews
 gem 'middleman-ogp'
 
+# for generating article summaries
+gem 'nokogiri'
+
 # for uploading to S3
 gem 's3_website'
 

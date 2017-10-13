@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <%# add meta tags for cute link previews %>
-    <% ogp_tags do |name, value| %>
-      <meta property="<%= name %>" content="<%= value %>" />
+    <% ogp_tags do |property, content| %>
+      <meta property="<%= property %>" content="<%= content %>" />
     <% end %>
 
     <%# favicons for all of the different platforms %>
@@ -23,9 +24,17 @@
     <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
     <%= stylesheet_link_tag 'assets/danalol', media: 'all' %>
   </head>
+
   <body>
     <article>
-      <h1><%= current_article.title unless current_article.nil? %></h1>
+      <h1 class='title'>
+        <% if current_article.nil? %>
+          <a href='/' class='no-underline'><img src='/assets/logo.png' class='header-logo '/></a>
+        <% else %>
+          <a href='/' class='no-underline'><img src='/assets/logo.png' class='title-logo' /></a>
+          <%= current_article.title %>
+        <% end %>
+      </h1>
       <div id="main" role="main">
         <section>
           <%= yield %>
