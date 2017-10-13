@@ -28,11 +28,11 @@
   <body>
     <article>
       <h1 class='title'>
-        <% if current_article.nil? %>
+        <% unless current_article || page_title %>
           <a href='/' class='no-underline'><img src='/assets/logo.png' class='header-logo '/></a>
         <% else %>
           <a href='/' class='no-underline'><img src='/assets/logo.png' class='title-logo' /></a>
-          <%= current_article.title %>
+          <%= current_article ? current_article.title : page_title %>
         <% end %>
       </h1>
       <div id="main" role="main">

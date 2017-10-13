@@ -164,6 +164,10 @@ helpers do
     end
   end
 
+  def summary(article, length = 255)
+    article.summary(length, 'ENDART').sub(/ENDART/, link_to('...', article))
+  end
+
   # just a simple way to keep this somewhere central
   def google_analytics
     'UA-106965485-1'
