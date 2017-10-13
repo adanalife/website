@@ -52,7 +52,7 @@ img.footer-logo {
     height: auto;
     /* move the image so it's centered on the line */
     position: relative;
-    top: 1px;
+    top: 2px;
     left: 1px;
   }
 }
