@@ -119,10 +119,7 @@ GEM
       rouge (~> 2.0)
     middleman-title (1.0.0)
       middleman-core (>= 4.0)
-    mini_portile2 (2.3.0)
     minitest (5.10.3)
-    nokogiri (1.8.1)
-      mini_portile2 (~> 2.3.0)
     overcommit (0.41.0)
       childprocess (~> 0.6, >= 0.6.3)
       iniparse (~> 1.4)
@@ -177,7 +174,6 @@ DEPENDENCIES
   middleman-search_engine_sitemap
   middleman-syntax
   middleman-title
-  nokogiri
   overcommit
   redcarpet
   s3_website

@@ -3,29 +3,6 @@ a.no-underline {
   background: none;
 }
 
-h1.title {
-  /* move the whole heading to the left a bit */
-  position: relative;
-  right: 15px;
-}
-
-img.header-logo {
-  width: 80px;
-  height: auto;
-  /* move the image so it's centered on the line */
-  position: relative;
-  right: 15px;
-}
-
-img.title-logo {
-  width: 66px;
-  height: auto;
-  /* move the image so it's centered on the line */
-  position: relative;
-  top: 15px;
-  right: 15px;
-}
-
 img.footer-logo {
   width: 44px;
   height: auto;
