@@ -29,9 +29,9 @@
     <article>
       <h1 class='title'>
         <% unless current_article || page_title %>
-          <a href='/' class='no-underline'><img src='/assets/logo.png' class='header-logo '/></a>
+          <a href='/' class='no-underline'><img src='/assets/logo.png' alt='dana lol site logo' class='header-logo '/></a>
         <% else %>
-          <a href='/' class='no-underline'><img src='/assets/logo.png' class='title-logo' /></a>
+          <a href='/' class='no-underline'><img src='/assets/logo.png' alt='dana lol site logo' class='title-logo' /></a>
           <%= current_article ? current_article.title : page_title %>
         <% end %>
       </h1>
@@ -44,7 +44,7 @@
 
     <aside>
       <h2>
-        <a href='/' class='no-underline'><img src='/assets/logo.png' class='footer-logo' /></a>
+        <a href='/' class='no-underline'><img src='/assets/logo.png' alt='dana lol site logo' class='footer-logo' /></a>
         <a href='/'>Dana.lol</a>
       </h2>
       <ul>
