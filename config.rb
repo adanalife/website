@@ -141,10 +141,10 @@ helpers do
     content_tag(:span, class: 'sidenote') { content || yield }
   end
 
-  def marginnote(content = nil)
+  def marginnote(content = nil, opts = {})
     # auto-magically create incremental CSS ids
     @@marginnote ||= 0
-    icon = '&#8853;' # expand icon looks like: ⊕
+    icon = opts[:icon] || '&#8853;' # expand icon looks like: ⊕
     content_tag(:label, for: "mn-#{@@marginnote += 1}", class: 'margin-toggle') { icon } +
     input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
     content_tag(:span, class: 'marginnote') { content || yield }
