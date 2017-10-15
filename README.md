@@ -4,40 +4,45 @@
 Live site available here: [https://www.dana.lol](http://www.dana.lol)
 
 ```
-
-                          mNNMMMMNNm
-                   ./oydNMMMMMMMMMMMMNmho/.
-               `/ymMMMMMMMMMMMMMMMMMMMMMMMMNy/`.m:m.
-             /hMMMMMMMNdyo/:--..--:/oydNMMMMMMMMMMMMMy.
-          `oNMMMMMNy/.                  ./yNMMMMMMMMMMM:
-         +NMMMMMy:                         yMMMMMMMMMMMh
-       -mMMMMNo`                           oMMMMMMMMMMMs
-      +MMMMMy`                              sMMMMMMMMMMo
-     oMMMMN:                                 .ohmmmNMMMMs
-    +MMMMN.                                        .mMMMMo
-   -MMMMN.                  .://:.                  .NMMMM:
-   hMMMM+                /hNMMMMMMMh/                /MMMMm:
-  sMMMMm               -mMMMMMMMMMMMMm:               dMMMMs
-  mMMMMo              .NMMMMMMMMMMMMMMM-              +MMMMm
-  MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
-  MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
-  mMMMMo              -MMMMMMMMMMMMMMMM-              +MMMMm
-  sMMMMm               -mMMMMMMMMMMMMN:               dMMMMs
-   dMMMM/                /hMMMMMMMMd+`               :MMMMm/
-   -MMMMN.                  -://:-                  .NMMMM:
-    +MMMMm.                                        `mMMMMs
-     oMMMMN:                                      -NMMMMy
-      +MMMMMs`                                  `sMMMMMo
-       -mMMMMNo`                              `+NMMMMm:
-         oNMMMMNy:                          -sNMMMMNo`
-          `oNMMMMMNy/.                  ./yNMMMMMNs`
-             /hMMMMMMMNhs+/:-....-:/+shNMMMMMMMd/`
-               `/yNMMMMMMMMMMMMMMMMMMMMMMMMNy+`
-                   ./shmMMMMMMMMMMMMMMmhs/.
-                          mNNMMMMNNm
+   
+                             mNNMMMMNNm
+                      ./oydNMMMMMMMMMMMMNmho/.
+                  `/ymMMMMMMMMMMMMMMMMMMMMMMMMNy/`.m:m.
+                /hMMMMMMMNdyo/:--..--:/oydNMMMMMMMMMMMMMy.
+             `oNMMMMMNy/.                  ./yNMMMMMMMMMMM:
+            +NMMMMMy:                         yMMMMMMMMMMMh
+          -mMMMMNo`                           oMMMMMMMMMMMs
+         +MMMMMy`                              sMMMMMMMMMMo
+        oMMMMN:                                 .ohmmmNMMMMs
+       +MMMMN.                                        .mMMMMo
+      -MMMMN.                  .://:.                  .NMMMM:
+      hMMMM+                /hNMMMMMMMh/                /MMMMm:
+     sMMMMm               -mMMMMMMMMMMMMm:               dMMMMs
+     mMMMMo              .NMMMMMMMMMMMMMMM-              +MMMMm
+     MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
+     MMMMM/              yMMMMMMMMMMMMMMMMh              :MMMMM
+     mMMMMo              -MMMMMMMMMMMMMMMM-              +MMMMm
+     sMMMMm               -mMMMMMMMMMMMMN:               dMMMMs
+      dMMMM/                /hMMMMMMMMd+`               :MMMMm/
+      -MMMMN.                  -://:-                  .NMMMM:
+       +MMMMm.                                        `mMMMMs
+        oMMMMN:                                      -NMMMMy
+         +MMMMMs`                                  `sMMMMMo
+          -mMMMMNo`                              `+NMMMMm:
+            oNMMMMNy:                          -sNMMMMNo`
+             `oNMMMMMNy/.                  ./yNMMMMMNs`
+                /hMMMMMMMNhs+/:-....-:/+shNMMMMMMMd/`
+                  `/yNMMMMMMMMMMMMMMMMMMMMMMMMNy+`
+                      ./shmMMMMMMMMMMMMMMmhs/.
+                             mNNMMMMNNm
 ```
 
-### CloudFormation
+### Contact Form
+
+The site is designed to be static, but there is a small app that runs [the contact page](https://www.dana.lol/contact). You can view the code that runs the contact page in the [`danalol-contact-form` project](https://github.com/dmerrick/danalol-contact-form).
+
+
+### Technical Infrastructure
 
 To build out the infrastructure required to run this site, you can use the CloudFormation templates found in `cloudformation/`
 
