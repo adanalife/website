@@ -36,6 +36,9 @@ gem 'middleman-ogp'
 # v0.2.1 didn't work, so using the latest master
 gem 'middleman-imageoptim', git: 'https://github.com/plasticine/middleman-imageoptim'
 
+# for generating a robots.txt
+gem 'middleman-robots'
+
 # for generating article summaries
 gem 'nokogiri'
 

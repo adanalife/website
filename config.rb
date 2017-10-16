@@ -18,13 +18,16 @@ page '/404.html', directory_index: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
+# set the default URL
+set :url_root, @app.data.settings.site.url
+
 # Activate directory indexes for pretty urls
 activate :directory_indexes
 
-activate :title, site: "Dana's Blog"
+activate :title,
+  site: @app.data.settings.site.title
 
 # Active sitemap generator
-set :url_root, 'http://www.dana.lol'
 activate :search_engine_sitemap,
   default_change_frequency: 'weekly',
   exclude_attr: 'private'
@@ -38,6 +41,10 @@ activate :syntax
 
 # Shrink images during build
 activate :imageoptim
+
+activate :robots,
+  rules: [{user_agent: '*', allow:  %w(/)}],
+  sitemap: @app.data.settings.site.url + 'sitemap.xml'
 
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
