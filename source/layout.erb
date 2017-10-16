@@ -17,12 +17,18 @@
     <link rel="manifest" href="/assets/manifest.json">
     <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#5bbad5">
 
-    <title><%= '[d] ' if development? %><%= page_title %></title>
+    <title>
+      <%= '[d] ' if development? %>
+      <%= page_title %>
+    </title>
+
+    <style>
+      <%# include bare minimum styling so it looks decent before the CSS loads %>
+      <%# set background color and hide everything else %>
+      body{ background-color: #fffff8; padding-left: 12.5% }
+      article, aside { display: none; }
+    </style>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
-    <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
-    <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
-    <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
-    <%= stylesheet_link_tag 'assets/danalol', media: 'all' %>
   </head>
 
   <body>
@@ -54,6 +60,26 @@
         <li><%= link_to 'Thanks', '/thanks' %></li>
       </ul>
     </aside>
+
+    <noscript id='deferred-styles'>
+      <%= stylesheet_link_tag 'assets/normalize', media: 'all' %>
+      <%= stylesheet_link_tag 'assets/tufte', media: 'all' %>
+      <%= stylesheet_link_tag 'assets/syntax', media: 'all' %>
+      <%= stylesheet_link_tag 'assets/danalol', media: 'all' %>
+    </noscript>
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById('deferred-styles');
+        var replacement = document.createElement('div');
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
 
     <%# only include google analytics on the live site %>
     <% if build? %>
