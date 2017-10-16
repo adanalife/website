@@ -36,6 +36,9 @@ set :markdown,
   smartypants: true
 activate :syntax
 
+# Shrink images during build
+activate :imageoptim
+
 # Automatic image dimensions on image_tag helper
 #activate :automatic_image_sizes
 

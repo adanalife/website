@@ -31,6 +31,11 @@ gem 'middleman-minify-html'
 # for generating pretty FB link previews
 gem 'middleman-ogp'
 
+# for shrinking images
+# prereq: https://github.com/toy/image_optim#os-x-brew
+# v0.2.1 didn't work, so using the latest master
+gem 'middleman-imageoptim', git: 'https://github.com/plasticine/middleman-imageoptim'
+
 # for generating article summaries
 gem 'nokogiri'
 
