@@ -5,6 +5,7 @@ module DanaLolHelpers
   def newthought(content)
     content_tag(:span, class: 'newthought') { content }
   end
+  alias_method :nt, :newthought
 
   # used for images and other figures
   def figure(img_src, alt_text = '')
@@ -12,6 +13,7 @@ module DanaLolHelpers
       tag(:img, src: img_src, alt: alt_text)
     end
   end
+  alias_method :f, :figure
 
   # take up the whole screen
   def full_figure(img_src, alt_text = '')
@@ -19,6 +21,7 @@ module DanaLolHelpers
       tag(:img, src: img_src, alt: alt_text)
     end
   end
+  alias_method :ff, :full_figure
 
   def iframe_wrapper
     content_tag(:figure, class: 'iframe-wrapper') { yield }
@@ -31,6 +34,7 @@ module DanaLolHelpers
     input_tag(:checkbox, id: "sn-#{@@sidenote}", class: 'margin-toggle') +
     content_tag(:span, class: 'sidenote') { content || yield }
   end
+  alias_method :sn, :sidenote
 
   def marginnote(content = nil, opts = {})
     # auto-magically create incremental CSS ids
@@ -40,6 +44,7 @@ module DanaLolHelpers
     input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
     content_tag(:span, class: 'marginnote') { content || yield }
   end
+  alias_method :mn, :marginnote
 
   #TODO: maybe some day we will want this to take a block?
   def epigraph(content = nil, footer = nil)
