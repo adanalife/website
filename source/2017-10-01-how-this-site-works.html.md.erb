@@ -25,7 +25,7 @@ My goals on this project were as follows:
 ### Goal 1: Markdown
 
 I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents. I feel like Markdown files are very readable and the syntax rarely gets in my way. This way I can spend more time writing articles, and less time fighting with HTML.
-<%= marginnote(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
+<%= mn(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
 
 
 Getting this to work was really easy, because almost every language has a good markdown parser. You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
@@ -38,7 +38,7 @@ Getting this to work was really easy, because almost every language has a good m
 [Static sites](https://en.wikipedia.org/wiki/Static_web_page) are delivered to the user exactly as they are stored on the server, as opposed to a dynamic site which has pages that are generated on the fly. After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive.
 
 Ideally, this site would be a simple directory of HTML files that I could host anywhere.
-<%= marginnote('I opted to host this site on Amazon S3') %>
+<%= mn 'I opted to host this site on Amazon S3' %>
 It's really easy to serve a website that's all static files, hell, I could even just email someone a zip of the directory and they'd have the whole site.
 
 <br>
@@ -49,7 +49,7 @@ It's really easy to serve a website that's all static files, hell, I could even 
 I looked at a number of tools that would achieve my goals, before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/). With Middleman I can still use code in my articles, but instead of that code running whenever a user visits my page, it runs only once ever: _only at the time I generate the HTML files that make up the site_.
 
 I spent a few hours building up a "boilerplate" project that basically contains everything but the style and content of this site.
-<%= marginnote('"Boilerplate" projects give developers a starting place if they wish to create their own') %>
+<%= mn '"Boilerplate" projects give developers a starting place if they wish to create their own' %>
 I wanted to share it because if you know Ruby and want to run a static blog, this is a solid place to start. You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. It's intended to be a comfortable starting point for creating a new website if someone wishes to in the future.
 
 The process of writing an article is running `middleman article`, which generates a markdown template that I can customize with the content of the new article.
