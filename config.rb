@@ -41,8 +41,8 @@ activate :syntax
 
 # Shrink images during build
 activate :imageoptim do |options|
-  # tweak level for faster build times
-  options.optipng = { level: 1, interlace: false }
+  # pngout is sloooowww
+  options.pngout = false
 end
 
 # activate :robots,
