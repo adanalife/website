@@ -40,7 +40,10 @@ set :markdown,
 activate :syntax
 
 # Shrink images during build
-activate :imageoptim
+activate :imageoptim do |options|
+  # tweak level for faster build times
+  options.optipng = { level: 1, interlace: false }
+end
 
 activate :robots,
   rules: [{user_agent: '*', allow:  %w(/)}],
