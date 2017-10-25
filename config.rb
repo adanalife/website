@@ -45,9 +45,9 @@ activate :imageoptim do |options|
   options.optipng = { level: 1, interlace: false }
 end
 
-activate :robots,
-  rules: [{user_agent: '*', allow:  %w(/)}],
-  sitemap: @app.data.settings.site.url + 'sitemap.xml'
+# activate :robots,
+#   rules: [{user_agent: '*', allow:  %w(/)}],
+#   sitemap: @app.data.settings.site.url + 'sitemap.xml'
 
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
