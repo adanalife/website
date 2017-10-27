@@ -1,0 +1,48 @@
+---
+
+title: Setting Up a Handheld Radio for Emergencies
+date: 2017-10-26 23:10 UTC
+tags: ham.radio, san.francisco, guide
+
+config_version: 20171027
+
+---
+
+In [part 1](/2017/10/11/san-francisco-emergency-radio-setup) of this series, I wrote about why a San Francisco resident might want to keep a cheap two-way radio with their emergency supplies.
+In this article I will walk through purchasing and setting up your own radio.
+
+_**Important note!** Talking over a radio without an FCC license is against the law. You can, however, listen all you want, and you may talk over it in an emergency. I highly recommend you get licensed if this kind of stuff is interesting to you._
+
+I suggest buying a [Baofeng UV-5R](https://smile.amazon.com/BaoFeng-UV-5R-Dual-Radio-Black/dp/B007H4VT7A?tag=danalol-20) (~$26) for your emergency kit.
+They're very useful radios for their price, and they will allow you to dip your toe into the amatuer radio world without spending a fortune.
+
+<%= link_to(figure("/2017/10/11/san-francisco-emergency-radio-setup/uv-5r.jpg", 'a photo of a handheld radio'), 'https://smile.amazon.com/BaoFeng-UV-5R-Dual-Radio-Black/dp/B007H4VT7A?tag=danalol-20', class: 'no-underline') %>
+
+If you've ever used a walkie talkie, you will find operating a radio is pretty straightforward.
+<%= mn 'You might want to buy a ["Nifty" UV-5R Reference Manual](https://smile.amazon.com/Baofeng-UV-5R-Tri-Folded-Reference-Accessories/dp/B018GM9OJG?tag=danalol-20), which is much easier to understand than the manual that comes with your radio.' %>
+The big difference is that with a ham radio, there's a ton more channels you can tune to.
+Finding someone to talk to can be overwhelming...
+it's similar to finding a good FM radio station when you're travelling out-of-state, but with the added challenge of most stations being silent almost all of the time.
+
+In any given geographic area, there are certain frequencies where people tend to hang out, or frequencies where emergency responsers communicate.
+The trick is to pre-program your radio with these frequencies so you do not struggle to find someone during an emergency.
+
+<%= link_to(figure("#{current_article.url}uv-5r-usb-cable.jpg", 'a photo of a Baofeng USB cable'), 'https://smile.amazon.com/Baofeng-Programming-Cable-BAOFENG-BF-888S/dp/B00CP0I474?tag=danalol-20', class: 'no-underline') %>
+
+The absolute easiest way to set up your radio is to use a USB cable to program your radio via your computer. I'll walk you through the basic steps:
+
+1. Purchase a <%= link_to 'BaoFeng Programming Cable', 'https://smile.amazon.com/Baofeng-Programming-Cable-BAOFENG-BF-888S/dp/B00CP0I474?tag=danalol-20' %> (~$5)
+2. Download and install [`chirp`](http://chirp.danplanet.com)
+3. Download the <%= link_to 'useful SF frequencies', "Baofeng_UV-5R_#{current_article.data.config_version}.csv" %> file I prepared for you
+4. Connect your radio to your computer with the USB cable and launch `chirp`
+5. Import the useful SF frequencies file into `chirp`
+6. Upload the config to your radio
+7. Disconnect your radio and power it on
+
+If you manage to complete all of these steps, you should be greated with a welcome message and you will be able to start flipping through the pre-programmed channels.
+You will probably even find people talking, but remember, _you can't talk over the radio until you get your license from the FCC!_
+
+If all of that seems to complicated, [reach out to me](/contact) and I can sell you a pre-programmed radio.
+
+In the next article, I will talk about the frequencies I included in my saved config file, and explain a little about why I picked them.
+
