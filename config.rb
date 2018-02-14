@@ -43,6 +43,8 @@ activate :syntax
 activate :imageoptim do |options|
   # pngout is sloooowww
   options.pngout = false
+  # don't use threads so we have to wait for it to finish before pushing
+  options.threads = false
 end
 
 # activate :robots,
