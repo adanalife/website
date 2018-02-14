@@ -9,7 +9,11 @@ location: preoccupied.debit.detail
 
 Yesterday was my last day as a resident of San Francisco.
 It was a busy day, I still had to pack some stuff, move some furniture onto the street, clean up the apartment, and load up the van.
-<%= f "#{current_article.url}before-loading.jpg", 'Everything that was to be loaded into the van' %> Not the prettiest picture, but this is everything I brought with me in the van.
+
+<%= content_tag(:figure) do
+  tag(:img, src: "#{current_article.url}before-loading.jpg", alt: 'Everything that was to be loaded into the van') +
+  mn("Not the prettiest picture, but this is everything I brought with me in the van.")
+end %>
 
 It's absurd how many things needed to be done to prep for this journey, it's like moving to two different places (the van and the storage container) while also packing for two vacations (camping and a road trip).
 I am a person who enjoys logistics but after four consecutive days of this I was physically and mentally exhausted.
@@ -20,15 +24,19 @@ This is the longest I have lived anywhere as an adult and I cherish the friendsh
 I was excited too, but not in the way you might think.
 I honestly have no idea what to expect.
 I was a little nervous but there's no point dwelling on that; worry is a misuse of imagination.
-I counted all of the lasts: my last time sleeping in my bed, my last shower in my own shower, my last walk around the neighborhood, the last time time I closed the door, the last time I drove away.
+
+All day yesterday I counted all of my lasts: my last time sleeping in my bed, my last shower in my own shower, my last walk around the neighborhood, the last time time I closed the door, the last time I drove away.
 
 I drove to Santa Cruz where I had made arrangements to stay in the driveway of a lovely couple.
 I had stayed with them once before during a practice trip to Monterey, and it took a load off my mind to have my first night be somewhere I was familiar with.
+
+<%= f "#{current_article.url}santa-cruz-parking.jpg", 'The van in a driveway in Santa Cruz' %>
+
 The van itself is a mess, I haven't put anything away so to move around I have to move boxes from one available surface to another.
 I have tons of time to figure that out though, so I'm not worried about it.
 
 My next plans are three nights of camping in [Pfieffer Big Sur State Park](https://en.wikipedia.org/wiki/Pfeiffer_Big_Sur_State_Park) followed by three nights at [Limekiln State Park](https://en.wikipedia.org/wiki/Limekiln_State_Park).
-(These spots are so desirable that I actually made the reservations in August!)
+<%= mn "These spots are so desirable that I actually made the reservations in August!" %>
 I doubt I'll have good Internet, so you might not hear from me again for a week.
 I'll take lots of pictures though.
 
