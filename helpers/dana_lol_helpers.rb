@@ -10,7 +10,7 @@ module DanaLolHelpers
   # used for images and other figures
   def figure(img_src, alt_text = '')
     content_tag(:figure) do
-      tag(:img, src: img_src, alt: alt_text)
+      link_to(tag(:img, src: img_src, alt: alt_text), img_src, class: 'no-underline')
     end
   end
   alias_method :f, :figure
@@ -18,7 +18,7 @@ module DanaLolHelpers
   # take up the whole screen
   def full_figure(img_src, alt_text = '')
     content_tag(:figure, class: 'fullwidth') do
-      tag(:img, src: img_src, alt: alt_text)
+      link_to(tag(:img, src: img_src, alt: alt_text), img_src, class: 'no-underline')
     end
   end
   alias_method :ff, :full_figure
