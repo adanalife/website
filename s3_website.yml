@@ -63,6 +63,8 @@ cloudfront_wildcard_invalidation: true
 
 redirects:
   radio: 2017/10/11/san-francisco-emergency-radio-setup
+  fb: https://www.facebook.com/www.dana.lol
+  facebook: https://www.facebook.com/www.dana.lol
 #   index.php: /
 #   about.php: about.html
 #   music-files/promo.mp4: http://www.youtube.com/watch?v=dQw4w9WgXcQ
