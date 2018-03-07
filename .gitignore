@@ -30,6 +30,8 @@ log/
 
 # Don't commit your secrets
 /.env
+/.env.staging
+/.env.production
 
 # Don't commit the whole PSD cause it's big
 design/favicon-atom.psd
