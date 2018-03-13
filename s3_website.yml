@@ -61,13 +61,18 @@ cloudfront_wildcard_invalidation: true
 
 # concurrency_level: 5
 
-redirects:
-  radio: 2017/10/11/san-francisco-emergency-radio-setup
-  fb: https://www.facebook.com/www.dana.lol
-  facebook: https://www.facebook.com/www.dana.lol
+# redirect examples
 #   index.php: /
 #   about.php: about.html
 #   music-files/promo.mp4: http://www.youtube.com/watch?v=dQw4w9WgXcQ
+redirects:
+  # I shared this URL with a buncha NERT members
+  radio: 2017/10/11/san-francisco-emergency-radio-setup
+  # for convenience
+  fb: https://www.facebook.com/www.dana.lol
+  facebook: https://www.facebook.com/www.dana.lol
+  # I renamed this article
+  2018/03/05/trip-recap-central-coast: 2018/03/05/trip-report-central-coast
 
 # routing_rules:
 #   - condition:
