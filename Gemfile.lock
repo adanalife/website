@@ -11,60 +11,72 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.0.6)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+    activesupport (4.2.10)
       i18n (~> 0.7)
       minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    ansi (1.5.0)
     awesome_print (1.8.0)
-    aws-sdk (2.10.52)
-      aws-sdk-resources (= 2.10.52)
-    aws-sdk-core (2.10.52)
-      aws-sigv4 (~> 1.0)
-      jmespath (~> 1.0)
-    aws-sdk-resources (2.10.52)
-      aws-sdk-core (= 2.10.52)
-    aws-sigv4 (1.0.2)
-    backports (3.8.0)
+    backports (3.11.3)
     builder (3.2.3)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
+    cloudflare (2.1.0)
+      json (~> 1)
     coderay (1.1.2)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    colored (1.2)
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
     concurrent-ruby (1.0.5)
-    configure-s3-website (2.2.0)
-      aws-sdk (~> 2)
-      deep_merge (~> 1.0.0)
     contracts (0.13.0)
-    deep_merge (1.0.1)
-    dotenv (1.0.2)
+    dotenv (2.3.0)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.2.5)
+    excon (0.62.0)
     execjs (2.7.0)
     exifr (1.3.2)
+    faraday (0.15.0)
+      multipart-post (>= 1.2, < 3)
     fast_blank (1.0.0)
-    fastimage (2.1.0)
-    ffi (1.9.18)
+    fastimage (2.1.1)
+    fastly (1.14.0)
+    ffi (1.9.23)
+    fog-aws (1.4.1)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.45.0)
+      builder
+      excon (~> 0.58)
+      formatador (~> 0.2)
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
+    formatador (0.2.5)
     fspath (3.1.0)
     haml (5.0.3)
       temple (>= 0.8.0)
       tilt
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    hashie (3.5.6)
+    hashie (3.5.7)
     htmlcompressor (0.2.0)
     http_parser.rb (0.6.0)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     image_optim (0.25.0)
       exifr (~> 1.2, >= 1.2.2)
@@ -78,11 +90,19 @@ GEM
     image_size (1.5.0)
     in_threads (1.4.0)
     iniparse (1.4.4)
-    jmespath (1.3.1)
+    ipaddress (0.8.3)
+    json (1.8.6)
+    jwt (2.1.0)
     kramdown (1.15.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    map (6.6.0)
+    maxcdn (0.3.2)
+      addressable (~> 2.4)
+      faraday (~> 0.9)
+      net-http-persistent (~> 2.9)
+      signet (~> 0.7)
     memoist (0.16.0)
     method_source (0.8.2)
     middleman (4.2.1)
@@ -97,6 +117,15 @@ GEM
       addressable (~> 2.3)
       middleman-core (~> 4.0)
       tzinfo (>= 0.3.0)
+    middleman-cdn (0.2.0)
+      activesupport (~> 4.1)
+      ansi (~> 1.5)
+      cloudflare (~> 2.0)
+      fastly (~> 1.1)
+      fog-aws (~> 1.4)
+      httparty (~> 0.13)
+      maxcdn (~> 0.1)
+      middleman (>= 3.3)
     middleman-cli (4.2.1)
       thor (>= 0.17.0, < 2.0)
     middleman-core (4.2.1)
@@ -134,6 +163,15 @@ GEM
     middleman-pry (1.0.1)
       middleman (>= 3.3, < 5)
       pry (~> 0.9)
+    middleman-s3_sync (4.0.3)
+      ansi (~> 1.5.0)
+      fog-aws (>= 0.1.1)
+      map
+      middleman-cli
+      middleman-core (>= 4.0.0)
+      parallel
+      ruby-progressbar
+      unf
     middleman-search_engine_sitemap (1.4.0)
       builder
       middleman-core (~> 4.0)
@@ -142,8 +180,15 @@ GEM
       rouge (~> 2.0)
     middleman-title (1.0.0)
       middleman-core (>= 4.0)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    minitest (5.11.3)
+    multi_json (1.13.1)
+    multi_xml (0.6.0)
+    multipart-post (2.0.0)
+    net-http-persistent (2.9.4)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     overcommit (0.41.0)
@@ -155,35 +200,39 @@ GEM
       tilt (>= 1.4.1, < 3)
     padrino-support (0.13.3.4)
       activesupport (>= 3.1)
-    parallel (1.12.0)
+    parallel (1.12.1)
     progress (3.4.0)
     pry (0.11.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
-    public_suffix (3.0.0)
-    rack (2.0.3)
+    public_suffix (3.0.2)
+    rack (2.0.4)
     rack-livereload (0.3.16)
       rack
-    rb-fsevent (0.10.2)
+    rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
     rouge (2.2.1)
-    s3_website (3.3.0)
-      colored (= 1.2)
-      configure-s3-website (= 2.2.0)
-      dotenv (~> 1.0)
-      thor (~> 0.18)
+    ruby-progressbar (1.9.0)
     sass (3.4.25)
     servolux (0.13.0)
+    signet (0.8.1)
+      addressable (~> 2.3)
+      faraday (~> 0.9)
+      jwt (>= 1.5, < 3.0)
+      multi_json (~> 1.10)
     temple (0.8.0)
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    tzinfo (1.2.3)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
 
 PLATFORMS
   ruby
@@ -194,18 +243,20 @@ DEPENDENCIES
   dotenv
   middleman (~> 4.1)
   middleman-blog
+  middleman-cdn
   middleman-imageoptim!
   middleman-livereload
   middleman-minify-html
   middleman-ogp
   middleman-pry
+  middleman-s3_sync
   middleman-search_engine_sitemap
   middleman-syntax
   middleman-title
+  mime-types
   nokogiri
   overcommit
   redcarpet
-  s3_website
 
 BUNDLED WITH
-   1.16.0.pre.2
+   1.16.0

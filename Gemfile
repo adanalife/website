@@ -40,7 +40,11 @@ gem 'middleman-imageoptim', git: 'https://github.com/plasticine/middleman-imageo
 gem 'nokogiri'
 
 # for uploading to S3
-gem 's3_website'
+gem 'middleman-s3_sync'
+gem 'mime-types'
+
+# for CloudFlare
+gem 'middleman-cdn'
 
 # for loading ENV vars from a .env file
 gem 'dotenv'
