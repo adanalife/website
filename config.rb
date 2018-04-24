@@ -110,20 +110,6 @@ activate :ogp do |ogp|
   ogp.blog = true
 end
 
-activate :cdn do |cdn|
-  cdn.cloudflare = {
-    client_api_key: ENV['CLOUDFLARE_CLIENT_API_KEY'],
-    email: ENV['CLOUDFLARE_EMAIL'],
-    zone: 'dana.lol',
-    base_urls: [
-      'http://dana.lol',
-      'https://dana.lol',
-      'http://www.dana.lol',
-      'https://www.dana.lol',
-    ]
-  }
-end
-
 activate :s3_sync do |s3_sync|
   s3_sync.bucket                     = ENV['STATIC_SITE_BUCKET']
   s3_sync.region                     = ENV['AWS_REGION']
@@ -138,4 +124,18 @@ end
 # after_s3_sync do |files_by_status|
 #   cdn_invalidate(files_by_status[:updated])
 # end
+
+activate :cdn do |cdn|
+  cdn.cloudflare = {
+    client_api_key: ENV['CLOUDFLARE_CLIENT_API_KEY'],
+    email: ENV['CLOUDFLARE_EMAIL'],
+    zone: 'dana.lol',
+    base_urls: [
+      'http://dana.lol',
+      'https://dana.lol',
+      'http://www.dana.lol',
+      'https://www.dana.lol'
+    ]
+  }
+end
 
