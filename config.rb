@@ -2,6 +2,7 @@
 # Page options, layouts, aliases and proxies
 ###
 
+
 # Per-page layout changes:
 #
 # With no layout
@@ -17,6 +18,16 @@ page '/404.html', directory_index: false
 
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
+
+# create a page for every image
+ready do
+  #TODO: is there a better way to find all images?
+  #TODO: support more filetypes
+  sitemap.resources.map(&:path).select {|s| s =~ /\.(jpg|png)$/i }.map {|i| sitemap.find_resource_by_path(i)}.each do |img|
+    short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
+    proxy "/photo/#{short_path}", "/photo.html", layout: 'layout', locals: { photo: img }
+  end
+end
 
 # set the default URL
 set :url_root, @app.data.settings.site.url

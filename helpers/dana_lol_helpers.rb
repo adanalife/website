@@ -8,13 +8,14 @@ module DanaLolHelpers
   alias_method :nt, :newthought
 
   def linked_image(img_src, alt_text = '')
-    link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
+    link_to(image_tag(img_src, alt: alt_text), "/photo#{remove_file_extension(img_src)}", class: 'no-underline')
   end
 
   # used for images and other figures
   def figure(img_src, alt_text = '')
     content_tag(:figure) do
-      link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
+      #link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
+      linked_image(img_src, alt_text)
     end
   end
   alias_method :f, :figure
@@ -66,6 +67,10 @@ module DanaLolHelpers
 
   def summary(article, length = 255)
     article.summary(length, 'ENDART').sub(/ENDART/, link_to('...', article))
+  end
+
+  def remove_file_extension(path)
+    path.sub(/#{File.extname(path)}$/, '')
   end
 
   # just a simple way to keep this somewhere central
