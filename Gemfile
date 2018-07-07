@@ -32,9 +32,8 @@ gem 'middleman-minify-html'
 gem 'middleman-ogp'
 
 # for shrinking images
-# prereq: https://github.com/toy/image_optim#os-x-brew
-gem 'image_optim_pack'
-gem 'middleman-images', github: 'zweitag/middleman-images'
+gem 'image_optim_pack' # this installs the required tools, is optional
+gem 'middleman-images', github: 'dmerrick/middleman-images'
 
 # for generating article summaries
 gem 'nokogiri'

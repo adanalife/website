@@ -47,18 +47,6 @@ activate :syntax
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
-
-  # Minify images on build
-  activate :images do |images|
-    images.optimize = true
-    # see https://github.com/toy/image_optim for all available options
-    images.image_optim = {
-      nice: 20,
-      jpegoptim: { strip: :all, allow_lossy: true  },
-      optipng: { level: 5 }
-    }
-  end
-
 # Build-specific configuration
 configure :build do
   # Minify CSS on build
@@ -67,6 +55,16 @@ configure :build do
   # Minify HTML on build
   activate :minify_html
 
+  # Minify images on build
+  activate :images do |images|
+    images.optimize = true
+    # see https://github.com/toy/image_optim for all available options
+    images.image_optim = {
+      # disabling svgo because it complains about the missing tool
+      svgo: false
+    }
+  end
+
   # Minify Javascript on build
   # activate :minify_javascript
 end
@@ -74,6 +72,11 @@ end
 # Reload the browser automatically whenever files change
 configure :development do
   activate :livereload
+
+  # Don't minify images in development
+  activate :images do |images|
+    images.optimize = false
+  end
 end
 
 activate :blog do |blog|
@@ -130,6 +133,7 @@ end
 #   cdn_invalidate(files_by_status[:updated])
 # end
 
+#TODO: remove this
 activate :cdn do |cdn|
   cdn.cloudflare = {
     client_api_key: ENV['CLOUDFLARE_CLIENT_API_KEY'],
