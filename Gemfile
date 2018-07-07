@@ -33,8 +33,8 @@ gem 'middleman-ogp'
 
 # for shrinking images
 # prereq: https://github.com/toy/image_optim#os-x-brew
-# my fork changes the path for the manifest file
-gem 'middleman-imageoptim', git: 'https://github.com/dmerrick/middleman-imageoptim', branch: 'manifest'
+gem 'image_optim_pack'
+gem 'middleman-images', github: 'zweitag/middleman-images'
 
 # for generating article summaries
 gem 'nokogiri'

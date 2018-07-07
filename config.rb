@@ -39,12 +39,6 @@ set :markdown,
   smartypants: true
 activate :syntax
 
-# Shrink images during build
-activate :imageoptim do |options|
-  # pngout is sloooowww
-  options.pngout = false
-end
-
 # activate :robots,
 #   rules: [{user_agent: '*', allow:  %w(/)}],
 #   sitemap: @app.data.settings.site.url + 'sitemap.xml'
@@ -53,6 +47,17 @@ end
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
+
+  # Minify images on build
+  activate :images do |images|
+    images.optimize = true
+    # see https://github.com/toy/image_optim for all available options
+    images.image_optim = {
+      nice: 20,
+      jpegoptim: { strip: :all, allow_lossy: true  },
+      optipng: { level: 5 }
+    }
+  end
 
 # Build-specific configuration
 configure :build do
