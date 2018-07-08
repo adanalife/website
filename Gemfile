@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'awesome_print'
 
 # the static website generator
-gem 'middleman', '~> 4.1'
+gem 'middleman', '~> 4.2'
 
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
@@ -37,13 +37,6 @@ gem 'middleman-images', github: 'dmerrick/middleman-images'
 
 # for generating article summaries
 gem 'nokogiri'
-
-# for uploading to S3
-gem 'middleman-s3_sync'
-gem 'mime-types'
-
-# for CloudFlare
-gem 'middleman-cdn'
 
 # for loading ENV vars from a .env file
 gem 'dotenv'
