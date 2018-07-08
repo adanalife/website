@@ -25,7 +25,7 @@ ready do
   #TODO: support more filetypes
   sitemap.resources.map(&:path).select {|s| s =~ /\.(jpg|png)$/i }.map {|i| sitemap.find_resource_by_path(i)}.each do |img|
     short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
-    proxy "/photo/#{short_path}", "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
+    proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
   end
 end
 
