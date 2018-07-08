@@ -102,8 +102,8 @@ activate :blog do |blog|
   blog.publish_future_dated = true
 
   # Enable pagination
-  # blog.paginate = true
-  # blog.per_page = 10
+  blog.paginate = true
+  blog.per_page = 10
   # blog.page_link = "page/{num}"
 end
 
