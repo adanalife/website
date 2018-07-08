@@ -1,0 +1,29 @@
+---
+pageable: false
+ogp:
+  og:
+    description: View an image in full-size.
+---
+
+<% if photo %>
+<section>
+  <p>
+    Here's a <a href="/<%= photo.destination_path %>">super high-resolution</a> copy.
+  </p>
+  <p>
+    <a href="javascript:history.back()">Click here to go back</a>.
+  </p>
+
+  <%= image_tag photo.destination_path, optimize: false %>
+
+  <p>
+    <a href='/contact'>Contact me</a> if you'd like to use it, it's probably fine!
+  </p>
+  <h2>
+    <a href="javascript:history.back()">Back from whence you came</a>.
+  </h2>
+</section>
+<% else %>
+  BROKENHERE
+<% end %>
+
