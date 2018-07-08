@@ -8,19 +8,19 @@ ogp:
 <% if photo %>
 <section>
   <p>
-    Here's a <a href="/<%= photo.destination_path %>">super high-resolution</a> copy.
+    You're now viewing the <em>super high-resolution</em> version of this image.<br>
+    <a href='/contact'>Contact me</a> if you'd like to use it, it's probably fine!
   </p>
   <p>
     <a href="javascript:history.back()">Click here to go back</a>.
   </p>
 
-  <%= image_tag photo.destination_path, optimize: false %>
+  <a href="/<%= photo.destination_path %>" class='no-underline'>
+    <%= image_tag photo.destination_path, optimize: false %>
+  </a>
 
-  <p>
-    <a href='/contact'>Contact me</a> if you'd like to use it, it's probably fine!
-  </p>
   <h2>
-    <a href="javascript:history.back()">Back from whence you came</a>.
+    <a href="javascript:history.back()">Back from whence you came</a>
   </h2>
 </section>
 <% else %>
