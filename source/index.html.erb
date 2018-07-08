@@ -17,6 +17,7 @@ ogp:
   <h2><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
   <%= summary(article) %>
   <br>
+  <hr>
 <% end %>
 
 <% if paginate %>
