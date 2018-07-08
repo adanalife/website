@@ -19,7 +19,7 @@ page '/404.html', directory_index: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
-# create a page for every image
+# create a photo landing page for every image
 ready do
   #TODO: is there a better way to find all images?
   #TODO: support more filetypes
@@ -54,10 +54,6 @@ activate :syntax
 #   rules: [{user_agent: '*', allow:  %w(/)}],
 #   sitemap: @app.data.settings.site.url + 'sitemap.xml'
 
-# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
-#  which_fake_page: "Rendering a fake page with a local variable" }
-
 # Build-specific configuration
 configure :build do
   # Minify CSS on build
@@ -71,6 +67,7 @@ configure :build do
     images.optimize = true
     # see https://github.com/toy/image_optim for all available options
     images.image_optim = {
+      verbose: true,
       # disabling svgo because it complains about the missing tool
       svgo: false
     }
@@ -80,8 +77,8 @@ configure :build do
   # activate :minify_javascript
 end
 
-# Reload the browser automatically whenever files change
 configure :development do
+  # Reload the browser automatically whenever files change
   activate :livereload
 
   # Don't minify images in development
@@ -128,20 +125,4 @@ activate :ogp do |ogp|
   # turn on article support
   ogp.blog = true
 end
-
-activate :s3_sync do |s3_sync|
-  # s3_sync.after_build                = true
-  s3_sync.bucket                     = ENV['STATIC_SITE_BUCKET']
-  s3_sync.region                     = ENV['AWS_REGION']
-  s3_sync.aws_access_key_id          = ENV['AWS_ACCESS_KEY_ID']
-  s3_sync.aws_secret_access_key      = ENV['AWS_SECRET_ACCESS_KEY']
-  s3_sync.reduced_redundancy_storage = true
-  s3_sync.index_document             = 'index.html'
-  s3_sync.error_document             = '404.html'
-end
-
-#TODO: is this still necessary?
-# after_s3_sync do |files_by_status|
-#   cdn_invalidate(files_by_status[:updated])
-# end
 
