@@ -14,7 +14,6 @@ module DanaLolHelpers
   # used for images and other figures
   def figure(img_src, alt_text = '')
     content_tag(:figure) do
-      #link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
       linked_image(img_src, alt_text)
     end
   end
@@ -23,10 +22,31 @@ module DanaLolHelpers
   # take up the whole screen
   def full_figure(img_src, alt_text = '')
     content_tag(:figure, class: 'fullwidth') do
-      link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
+      linked_image(img_src, alt_text)
     end
   end
   alias_method :ff, :full_figure
+
+  # used for images and other figures that link to somewhere specific
+  def linked_figure(img_src, link, alt_text = '')
+    content_tag(:figure) do
+      link_to(image_tag(img_src, alt: alt_text), link, class: 'no-underline')
+    end
+  end
+
+  # used for images and other figures that have no link
+  def nolink_figure(img_src, alt_text = '')
+    content_tag(:figure) do
+      image_tag(img_src, alt: alt_text)
+    end
+  end
+
+  # used for images and other figures that have no link
+  def nolink_full_figure(img_src, alt_text = '')
+    content_tag(:figure, class: 'fullwidth') do
+      image_tag(img_src, alt: alt_text)
+    end
+  end
 
   def iframe_wrapper
     content_tag(:figure, class: 'iframe-wrapper') { yield }

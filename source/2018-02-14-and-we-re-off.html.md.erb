@@ -20,7 +20,7 @@ Yesterday was my last day as a resident of San Francisco.
 It was a busy day: I still had to pack some stuff, move some furniture onto the street, clean up the apartment, and load up the van.
 
 <%= content_tag(:figure) do
-  tag(:img, src: "#{current_article.url}before-loading.jpg", alt: 'Everything that was to be loaded into the van') +
+  linked_image("#{current_article.url}before-loading.jpg", 'Everything that was to be loaded into the van') +
   mn("Everything I brought with me in the van.")
 end %>
 

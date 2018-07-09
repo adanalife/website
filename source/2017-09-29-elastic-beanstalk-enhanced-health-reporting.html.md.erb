@@ -12,7 +12,7 @@ ogp:
 
 When you start using AWS Elastic Beanstalk, you quickly learn that the Health dashboard is the best place to go to understand what is going on on your app. If you're anything like me, however, you might be disappointed to find some of the most useful fields are blank, like this:
 
-<%= full_figure "#{current_article.url}health-page-empty.png", 'a screenshot of an empty health dashboard' %>
+<%= nolink_full_figure "#{current_article.url}health-page-empty.png", 'a screenshot of an empty health dashboard' %>
 
 The issue is that Elastic Beanstalk fetches the data for these tables _from the host machine_, as opposed to the container in which your app is running. In order to get the data to the Health dashboard, we will have to change a number of things first.
 
@@ -112,7 +112,7 @@ Check the following:
 
 If the answer to both of these is yes, you should be done! Visit the Health dashboard on your Elastic Beanstalk web console and you should be able to see all of the Enhanced Health data, like this:
 
-<%= full_figure "#{current_article.url}health-page-full.png", 'a screenshot of a heath dashboard with data' %>
+<%= nolink_full_figure "#{current_article.url}health-page-full.png", 'a screenshot of a heath dashboard with data' %>
 
 Thanks for reading. I hope this helps you, and <%= link_to('please reach out to me', '/contact') %> with anything I could do to improve these instructions.
 

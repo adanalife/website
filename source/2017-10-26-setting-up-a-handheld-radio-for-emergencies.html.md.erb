@@ -23,7 +23,8 @@ _**Important note!** Talking over a radio without an FCC license is against the 
 I suggest buying a [Baofeng UV-5R](https://smile.amazon.com/BaoFeng-UV-5R-Dual-Radio-Black/dp/B007H4VT7A?tag=danalol-20) (~$26) for your emergency kit.
 They're very useful radios for their price, and they will allow you to dip your toe into the amateur radio world without spending a fortune.
 
-<%= link_to(figure("/2017/10/11/san-francisco-emergency-radio-setup/uv-5r.jpg", 'a photo of a handheld radio'), 'https://smile.amazon.com/BaoFeng-UV-5R-Dual-Radio-Black/dp/B007H4VT7A?tag=danalol-20', class: 'no-underline') %>
+<%# the direct link here is because we already included this image in another article %>
+<%= linked_figure('/2017/10/11/san-francisco-emergency-radio-setup/uv-5r.jpg', 'https://smile.amazon.com/BaoFeng-UV-5R-Dual-Radio-Black/dp/B007H4VT7A?tag=danalol-20', 'a photo of a handheld radio') %>
 
 If you've ever used a walkie talkie, you will find operating a radio is pretty straightforward.
 The big difference is that with a ham radio, there's a ton more channels you can tune to.
@@ -33,7 +34,7 @@ it's similar to finding a good FM radio station when you're traveling out-of-sta
 In any given geographic area, there are certain frequencies where people tend to hang out, or frequencies where emergency responders communicate.
 The trick is to pre-program your radio with these frequencies so you do not struggle to find someone during an emergency.
 
-<%= link_to(figure("#{current_article.url}uv-5r-usb-cable.jpg", 'a photo of a Baofeng USB cable'), 'https://smile.amazon.com/Baofeng-Programming-Cable-BAOFENG-BF-888S/dp/B00CP0I474?tag=danalol-20', class: 'no-underline') %>
+<%= linked_figure("#{current_article.url}uv-5r-usb-cable.jpg", 'https://smile.amazon.com/Baofeng-Programming-Cable-BAOFENG-BF-888S/dp/B00CP0I474?tag=danalol-20', 'a photo of a Baofeng USB cable') %>
 
 The absolute easiest way to set up your radio is to use a USB cable to program your radio via your computer.
 <%= sn "If this seems too complex, [reach out to me](/contact) and I can sell you a pre-programmed radio." %>
