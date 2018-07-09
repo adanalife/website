@@ -69,7 +69,6 @@ configure :build do
     images.optimize = true
     # see https://github.com/toy/image_optim for all available options
     images.image_optim = {
-      verbose: true,
       # disabling svgo because it complains about the missing tool
       svgo: false
     }
