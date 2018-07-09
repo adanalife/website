@@ -58,6 +58,8 @@ activate :syntax
 
 # Build-specific configuration
 configure :build do
+  config[:host] = 'https://www.dana.lol'
+
   # Minify CSS on build
   activate :minify_css
 
@@ -79,6 +81,8 @@ configure :build do
 end
 
 configure :development do
+  config[:host] = 'http://localhost:4567'
+
   # Reload the browser automatically whenever files change
   activate :livereload
 
