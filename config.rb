@@ -22,9 +22,10 @@ page '/404.html', directory_index: false
 # create a photo landing page for every image
 ready do
   #TODO: is there a better way to find all images?
-  #TODO: support more filetypes
-  #TODO: ignore assets (and more?)
-  sitemap.resources.map(&:path).select {|s| s =~ /\.(jpg|png)$/i }.map {|i| sitemap.find_resource_by_path(i)}.each do |img|
+  images = sitemap.resources.map(&:path)
+  images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\//}
+  images = images.map {|i| sitemap.find_resource_by_path(i)}
+  images.each do |img|
     short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
     proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
   end
