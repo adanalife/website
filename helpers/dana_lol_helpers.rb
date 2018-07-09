@@ -86,7 +86,13 @@ module DanaLolHelpers
   end
 
   def summary(article, length = 255)
-    article.summary(length, 'ENDART').sub(/ENDART/, link_to('...', article))
+    summed = article.summary(length, 'ENDART').sub(/ENDART/, link_to('...', article))
+    # make it so clicking an image inside a summary goes to the article and not the image
+    doc = Nokogiri::HTML.fragment(summed)
+    doc.css('figure').each do |figure|
+      figure.css('a').attribute('href').value = article.url
+    end
+    doc.to_s
   end
 
   def remove_file_extension(path)
