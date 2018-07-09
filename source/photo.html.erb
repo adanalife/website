@@ -5,22 +5,6 @@ ogp:
     description: View an image in full-size.
 ---
 
-
-
-<script>
-  //if(document.referrer.includes('dana.lol')) {
-  if(document.referrer.includes('dmerrick')) {
-    alert('did come from this site');
-    var back_buttons = document.getElementsByClassName('hidden');
-    for (i=0; i < back_buttons.length; i++) {
-      back_buttons[i].style.visibility = 'visible';
-    }
-  } else {
-    alert('didnt come from this site');
-  }
-</script>
-
-<% if photo %>
 <section>
   <p>
     You're now viewing the <em>super high-resolution</em> version of this image.<br>
@@ -38,7 +22,14 @@ ogp:
     <a href="javascript:history.back()" class='hidden'>Back from whence you came</a>
   </h2>
 </section>
-<% else %>
-  BROKENHERE
-<% end %>
+
+<script>
+  // show back buttons if and only if we came from this site
+  if(document.referrer.includes('dana.lol')) {
+    var back_buttons = document.getElementsByClassName('hidden');
+    for (i=0; i < back_buttons.length; i++) {
+      back_buttons[i].classList.remove('hidden');
+    }
+  }
+</script>
 
