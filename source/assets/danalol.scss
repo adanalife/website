@@ -3,6 +3,10 @@ a.no-underline {
   background: none;
 }
 
+a.hidden {
+  visibility: hidden;
+}
+
 h1.title {
   /* move the whole heading to the left a bit */
   position: relative;
