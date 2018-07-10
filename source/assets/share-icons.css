@@ -8,6 +8,10 @@ ul.share-buttons li{
   display: inline;
 }
 
+ul.share-buttons img{
+  width: initial;
+}
+
 ul.share-buttons .sr-only{
   position: absolute;
   clip: rect(1px 1px 1px 1px);
