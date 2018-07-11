@@ -5,17 +5,18 @@ ogp:
     description: More info about the author.
 ---
 
-<%# by setting the icon to an empty string, no "+" icon will appear above the heading %>
-<%= marginnote(tag(:img, src: '/assets/dana.jpg', alt: 'a photo of Dana', title: "That's me!"), icon: '') %>
-
 ## About Me
 
+<%# by setting the icon to an empty string, no "+" icon will appear above the heading %>
+<%= marginnote(image_tag('/about/dana.jpg', alt: 'a photo of Dana', title: "That's me!"), icon: '') %>
 Hey, my name is Dana and I am a 30-something human living in the United States.
 
 In February 2018 I quit my job in San Francisco and <%= link_to 'moved into a campervan', '/tags/van' %> full-time. I intend to travel the US for about a year, and have been sharing photos and stories from my travels here on this site.
 
-For a complete list of public social media accounts, visit my <%= link_to('Keybase account', 'https://keybase.io/dmerrick') %>. That list is kept up-to-date and is cryptographically secure. You can also use it to send me messages (or just use the <%= link_to('contact page', '/contact') %> if you're feeling old school).
+To find me on social media, please visit my <%= link_to('Keybase account', 'https://keybase.io/dmerrick') %>.
+That list is kept up-to-date and you can know those are the real me (cryptographically speaking).
+It also can be used to send me messages, but you may prefer the <%= link_to('contact page', '/contact') %>).
 
 If you're looking to hire me, my resume is available on Github <%= link_to('here', 'https://github.com/dmerrick/resume') %>.
 
-If you're looking for how this site works, the source code is available on Github <%= link_to('here', 'https://github.com/dmerrick/danalol') %>, and I have written two blog articles explaining my process: <%= link_to('part 1', '/2017/10/01/how-this-site-works/') %> and <%= link_to('part 2', '/2017/10/12/how-this-site-works-p-2/') %>.
+If you're looking for more info on how I built this site, the source code is available on Github <%= link_to('here', 'https://github.com/dmerrick/danalol') %>, and I have written two blog articles explaining my process: <%= link_to('part 1', '/2017/10/01/how-this-site-works/') %> and <%= link_to('part 2', '/2017/10/12/how-this-site-works-p-2/') %>.
