@@ -10,49 +10,57 @@ ogp:
 
 ---
 
-In this article I'll talk about my technical goals for this project and how it began. For details about the visual design, check out <%= link_to('part 2', '/2017/10/12/how-this-site-works-p-2/') %>.
-
+In this article I'll talk about my technical goals for this project and how it began.
+For details about the visual design, check out <%= link_to('part 2', '/2017/10/12/how-this-site-works-p-2/') %>.
 
 My goals on this project were as follows:
 
  * Articles should a simple directory of Markdown files
- * The site should be static
- * Start with an "off the shelf" tool, so I don't need to start from scratch
+ * The site should be "static"
+ * Utilize an off-the-shelf tool so I don't need to start from scratch
 
 <br>
 
 
 ### Goal 1: Markdown
 
-I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents. I feel like Markdown files are very readable and the syntax rarely gets in my way. This way I can spend more time writing articles, and less time fighting with HTML.
+I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents.
+<%= mn("For example, " + link_to("the markdown for this article is available here", "https://github.com/dmerrick/danalol/blob/master/source/2017-10-01-how-this-site-works.html.md.erb")) %>
+I feel like Markdown files are very readable and the syntax rarely gets in my way.
+This way I can spend more time writing articles, and less time fighting with HTML.
+
+
+Getting this to work was really easy, because almost every language has a good markdown parser.
 <%= mn(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
-
-
-Getting this to work was really easy, because almost every language has a good markdown parser. You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
+You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
 
 <br>
 
 
 ### Goal 2: Static Site
 
-[Static sites](https://en.wikipedia.org/wiki/Static_web_page) are delivered to the user exactly as they are stored on the server, as opposed to a dynamic site which has pages that are generated on the fly. After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive.
+[Static sites](https://en.wikipedia.org/wiki/Static_web_page) are delivered to the user exactly as they are stored on the server, as opposed to a dynamic site which has pages that are generated on the fly.
+After spending my career supporting dynamic sites (usually Rails), I wanted my personal site to be simple, lightweight, and inexpensive.
 
 Ideally, this site would be a simple directory of HTML files that I could host anywhere.
 <%= mn 'I opted to host this site on Amazon S3' %>
-It's really easy to serve a website that's all static files, hell, I could even just email someone a zip of the directory and they'd have the whole site.
+It's really easy to serve a website that's all static files, hell, I can even just email someone a zip of the directory and they'd have the whole site.
 
 <br>
 
 
 ### Goal 3: An "Off the Shelf" solution
 
-I looked at a number of tools that would achieve my goals, before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/). With Middleman I can still use code in my articles, but instead of that code running whenever a user visits my page, it runs only once ever: _only at the time I generate the HTML files that make up the site_.
+Since I didn't want to start this project from absolute scratch, I looked at a number of existing tools before deciding on a Ruby-based static site generator called [Middleman](https://middlemanapp.com/).
+With Middleman I can still use code in my articles, but instead of that code running whenever a user visits my page, it runs only once ever: _only at the time I generate the HTML files that make up the site_.
 
 I spent a few hours building up a "boilerplate" project that basically contains everything but the style and content of this site.
 <%= mn '"Boilerplate" projects give developers a starting place if they wish to create their own' %>
-I wanted to share it because if you know Ruby and want to run a static blog, this is a solid place to start. You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here. It's intended to be a comfortable starting point for creating a new website if someone wishes to in the future.
+I wanted to share it because if you know Ruby and want to run a static blog, this is a solid place to start.
+You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here.
+It's intended to be a comfortable starting point for creating a new website if someone wishes to in the future.
 
-The process of writing an article is running `middleman article`, which generates a markdown template that I can customize with the content of the new article.
+The process of writing an article is running `middleman article`, which generates blank article for me to add content.
 To make my life easier, I can run `middleman server`, which launches a development server, allowing me to make changes to the article and view them in my browser in real-time.
 When I'm content with the way the article looks, I run `middleman build` and the article will be compiled to HTML for uploading to S3 for the world to see.
 
