@@ -16,10 +16,10 @@ ogp:
 
 ---
 
-<%= mn("
-Weeks in: **5**<br>
-Distance traveled: **~1200 miles**<br>
-Current location: **[unfilled.gust.benched](http://w3w.co/unfilled.gust.benched)***<a href='https://what3words.com/about' class='no-underline'>[?]</a>*")
+<%= partial 'van_stats', locals: {
+  weeks: 5,
+  distance: "~1200 miles",
+  location: "unfilled.gust.benched" }
 %>
 
 I honestly didn't intend on staying long in San Diego.

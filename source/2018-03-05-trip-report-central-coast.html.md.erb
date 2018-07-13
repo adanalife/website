@@ -16,10 +16,10 @@ ogp:
 
 ---
 
-<%= mn("
-Weeks in: **about 2**<br>
-Distance traveled: **~550 miles**<br>
-Current location: **[pipe.bumpy.taxi](http://w3w.co/pipe.bumpy.taxi)***<a href='https://what3words.com/about' class='no-underline'>[?]</a>*")
+<%= partial 'van_stats', locals: {
+  weeks: "about 2",
+  distance: "~550 miles",
+  location: "pipe.bumpy.taxi" }
 %>
 
 It's been over a week since I left [Big Sur](/2018/02/21/trip-report-big-sur/), and I have continued to explore Southern California.

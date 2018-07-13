@@ -17,10 +17,10 @@ ogp:
 
 ---
 
-<%= mn("
-Weeks in: **6**<br>
-Distance traveled: **~1500 miles**<br>
-Current location: **[scarring.repaint.regal](http://w3w.co/scarring.repaint.regal)***<a href='https://what3words.com/about' class='no-underline'>[?]</a>*")
+<%= partial 'van_stats', locals: {
+  weeks: 6,
+  distance: "~1500 miles",
+  location: "scarring.repaint.regal" }
 %>
 
 <%= f "#{current_article.url}road.jpg", 'a road in Joshua Tree National Park' %>

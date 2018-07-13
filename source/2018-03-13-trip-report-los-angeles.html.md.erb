@@ -16,10 +16,10 @@ ogp:
 
 ---
 
-<%= mn("
-Weeks in: **4**<br>
-Distance traveled: **~800 miles**<br>
-Current location: **[spent.values.pits](http://w3w.co/spent.values.pits)***<a href='https://what3words.com/about' class='no-underline'>[?]</a>*")
+<%= partial 'van_stats', locals: {
+  weeks: 4,
+  distance: "~800 miles",
+  location: "spent.values.pits" }
 %>
 
 After leaving [Santa Barbara last week](/2018/03/05/trip-report-central-coast/), I drove straight down to Los Angeles.
