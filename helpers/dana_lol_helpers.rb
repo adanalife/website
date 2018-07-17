@@ -84,6 +84,7 @@ module DanaLolHelpers
       end
     end
   end
+  alias_method :quote, :epigraph
 
   def summary(article, length = 255)
     summed = article.summary(length, 'ENDART').sub(/ENDART/, link_to('...', article))
