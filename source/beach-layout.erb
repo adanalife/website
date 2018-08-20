@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <%# add meta tags for cute link previews %>
+    <% ogp_tags do |property, content| %>
+      <meta property="<%= property %>" content="<%= content %>" />
+    <% end %>
+
+    <%# favicons for all of the different platforms %>
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/manifest.json">
+    <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#5bbad5">
+
+    <title>
+      <%= '[d] ' if development? %>
+      <%= page_title %>
+    </title>
+
+    <style>
+      <%# include bare minimum styling so it looks decent before the CSS loads %>
+      <%# set background color and hide everything else %>
+      body{ background-color: #fffff8; padding-left: 12.5% }
+      article, aside { display: none; }
+    </style>
+    <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+  </head>
+
+    <%= yield %>
+
+    <%# this stuff is Google's recommendation for faster page loading %>
+    <noscript id='deferred-styles'>
+      <%= stylesheet_link_tag 'assets/beach.css', media: 'all' %>
+    </noscript>
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById('deferred-styles');
+        var replacement = document.createElement('div');
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
+
+    <%# only include google analytics on the live site %>
+    <% if build? %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= google_analytics %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)};
+        gtag('js', new Date());
+        gtag('config', '<%= google_analytics %>');
+      </script>
+    <% end %>
+  </body>
+</html>

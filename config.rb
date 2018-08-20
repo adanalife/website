@@ -16,6 +16,9 @@ page '/feed.xml', layout: false
 # Define 404 page
 page '/404.html', directory_index: false
 
+# https://codepen.io/alvov/pen/MBbYqW
+page '/🤔', layout: 'beach-layout'
+
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
