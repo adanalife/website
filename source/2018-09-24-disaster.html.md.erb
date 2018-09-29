@@ -52,10 +52,11 @@ I turn on the hazard lights -- nothing happens.
 An angry driver behind me passes me as I search for a safe place to pull over.
 I turn down a dark rural road and come to a stop outside of a sketchy-looking house.
 There is no cell phone service here.
+<%= mn(linked_image("#{current_article.url}great-smoky-mountains.png" , '') + "The Great Smoky Mountains. Every second broken down was a second I could spend here!") %>
 
 After some time I work up the courage to go knock on the door of the house.
 I introduce myself to the confused couple that answers the door, and while explaining my situation I manage to get some cell service, so I tell them that I probably don't need them, but that I might be there for a while while I get myself towed.
-<%= mn(linked_image("#{current_article.url}first-tow-truck-2.png", 'a Roadtrek attached to a tiny tow truck')) %>
+<%# <%= mn(linked_image("#{current_article.url}dropping-off-van.png", 'a Roadtrek being dropped off at a mechanics parking lot')) %1> %>
 
 While on the phone with AAA a police cruiser pulls up... apparently the house called the cops on me!
 I explained the situation to the deputy and, after running my plates, he wished me luck and drove off.
@@ -63,13 +64,15 @@ It was dark now and it would be three more hours before the tow truck arrived.
 
 I get towed the 20 minutes to a small mechanics shop tucked against some train tracks in Appomattox.
 It's nearly 2AM now.
-The tow truck driver leaves and I settle in to the not-quite-ideal location for the night.
+The tow truck driver leaves and I settle in to the not-quite-ideal location for the night.  
 I'm optimistic that I'll be back on the road again tomorrow.
 
-<%# <%= f "#{current_article.url}dropping-off-van.png", 'a Roadtrek being dropped off at a mechanics parking lot' %1> %>
+<%= f "#{current_article.url}dropping-off-van.png", 'a Roadtrek being dropped off at a mechanics parking lot' %>
 
 
 ## Day Two
+
+<%= mn(linked_image("#{current_article.url}route-map.png" , '')) %>
 
 I get up 15 minutes before the mechanic opens and leave them a voicemail.
 They call me back promptly and they agree to fit me in right away.
@@ -127,12 +130,9 @@ Another three hours later, just after closing, they were done replacing the isol
 The engine started up fine and charged the battery fine.
 After 48 hours of being immobile, I was finally free.
 
-<%= f "#{current_article.url}brochure.png" , '' %>
-<%= f "#{current_article.url}route-map.png" , '' %>
-<%= f "#{current_article.url}great-smoky-mountains.png" , '' %>
-<%= f "#{current_article.url}van-at-campsite.png" , '' %>
-
 ## Conclusion
+
+<%= mn(linked_image("#{current_article.url}brochure.png" , '')) %>
 
 Living in a van is wonderful, that is, until something goes wrong.
 Being able to choose your backyard every day is exciting and freeing and glamorous, but when you have an issue that renders the vehicle inoperable, the van becomes a prison.
@@ -149,4 +149,6 @@ Instead I tried my best to remain calm, to keep looking for new solutions, and t
 
 By remaining calm and patient, I was eventually able to get out of the situation and make it to my campsite at the Great Smoky Mountains on time.
 Another adventure behind me, and many new ones on the road in front of me.
+
+<%= f "#{current_article.url}van-at-campsite.png" , '' %>
 
