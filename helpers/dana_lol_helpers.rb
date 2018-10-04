@@ -105,5 +105,10 @@ module DanaLolHelpers
     'UA-106965485-1'
   end
 
+  def miles_to_kilometers(miles)
+    miles = miles.gsub(/[~,]/,'').to_i
+    km = miles * 1.6
+  end
+
 end
 
