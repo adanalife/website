@@ -17,6 +17,7 @@
 }
 
 .articlepagination {
+  // top | right | bottom | left
   padding: 0 0 0 0;
 }
 
@@ -111,10 +112,10 @@ aside.footer {
 input.question {
   display: block;
   margin: 1.3em 0 0 0;
-  padding: 1.3em 1em 0.5em 1em;
+  padding: 0.7em 1em 0.5em 1em;
   width: calc(100% - 2em);
   background: transparent;
-  font-size: 1em;
+  font-size: 1.3em;
   line-height: 1;
   opacity: 1;
   -webkit-transition: opacity 0.3s;
