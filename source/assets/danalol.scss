@@ -1,7 +1,7 @@
 .heading {
   position: relative;
   margin-left: 10px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .heading li {
@@ -14,6 +14,14 @@
 .heading li a {
   text-decoration: none;
   background: none;
+}
+
+.articlepagination {
+  padding: 0 0 0 0;
+}
+
+.articlepagination li {
+  display: inline;
 }
 
 // Just a way to remove the default underline from links

@@ -51,9 +51,10 @@
       <div id="main" role="main">
         <section>
           <%= yield %>
-          <%# if we're displaying a blog article, include share buttons %>
+          <%# if we're displaying a blog article, include share buttons and pagination %>
           <% if current_article %>
             <%= partial 'share_buttons' %>
+            <%= partial 'article_pagination' %>
           <% end %>
         </section>
       </div>

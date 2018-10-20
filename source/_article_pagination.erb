@@ -1,0 +1,14 @@
+<% if current_article %>
+  <ul class="articlepagination">
+  <% if current_article.previous_article %>
+    <li><%= link_to 'Previous article', current_article.previous_article.url %></li>
+  <% end %>
+  <% if current_article.previous_article && current_article.next_article%>
+    <li>•</li>
+  <% end %>
+  <% if current_article.next_article %>
+    <li><%= link_to 'Next article', current_article.next_article.url %></li>
+  <% end %>
+  </ul>
+<% end %>
+
