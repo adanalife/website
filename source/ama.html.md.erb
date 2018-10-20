@@ -5,41 +5,20 @@ ogp:
     description: Here's where you can ask the author anything.
 ---
 
-<%# ## Ask Me Anything! %>
-
 <p>
 Go ahead and ask me a question about anything you like.  
 I will try and incorporate the answer in an article or the upcoming FAQ section!
 </p>
 
 <p>
-<%# <form class="amaform" autocomplete="off" action='https://danalol-contact.herokuapp.com/' method='post'> %>
-<form class="amaform" autocomplete="off">
-  <%# <ol class="amaquestion"> %>
-  <%#   <li class="amacurrent"> %>
+<form class="amaform" autocomplete="off" action='https://danalol-contact.herokuapp.com/' method='post'>
   <span><label for="question">What would you like to know?</label></span>
   <br>
   <input class="question" id="question" name="message" type="text"/>
-    <%# </li> %>
-  <%# </ol> %>
-  <p><input type="submit" value="Submit" class="amabtn"> </p>
+  <input type='hidden' name='email' value='ama'>
+  <p>
+    <input type="submit" value="Submit" class="amabtn">
+  </p>
 </form>
 </p>
-
-
-<%# <p> %>
-<%#   <form action='https://danalol-contact.herokuapp.com/' method='post'> %>
-<%#     <p> %>
-<%#     <label>Your name and message:</label><br> %>
-<%#     <textarea name='message' class='contact'></textarea> %>
-<%#     </p> %>
-<%#     <p> %>
-<%#     <label>Your email (optional but required for a reply):</label><br> %>
-<%#     <input type='text' name='email' class='contact'> %>
-<%#     </p> %>
-<%#     <p> %>
-<%#     <input type='submit' value='Send!'> %>
-<%#     </p> %>
-<%#   </form> %>
-<%# </p> %>
 
