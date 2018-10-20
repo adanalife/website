@@ -8,7 +8,7 @@ ogp:
 
 <section>
 <p>
-  <h2>Recent Articles</h2>
+  <h2>Most Recent Articles</h2>
   <ol>
     <% blog.articles.reject{|a| a.data.private }[0...10].each do |article| %>
       <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
@@ -19,9 +19,9 @@ ogp:
 
 <section>
 <p>
-  <h2>By Tag</h2>
+  <h2>Articles By Tag</h2>
   <ol>
-    <% blog.tags.each do |tag, articles| %>
+    <% blog.tags.sort_by{|_,a| a.size}.reverse.each do |tag, articles| %>
     <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
     <% end %>
   </ol>
@@ -30,7 +30,7 @@ ogp:
 
 <section>
 <p>
-  <h2>By Year</h2>
+  <h2>Articles By Year</h2>
   <ol>
     <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
       <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
