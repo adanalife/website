@@ -85,7 +85,7 @@ aside.footer {
   padding-bottom: 100px;
 }
 
-.amabtn {
+.btn {
   position: relative;
   vertical-align: top;
   width: 33%;
@@ -100,8 +100,8 @@ aside.footer {
   cursor: pointer;
 }
 
-.amabtn:active,
-.amabtn:hover {
+.btn:active,
+.btn:hover {
   outline: none;
   -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
   -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
@@ -161,7 +161,7 @@ input.question {
     max-width: 98%;
   }
 
-  .amabtn {
+  .btn {
     // shrink the button so the text doesn't go outside of it
     font-size: 15px;
     height: 40px;
