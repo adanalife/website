@@ -45,8 +45,7 @@
         <ul class='heading'>
           <li><%= link_to 'archives', '/browse' %></li>
           <li><%= link_to 'about', '/about' %></li>
-          <li><%= link_to 'contact', '/contact' %></li>
-          <li><%= link_to 'thanks', '/thanks' %></li>
+          <li><%= link_to 'ask me anything', '/ama' %></li>
         </ul>
       </div>
       <div id="main" role="main">
@@ -60,11 +59,9 @@
       </div>
     </article>
 
-    <aside>
-      <h2>
-        <a href='/' class='no-underline'><img src='/assets/logo.png' alt='dana lol site logo' class='footer-logo' /></a>
-        <a href='/'>A Dana Life</a>
-      </h2>
+    <aside class='footer'>
+      © <%= link_to 'Dana', '/contact' %> 2018, unless noted otherwise.
+      Big thanks to <%= link_to 'these people', '/thanks' %>.
     </aside>
 
     <%# this stuff is Google's recommendation for faster page loading %>
