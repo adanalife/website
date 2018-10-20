@@ -41,6 +41,14 @@
           <%= current_article ? current_article.title : page_title %>
         <% end %>
       </h1>
+      <div class='heading'>
+        <ul class='heading'>
+          <li><%= link_to 'archives', '/browse' %></li>
+          <li><%= link_to 'about', '/about' %></li>
+          <li><%= link_to 'contact', '/contact' %></li>
+          <li><%= link_to 'thanks', '/thanks' %></li>
+        </ul>
+      </div>
       <div id="main" role="main">
         <section>
           <%= yield %>
@@ -57,12 +65,6 @@
         <a href='/' class='no-underline'><img src='/assets/logo.png' alt='dana lol site logo' class='footer-logo' /></a>
         <a href='/'>A Dana Life</a>
       </h2>
-      <ul>
-        <li><%= link_to 'Archives', '/browse' %></li>
-        <li><%= link_to 'About', '/about' %></li>
-        <li><%= link_to 'Contact', '/contact' %></li>
-        <li><%= link_to 'Thanks', '/thanks' %></li>
-      </ul>
     </aside>
 
     <%# this stuff is Google's recommendation for faster page loading %>

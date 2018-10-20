@@ -1,3 +1,21 @@
+.heading {
+  position: relative;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+.heading li {
+  color: grey;
+  display: inline;
+  font-size: 1em;
+  margin-right: 0.5em;
+}
+
+.heading li a {
+  text-decoration: none;
+  background: none;
+}
+
 // Just a way to remove the default underline from links
 a.no-underline {
   background: none;
@@ -24,6 +42,7 @@ h1.title {
   // move the whole heading to the left a bit
   position: relative;
   right: 15px;
+  margin-bottom: 1px;
 }
 
 img.header-logo {
