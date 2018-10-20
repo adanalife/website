@@ -7,7 +7,7 @@
 .heading li {
   color: grey;
   display: inline;
-  font-size: 1em;
+  font-size: 0.9em;
   margin-right: 0.5em;
 }
 
@@ -17,8 +17,7 @@
 }
 
 .articlepagination {
-  // top | right | bottom | left
-  padding: 0 0 0 0;
+ padding-left: 0;
 }
 
 .articlepagination li {
@@ -111,7 +110,8 @@ aside.footer {
 
 input.question {
   display: block;
-  margin: 1.3em 0 0 0;
+  margin-top: 1.3em;
+  // top | right | bottom | left
   padding: 0.7em 1em 0.5em 1em;
   width: calc(100% - 2em);
   background: transparent;
@@ -134,7 +134,6 @@ input.question {
 
   // reposition the heading links
   ul.heading {
-    position: relative;
     padding-left: 1px;
   }
 
