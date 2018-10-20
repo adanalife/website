@@ -1,13 +1,13 @@
 <% if current_article %>
   <ul class="articlepagination">
-  <% if current_article.previous_article %>
-    <li><%= link_to 'Previous article', current_article.previous_article.url %></li>
+  <% if current_article.article_previous %>
+    <li><%= link_to 'Previous article', current_article.article_previous.url %></li>
   <% end %>
-  <% if current_article.previous_article && current_article.next_article%>
+  <% if current_article.article_previous && current_article.article_next %>
     <li>•</li>
   <% end %>
-  <% if current_article.next_article %>
-    <li><%= link_to 'Next article', current_article.next_article.url %></li>
+  <% if current_article.article_next %>
+    <li><%= link_to 'Next article', current_article.article_next.url %></li>
   <% end %>
   </ul>
 <% end %>
