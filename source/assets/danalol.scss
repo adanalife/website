@@ -1,4 +1,4 @@
-/* Just a way to remove the default underline from links */
+// Just a way to remove the default underline from links
 a.no-underline {
   background: none;
 }
@@ -21,7 +21,7 @@ img.really-wide {
 }
 
 h1.title {
-  /* move the whole heading to the left a bit */
+  // move the whole heading to the left a bit
   position: relative;
   right: 15px;
 }
@@ -29,7 +29,7 @@ h1.title {
 img.header-logo {
   width: 80px;
   height: auto;
-  /* move the image so it's centered on the line */
+  // move the image so it's centered on the line
   position: relative;
   right: 15px;
 }
@@ -37,7 +37,7 @@ img.header-logo {
 img.title-logo {
   width: 66px;
   height: auto;
-  /* move the image so it's centered on the line */
+  // move the image so it's centered on the line
   position: relative;
   top: 15px;
   right: 15px;
@@ -46,32 +46,20 @@ img.title-logo {
 img.footer-logo {
   width: 44px;
   height: auto;
-  /* move the image so it's centered on the line */
+  // move the image so it's centered on the line
   position: relative;
   top: 10px;
   right: 5px;
 }
 
-/* mobile-only changes */
-@media only screen and (max-width: 960px) {
-  h1.title {
-    /* move the heading down a bit */
-    position: relative;
-    margin-top: 0;
-  }
-  img.header-logo {
-    /* position the logo nicely with the heading */
-    position: relative;
-    right: -10px;
-  }
-  img.title-logo {
-    width: 37px;
-    height: auto;
-    /* move the image so it's centered on the line */
-    position: relative;
-    top: 2px;
-    left: 1px;
-  }
+.amaform {
+  margin-top: 3em;
+  max-width: 80%;
+}
+
+.amaform span label {
+  font-size: 38px;
+  padding-bottom: 100px;
 }
 
 .amabtn {
@@ -89,43 +77,63 @@ img.footer-logo {
   cursor: pointer;
 }
 
-.amabtn:active, .amabtn:hover{
-    outline: none;
-    -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
-    box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+.amabtn:active,
+.amabtn:hover {
+  outline: none;
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
 }
 
-input {
-    display: block;
-    margin: 1.3em 0 0 0;
-    padding: 1.3em 1em 0.5em 1em;
-    width: calc(100% - 2em);
-    // border: none;
-    background: transparent;
-    color: rgb(255, 255, 255);
-    font-size: 1em;
-    line-height: 1;
-    opacity: 1;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+input.question {
+  display: block;
+  margin: 1.3em 0 0 0;
+  padding: 1.3em 1em 0.5em 1em;
+  width: calc(100% - 2em);
+  background: transparent;
+  font-size: 1em;
+  line-height: 1;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .question input:focus,
 .amaform button:focus {
-    outline: none;
+  outline: none;
 }
 
-.amaform {
-    // position: relative;
-    // margin: 0 auto;
-    // padding: 2em 0;
-    max-width: 80%;
-    // width: 100%;
-}
+// mobile-only changes
+// note this needs to be at the bottom
+@media only screen and (max-width: 960px) {
+  h1.title {
+    // move the heading down a bit
+    position: relative;
+    margin-top: 0;
+  }
+  img.header-logo {
+    // position the logo nicely with the heading
+    position: relative;
+    right: -10px;
+  }
+  img.title-logo {
+    width: 37px;
+    height: auto;
+    // move the image so it's centered on the line
+    position: relative;
+    top: 2px;
+    left: 1px;
+  }
 
-.amaform span label {
-  font-size: 38px;
-  padding-bottom: 100px;
+  .amaform {
+    // widen the input so it takes the whole screen
+    max-width: 98%;
+  }
+
+  .amabtn {
+    // shrink the button so the text doesn't go outside of it
+    font-size: 15px;
+    height: 40px;
+  }
 }
