@@ -3,7 +3,8 @@
 
 Live site available here: [https://www.dana.lol](http://www.dana.lol)
 
-[![https://github.com/dmerrick/danalol/blob/master/design/logo-1200x630.png?raw=true](the A Dana Life logo)](https://www.dana.lol)
+If you want you can read these two articles about how the site works: [part 1](https://www.dana.lol/2017/10/01/how-this-site-works) and [part 2](https://www.dana.lol/2017/10/12/how-this-site-works-p-2).
+
 
 ### Contact Form
 
