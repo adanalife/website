@@ -43,7 +43,7 @@ activate :title,
 # Active sitemap generator
 activate :search_engine_sitemap,
   default_change_frequency: 'weekly',
-  exclude_attr: 'private'
+  exclude_attr: 'unlisted'
 
 # Allow syntax highlighting
 set :markdown_engine, :redcarpet
