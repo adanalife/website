@@ -70,7 +70,7 @@
     <%# this stuff is Google's recommendation for faster page loading %>
     <noscript id='deferred-styles'>
       <%# changing the query string forces stylesheet to be redownloaded %>
-      <%= stylesheet_link_tag 'assets/all?cache=busted', media: 'all' %>
+      <%= stylesheet_link_tag 'assets/all.css?cache=busted', media: 'all' %>
     </noscript>
     <script>
       var loadDeferredStyles = function() {
