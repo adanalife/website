@@ -1,0 +1,69 @@
+==================================================================
+https://keybase.io/adanalife
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://dana.lol
+  * I am adanalife (https://keybase.io/adanalife) on keybase.
+  * I have a public key with fingerprint F524 BF2C D82D C4C8 BA17  BD9C 15DD D827 04B5 767B
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101e271012f39405e41bdc135e916b50f5c6450044f427455961dd0c9a057dbe9e10a",
+      "fingerprint": "f524bf2cd82dc4c8ba17bd9c15ddd82704b5767b",
+      "host": "keybase.io",
+      "key_id": "15ddd82704b5767b",
+      "kid": "0101e271012f39405e41bdc135e916b50f5c6450044f427455961dd0c9a057dbe9e10a",
+      "uid": "778e7a75a599ae56dc3f8bfec091a919",
+      "username": "adanalife"
+    },
+    "service": {
+      "hostname": "dana.lol",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1541278707,
+  "expire_in": 157680000,
+  "prev": "df2de5043a19816cbc26373aacbc7109cf147bf301993a8c5a0f82faa818b20d",
+  "seqno": 5,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.80
+Comment: https://keybase.io/crypto
+
+yMIpAnicrVJbSBVBGD6mZnkpK9RUCNzwIVGb2d05u3PSNCgJ6iVLTUwPMzuzul72
+nM45njTpZheCLhZEhHQVLSkiKwIT7EaZkdKFIKISe0iKLmAXeiltVuqtx+Zh5p+f
+7/v+7//57yZEumIjyLvC+Ke7U0nEw9tHGl0VI3FfWyTqY82Sp0Wq41MPr2c8GPLW
+WUzySAACyGVN3LKpYBUgrkLKDKggjqGbImAiw60iAFTVVGVNRQi7IWPAwAQgjVGO
+OQREypZMy67mAX/AskNC1kSySk3ZYLrMDNXQKYEaZdiAiDGR04BKkebWqCDW+IIO
+Q5ijJMhzLZ/IiY93yt4/8P/Zd+OUnKbpXCMaIghjwpGbGYqpU5MbAEOCIXaAQR6w
+SQMXaMKITeotk0tbsiWRDlsGdybrtPIH4iBy6331gugP+EI+Q4QeqSYU8gc9DivU
+7Hdgmzj1/hHwUstmYoiCEeaBoOWzJQ8USCNkOYoQqVDWdA1o2RJv8lsB7rUchBiL
+DsRx6vCwU9mUGUdAVQjEOnQb1JDdiqYQIiIxL2yYUNWoqQCIsUJ0AxFg6rJJiA51
+KgMmOS1ttH2SBwmbpFpIBq1qm4QaA6LfO7c2RLkiYl3To6c5y+WKnZn4d+XOHYuZ
+pMm/xj6R3LfPWy6PXWOvP1pV4Yo35b09o+2FkYljDbMHNxxUtmYVnZy51Oq4kFOZ
+UXSx48WXjEPF+39cP1NXkqo39lcMzy2N+tY5fDPqVXt03h5v90TS+h0vlljpV1aO
+F/8qOT8Sc6PWzukrmMwaWpj/IPPs49rlrQP99wZPPMtf492bebikdNbNSpaxuKz7
+QMpn/HPo5a605Hle19XeNY/CKQm4I6G0LSUpbYx927Z5EuTPZYG89oay3PfKwr6j
+q7d0zmnqUWoGqmMWpW9foJTvW9c1en9FXOuMkeSVq7ILRpO+RI6f3vb9dnTVqeMf
+/PHzC2vfTMSYbX1Zt5Zc6lr25Mfanb8Bh/w4YQ==
+=UCpq
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/adanalife
+
+==================================================================
+
