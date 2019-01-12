@@ -108,12 +108,13 @@ aside.footer {
   padding-bottom: 100px;
 }
 
-input.question {
+textarea.question {
   display: block;
   margin-top: 1.3em;
   // top | right | bottom | left
   padding: 0.7em 1em 0.7em 1em;
   width: calc(100% - 2em);
+  height: 4em;
   background: transparent;
   font-size: 1.3em;
   line-height: 1;
