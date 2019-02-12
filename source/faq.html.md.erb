@@ -10,6 +10,7 @@ ogp:
 ### Table of Contents
 <ul>
   <% data.faq.questions.each do |faq| %>
+    <% next unless faq.published %>
     <li>
       <a href='#<%= faq.short || faq.object_id.to_s %>'>
         <%= faq.q %>
@@ -23,6 +24,7 @@ ogp:
 
 <ul>
   <% data.faq.questions.each do |faq| %>
+    <% next unless faq.published %>
     <li>
       <p>
         <a name='<%= faq.short || faq.object_id.to_s %>'>
