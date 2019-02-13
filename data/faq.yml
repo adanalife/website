@@ -1,23 +1,4 @@
 questions: 
-  - q: What did you do for electricity?
-    a: >-
-      <p>
-      My van had two batteries, a standard starter battery for the engine, and a deep-cell "coach" battery for the living quarters.
-      The coach battery powered the interior lights, a rear cigarette-lighter-style power outlet, and the rooftop fan.
-      Both batteries were charged whenever the engine was running and when I was plugged into "shore power."
-      A small compartment on the exterior of the van contained a typical three-pronged power cord which I extended with a heavy-duty 100' extension cord.
-      </p>
-      <p>
-      The fridge could be powered in three ways: shore power, the coach battery, and propane.
-      With propane I could keep it cold when I was holding still for several days.
-      </p>
-      <p>
-      While there were many outlets available in the interior cabin, none of them worked unless I was on shore power.
-      One small addition made everything a lot easier though... hidden in a cupboard was an inverter with two power outlets.
-      This let me run two devices off of the coach battery, which is how I powered my laptop to write this blog!
-      </p>
-    short: electricity
-    published: true
 
   - q: Did your van have solar panels?
     a: >-
@@ -29,8 +10,56 @@ questions:
     short: solar
     published: true
 
-  - q: How long did your battery last?
+  - q: What did you do for electricity?
+    a: >-
+      <p>
+      My van had two batteries, a standard starter battery for the engine, and a deep-cell "coach" battery for the living quarters.
+      The coach battery powered the interior lights, a rear cigarette-lighter-style power outlet, and the rooftop fan.
+      Both batteries were charged whenever the engine was running and when I was plugged into "shore power."
+      A small compartment on the exterior of the van contained a typical three-pronged power cord which I extended with a heavy-duty 100' extension cord.
+      </p>
+      <p>
+      While there were many outlets available in the interior cabin, none of them worked unless I was on shore power.
+      One small addition made everything a lot easier though... hidden in a cupboard was an inverter with two power outlets.
+      This let me run two devices off of the coach battery, which is how I powered my laptop to write this blog!
+      </p>
+    short: electricity
+    published: true
+
+  - q: How did you keep food cold?
+    a: >-
+      <p>
+      The fridge built in to the van could be powered in three ways: shore power, the coach battery, and propane.
+      With propane I could keep it cold when I was holding still for several days, but I rarely used this feature.
+      Instead, I found a fancy <a href="https://www.engelcoolers.com/mr040f-u1-mr040f-u1-ac-dc-fridge-freezer.html">marine fridge</a> on sale and used that for everything.
+      This way I could keep things cold with only battery power, and boy could that thing get cold!
+      </p>
+    short: fridge
+    published: true
+
   - q: What was your route?
+    a: >-
+      <p>
+      <a href="/2018/09/26/map-adventure-so-far-v2/map" class="no-underline"><img src="/2018/09/26/map-adventure-so-far-v2/map.png" alt="a map showing the journey so far"></a>
+      I <a href="/2018/02/14/and-we-re-off/">started in San Francisco</a> in mid-February.
+      I made my way down the California coast, stopping by <a href="/2018/02/21/trip-report-big-sur/">Big Sur</a>, <a href="/2018/03/05/trip-report-central-coast/">the central coast cities</a>, and <a href="/2018/03/13/trip-report-los-angeles/">LA</a>, before stopping in <a href="/2018/03/20/trip-report-san-diego/">San Diego</a>.
+      I then went to <a href=""></a> before coming <a href=""><em>back</em></a> to SF.
+      Next was <a href="/2018/04/06/trip-report-yosemite/">Yosemite</a>, after which I headed for the desert.
+      </p>
+      <p>
+      After visiting a series of parks in the Southwest, I stopped by Santa Fe before heading to my dad's house in Dallas.
+      I rested there for a bit before heading to Austin, TX for a music festival.
+      From there I went deeper south to Big Bend, which was one of my very favorite stops on the trip.
+      Next I headed north, stopping by national parks on my way to Salt Lake City.
+      It was there that I somewhat-randomly got backstage passes to see <a href="/2018/05/09/photos-that-time-i-saw-pink/">P!NK</a> in concert.
+      </p>
+      <p>
+
+      </p>
+    short: route
+    published: true
+
+  - q: How long did your battery last?
   - q: What wildlife have you seen?
   - q: Were you lonely?
   - q: Weirdest place you stayed?
