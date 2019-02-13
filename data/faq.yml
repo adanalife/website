@@ -1,5 +1,59 @@
 questions: 
 
+  - q: How did you poop?
+    a: >-
+      <p>
+      While I was lucky enough to have a van with a built-in toilet, I never used it for "#2".
+      Finding a reliable clean bathroom was a daily challenge, but I started to pick up tricks (and lower my standards).
+      Walmarts, libraries, coffee shops, campgrounds, rest stops, friends houses and the gym were common options.
+      </p>
+    short: poop
+    published: true
+
+  - q: How did you shower?
+    a: >-
+      <p>
+      One of the early challenges of the trip was transitioning from being a daily-showerer to someone who showered only about once a week.
+      Wet wipe "baths" were a common technique.
+      Some vans have built-in showers but mine did not, so instead I got a membership to a national gym chain.
+      This way I had a reliable place to shower, and a good excuse to stay in shape.
+      </p>
+    short: shower
+    published: true
+
+  - q: What was your route?
+    a: >-
+      <p>
+      <a href="/2018/09/26/map-adventure-so-far-v2/map" class="no-underline"><img src="/2018/09/26/map-adventure-so-far-v2/map.png" alt="a map showing the journey so far"></a>
+      I <a href="/2018/02/14/and-we-re-off/">started in San Francisco</a> in mid-February.
+      I made my way down the California coast, stopping by <a href="/2018/02/21/trip-report-big-sur/">Big Sur</a>, <a href="/2018/03/05/trip-report-central-coast/">the central coast cities</a>, and <a href="/2018/03/13/trip-report-los-angeles/">LA</a>, before stopping in <a href="/2018/03/20/trip-report-san-diego/">San Diego</a>.
+      I then went to <a href=""></a> before coming <a href=""><em>back</em></a> to SF.
+      Next was <a href="/2018/04/06/trip-report-yosemite/">Yosemite</a>, after which I headed for the desert.
+      </p>
+      <p>
+      After visiting a series of parks in the Southwest, I stopped by Santa Fe before heading to my dad's house in Dallas.
+      I rested there for a bit before heading to Austin, TX for a music festival.
+      From there I went deeper south to Big Bend, which was one of my very favorite stops on the trip.
+      Next I headed north, stopping by national parks on my way to Salt Lake City.
+      It was there that I somewhat-randomly got backstage passes to see <a href="/2018/05/09/photos-that-time-i-saw-pink/">P!NK</a> in concert.
+      </p>
+      <p>
+      After SLC I went to the Grand Teton and Yellowstone National Parks, another highlight of the trip.
+      From there I made a beeline eastward toward Chicago, stopping by the Badlands, Devil's Tower, and Mt. Rushmore on the way.
+      I spent a long time in Chicago before heading to Detroit to visit the Henry Ford museum, after which I went to Niagra Falls.
+      From there I went to Letchworth State Park in Upstate NY, and then Hartford, CT.
+      I spent the whole summer in New England, including an entire month on Martha's Vineyard, a week at Acadia, and a week at a Buddhist monastery.
+      </p>
+      <p>
+      As summer drew to a close I headed south, stopping by various Civil War battlefields that were of interest to me.
+      On my way to the Great Smokey Mountains I had my (mechanical) <a href="/2018/09/24/disaster/">breakdown</a>.
+      I went back to Dallas to get everything fixed up, and then drove straight across the country to LA to meet a friend at a music festival.
+      From there I made my way back up the California coast, spending more time in San Luis Obispo and Santa Barbara.
+      Finally, I ended up back in SF where I lived on the streets for 6 weeks while I worked on selling the van.
+      </p>
+    short: route
+    published: true
+
   - q: Did your van have solar panels?
     a: >-
       <p>
@@ -37,28 +91,6 @@ questions:
     short: fridge
     published: true
 
-  - q: What was your route?
-    a: >-
-      <p>
-      <a href="/2018/09/26/map-adventure-so-far-v2/map" class="no-underline"><img src="/2018/09/26/map-adventure-so-far-v2/map.png" alt="a map showing the journey so far"></a>
-      I <a href="/2018/02/14/and-we-re-off/">started in San Francisco</a> in mid-February.
-      I made my way down the California coast, stopping by <a href="/2018/02/21/trip-report-big-sur/">Big Sur</a>, <a href="/2018/03/05/trip-report-central-coast/">the central coast cities</a>, and <a href="/2018/03/13/trip-report-los-angeles/">LA</a>, before stopping in <a href="/2018/03/20/trip-report-san-diego/">San Diego</a>.
-      I then went to <a href=""></a> before coming <a href=""><em>back</em></a> to SF.
-      Next was <a href="/2018/04/06/trip-report-yosemite/">Yosemite</a>, after which I headed for the desert.
-      </p>
-      <p>
-      After visiting a series of parks in the Southwest, I stopped by Santa Fe before heading to my dad's house in Dallas.
-      I rested there for a bit before heading to Austin, TX for a music festival.
-      From there I went deeper south to Big Bend, which was one of my very favorite stops on the trip.
-      Next I headed north, stopping by national parks on my way to Salt Lake City.
-      It was there that I somewhat-randomly got backstage passes to see <a href="/2018/05/09/photos-that-time-i-saw-pink/">P!NK</a> in concert.
-      </p>
-      <p>
-
-      </p>
-    short: route
-    published: true
-
   - q: How long did your battery last?
   - q: What wildlife have you seen?
   - q: Were you lonely?
@@ -80,8 +112,6 @@ questions:
   - q: Do you get bored?
   - q: Have you noticed more similarities or differences in people across different states?
   - q: What were your favorite places?
-  - q: How did you poop?
-  - q: How did you shower?
   - q: Would you do it again?
   - q: How did you afford it?
   - q: How has your baseline state of mind changed?
