@@ -1,0 +1,37 @@
+---
+page_title: Frequently Asked Questions
+ogp:
+  og:
+    description: TODO
+---
+
+<%# <% binding.irb %1> %>
+
+### Table of Contents
+<ul>
+  <% data.faq.questions.each do |faq| %>
+    <% next unless faq.published %>
+    <li>
+      <a href='#<%= faq.short || faq.object_id.to_s %>'>
+        <%= faq.q %>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+
+### Questions and Answers
+
+<ul>
+  <% data.faq.questions.each do |faq| %>
+    <% next unless faq.published %>
+    <li>
+      <p>
+        <a name='<%= faq.short || faq.object_id.to_s %>'>
+          <strong><%= faq.q %></strong>
+          <%= faq.a || lorem.paragraph %>
+        </a>
+      </p>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,121 @@
+questions: 
+
+  - q: How did you poop?
+    a: >-
+      <p>
+      While I was lucky enough to have a van with a built-in toilet, I never used it for "#2".
+      Finding a reliable clean bathroom was a daily challenge, but I started to pick up tricks (and lower my standards).
+      Walmarts, libraries, coffee shops, campgrounds, rest stops, friends houses and the gym were common options.
+      </p>
+    short: poop
+    published: true
+
+  - q: How did you shower?
+    a: >-
+      <p>
+      One of the early challenges of the trip was transitioning from being a daily-showerer to someone who showered only about once a week.
+      Wet wipe "baths" were a common technique.
+      Some vans have built-in showers but mine did not, so instead I got a membership to a national gym chain.
+      This way I had a reliable place to shower, and a good excuse to stay in shape.
+      </p>
+    short: shower
+    published: true
+
+  - q: What was your route?
+    a: >-
+      <p>
+      <a href="/2018/09/26/map-adventure-so-far-v2/map" class="no-underline"><img src="/2018/09/26/map-adventure-so-far-v2/map.png" alt="a map showing the journey so far"></a>
+      I <a href="/2018/02/14/and-we-re-off/">started in San Francisco</a> in mid-February.
+      I made my way down the California coast, stopping by <a href="/2018/02/21/trip-report-big-sur/">Big Sur</a>, <a href="/2018/03/05/trip-report-central-coast/">the central coast cities</a>, and <a href="/2018/03/13/trip-report-los-angeles/">LA</a>, before stopping in <a href="/2018/03/20/trip-report-san-diego/">San Diego</a>.
+      I then went to <a href=""></a> before coming <a href=""><em>back</em></a> to SF.
+      Next was <a href="/2018/04/06/trip-report-yosemite/">Yosemite</a>, after which I headed for the desert.
+      </p>
+      <p>
+      After visiting a series of parks in the Southwest, I stopped by Santa Fe before heading to my dad's house in Dallas.
+      I rested there for a bit before heading to Austin, TX for a music festival.
+      From there I went deeper south to Big Bend, which was one of my very favorite stops on the trip.
+      Next I headed north, stopping by national parks on my way to Salt Lake City.
+      It was there that I somewhat-randomly got backstage passes to see <a href="/2018/05/09/photos-that-time-i-saw-pink/">P!NK</a> in concert.
+      </p>
+      <p>
+      After SLC I went to the Grand Teton and Yellowstone National Parks, another highlight of the trip.
+      From there I made a beeline eastward toward Chicago, stopping by the Badlands, Devil's Tower, and Mt. Rushmore on the way.
+      I spent a long time in Chicago before heading to Detroit to visit the Henry Ford museum, after which I went to Niagra Falls.
+      From there I went to Letchworth State Park in Upstate NY, and then Hartford, CT.
+      I spent the whole summer in New England, including an entire month on Martha's Vineyard, a week at Acadia, and a week at a Buddhist monastery.
+      </p>
+      <p>
+      As summer drew to a close I headed south, stopping by various Civil War battlefields that were of interest to me.
+      On my way to the Great Smokey Mountains I had my (mechanical) <a href="/2018/09/24/disaster/">breakdown</a>.
+      I went back to Dallas to get everything fixed up, and then drove straight across the country to LA to meet a friend at a music festival.
+      From there I made my way back up the California coast, spending more time in San Luis Obispo and Santa Barbara.
+      Finally, I ended up back in SF where I lived on the streets for 6 weeks while I worked on selling the van.
+      </p>
+    short: route
+    published: true
+
+  - q: Did your van have solar panels?
+    a: >-
+      <p>
+      Unfortunately not!
+      While I looked into adding them, the price was high and my power needs were low.
+      Next time I do a trip like this I will probably want solar, mainly because it means I could go much longer stretches without driving.
+      </p>
+    short: solar
+    published: true
+
+  - q: What did you do for electricity?
+    a: >-
+      <p>
+      My van had two batteries, a standard starter battery for the engine, and a deep-cell "coach" battery for the living quarters.
+      The coach battery powered the interior lights, a rear cigarette-lighter-style power outlet, and the rooftop fan.
+      Both batteries were charged whenever the engine was running and when I was plugged into "shore power."
+      A small compartment on the exterior of the van contained a typical three-pronged power cord which I extended with a heavy-duty 100' extension cord.
+      </p>
+      <p>
+      While there were many outlets available in the interior cabin, none of them worked unless I was on shore power.
+      One small addition made everything a lot easier though... hidden in a cupboard was an inverter with two power outlets.
+      This let me run two devices off of the coach battery, which is how I powered my laptop to write this blog!
+      </p>
+    short: electricity
+    published: true
+
+  - q: How did you keep food cold?
+    a: >-
+      <p>
+      The fridge built in to the van could be powered in three ways: shore power, the coach battery, and propane.
+      With propane I could keep it cold when I was holding still for several days, but I rarely used this feature.
+      Instead, I found a fancy <a href="https://www.engelcoolers.com/mr040f-u1-mr040f-u1-ac-dc-fridge-freezer.html">marine fridge</a> on sale and used that for everything.
+      This way I could keep things cold with only battery power, and boy could that thing get cold!
+      </p>
+    short: fridge
+    published: true
+
+  - q: How long did your battery last?
+  - q: What wildlife have you seen?
+  - q: Were you lonely?
+  - q: Weirdest place you stayed?
+  - q: What are you eating?
+  - q: What was easier/harder than expected?
+  - q: Did you feel off the grid/disconnected?
+  - q: Did you meet anyone cool?
+  - q: Did you camp a lot?
+  - q: Did you always have a place to stay?
+  - q: Whats the longest/shortest you stayed in one spot?
+  - q: Did the van ever break down?
+  - q: How many parks did you visit?
+  - q: Did you notice a change in your sleep schedule?
+  - q: Have you ever had problems with law enforcement?
+  - q: Was there ever a time you felt like giving up and going back to residential life?
+  - q: What kind of mileage are you getting? 
+  - q: What's the best or most surprising new food dish you've eaten? 
+  - q: Do you get bored?
+  - q: Have you noticed more similarities or differences in people across different states?
+  - q: What were your favorite places?
+  - q: Would you do it again?
+  - q: How did you afford it?
+  - q: How has your baseline state of mind changed?
+  - q: How does that state of mind compare to before you left?
+  - q: What have you learned?
+  - q: What's it like integrating the experience as you come back from it?
+  - q: What were the coolest things you did?
