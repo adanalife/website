@@ -77,7 +77,7 @@ redirects:
   twitch: https://twitch.tv/adanalife_
   # I renamed these articles
   2018/03/05/trip-recap-central-coast: 2018/03/05/trip-report-central-coast
-  2019/01/13/eleven-month-update: 2019/01/13/project-overview
+  2019/01/13/eleven-month-update/: 2019/01/13/project-overview
   # in case people try to change the number and expect it to work
   2017/10/01/how-this-site-works-p-2: 2017/10/12/how-this-site-works-p-2
   2017/10/12/how-this-site-works-p-1: 2017/10/01/how-this-site-works
