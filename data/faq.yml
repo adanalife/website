@@ -1,5 +1,15 @@
 questions: 
 
+  - q: What kind of van was it?
+    a: >-
+      <p>
+      It was a <strong>92D190V</strong>.
+      That's how other Roadtrek owners refer to a 1992 Dodge Roadtrek 190 Versatile.
+      The 190 means it's 19ft (5.8m) from bumper to bumper.
+      Versatile refers to the van's footprint: four total seat-buckled seats, as opposed to the Roadtrek Popular which only has three.
+      </p>
+    short: kind-of-van
+    published: true
   - q: How did you poop?
     a: >-
       <p>
@@ -83,7 +93,7 @@ questions:
   - q: How did you keep food cold?
     a: >-
       <p>
-      The fridge built in to the van could be powered in three ways: shore power, the coach battery, and propane.
+      The fridge built in my Roadtrek could be powered in three ways: shore power, the coach battery, and propane.
       With propane I could keep it cold when I was holding still for several days, but I rarely used this feature.
       Instead, I found a fancy <a href="https://www.engelcoolers.com/mr040f-u1-mr040f-u1-ac-dc-fridge-freezer.html">marine fridge</a> on sale and used that for everything.
       This way I could keep things cold with only battery power, and boy could that thing get cold!
