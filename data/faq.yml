@@ -101,6 +101,19 @@ questions:
     short: fridge
     published: true
 
+  - q: Did you get lonely?
+    a: >-
+      <p>
+      Sure, at times.
+      I had abandoned a life surrounded by friends and coworkers to venture by myself into the unknown.
+      The first couple weeks were the toughest, as I was still figuring out the lifestyle, and I had no one in my circles to turn to for advice.
+      The excitement outweighed the feelings of isolation, however, and I quickly settled into new degree of comfort with myself.
+      Later in the trip, waves of loneliness would hit me after spending a few weeks without seeing anyone I knew.
+      Luckily I have friends and family scattered across the country -- most of whom were happy to have me visit -- so anytime I felt I needed company all I had to do was point the van in their direction.
+      </p>
+    short: lonely
+    published: true
+
   - q: How long did your battery last?
   - q: What wildlife have you seen?
   - q: Were you lonely?
