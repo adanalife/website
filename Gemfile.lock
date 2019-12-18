@@ -124,7 +124,7 @@ GEM
       rouge (~> 2.0)
     middleman-title (1.0.0)
       middleman-core (>= 4.0)
-    mini_magick (4.9.2)
+    mini_magick (4.9.5)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     nokogiri (1.8.5)
