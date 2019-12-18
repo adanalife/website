@@ -83,6 +83,8 @@ redirects:
   2017/10/12/how-this-site-works-p-1: 2017/10/01/how-this-site-works
   # this was posted on my flyer
   van-tour: https://youtu.be/_own6DuEpLc
+  # the stream survey
+  survey: https://forms.gle/a52NamfEfCcSP7Vc9
 
 # routing_rules:
 #   - condition:
