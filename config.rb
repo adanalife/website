@@ -94,6 +94,13 @@ configure :development do
   end
 end
 
+configure :test do
+  # Don't minify images in test
+  activate :images do |images|
+    images.optimize = false
+  end
+end
+
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
   # blog.prefix = "blog"
