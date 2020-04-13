@@ -38,16 +38,16 @@ Future commands include `!map` (to display a map on the stream) and `!temperatur
 
 <%= f "#{current_article.url}infra-diagram.png", 'TODO' %>
 
-The project is comprised of two main components, a bot process and a VLC process.
+The project is comprised of two main components: a bot process and a VLC process.
 They are both written in Golang, and they talk to one another over HTTP.
 The bot might ask the VLC process _what video is currently playing?_ or it might say _play this specific video_.
 
 Running alongside VLC is Open Broadcaster Software, or [OBS](https://obsproject.com/).
 It's an open-source, cross-platform streaming tool that has been a joy to use.
-<%= mn "Though getting it to work with my old NVidia graphics card on Linux took many hours of my life!" %>
+<%= mn "Though getting it to work with my old graphics card on Linux took many hours of my life!" %>
 
-Also present (though not included in the diagram above) is a music server using MPD.
-It's sort of like a headless Winamp, and through API calls Tripbot can control the currently-playing audio.
+Also present (though not included in the diagram above) is a music server using [MPD](https://en.wikipedia.org/wiki/Music_Player_Daemon).
+You can think of it like a headless iTunes, through which the bot can control the currently-playing audio.
 
 
 ### Old article
