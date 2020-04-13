@@ -16,13 +16,38 @@ ogp:
 
 ---
 
-I'm excited to announce that I've made the [source code to Tripbot](https://github.com/dmerrick/tripbot), the bot that powers [the most boring stream on Twitch](TODO), publicly available.
-Let's dive in to what this bot can do and how it works.
+For the past year I've been running [a slow-tv art project](TODO).
+It's comprised of an immense trove of my own dashcam footage and a custom chatbot to interact with the footage.
+I'm writing this to announce that I've made the [source code to Tripbot](https://github.com/dmerrick/tripbot) publicly available.
+
+
+### What can the bot do?
+
+Here are some of the things you can ask of Tripbot:
+
+ * **`!location`** will tell you all about where we are driving, including a Google Maps link
+ * **`!date`** tells you the day the footage was recorded
+ * **`!miles`** are a way to earn points for watching the stream... **`!leaderboard`** shows the users who have the most miles.
+ * **`!guess`** gives viewers an opportunity to guess what state we're in, e.g. `!guess CA` guesses that we're in California
+
+Future commands include `!map` (to display a map on the stream) and `!temperature` (to get information about the weather at the current moment).
+
 
 
 ### General architecture
 
 <%= f "#{current_article.url}infra-diagram.png", 'TODO' %>
+
+The project is comprised of two main components, a bot process and a VLC process.
+They are both written in Golang, and they talk to one another over HTTP.
+The bot might ask the VLC process _what video is currently playing?_ or it might say _play this specific video_.
+
+Running alongside VLC is Open Broadcaster Software, or [OBS](https://obsproject.com/).
+It's an open-source, cross-platform streaming tool that has been a joy to use.
+<%= mn "Though getting it to work with my old NVidia graphics card on Linux took many hours of my life!" %>
+
+Also present (though not included in the diagram above) is a music server using MPD.
+It's sort of like a headless Winamp, and through API calls Tripbot can control the currently-playing audio.
 
 
 ### Old article
@@ -42,15 +67,6 @@ Viewers of a channel can interact with other viewers and the streamer, and strea
 None of the existing bots could do what I wanted my bot to do, so I built my own, from scratch.
 I named him Tripbot.
 Most new visitors to my channel come and go without even noticing there is a helpful bot in the channel, but I can say with certainty that more hours have been put into building the bot than any other feature of the channel.
-
-Here are some of the things you can ask of Tripbot:
-
- * **`!location`** will tell you all about where we are driving, including a Google Maps link
- * **`!date`** tells you the day the footage was recorded
- * **`!miles`** are a way to earn points for watching the stream... **`!leaderboard`** shows the users who have the most miles.
- * **`!guess`** gives viewers an opportunity to guess what state we're in, e.g. `!guess CA` guesses that we're in California
-
-Future commands include `!map` (to display a map on the stream) and `!temperature` (to get information about the weather at the current moment).
 
 
 TODO: twitch prime link
