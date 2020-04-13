@@ -1,0 +1,17 @@
+name: Testing
+on: [push]
+env:
+  ENV: test
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
+    - uses: actions/checkout@v2
+    # - name: Install Dependencies (linux)
+    #   if: matrix.platform == 'ubuntu-latest'
+    #   run: sudo apt update && sudo apt install -y --no-install-recommends tesseract-ocr libtesseract-dev libvlc-dev
+    - name: Build the static site
+      run: middleman build
