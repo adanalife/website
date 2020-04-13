@@ -10,7 +10,8 @@ jobs:
     - name: Install Ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: '2.7'
+        #TODO: bump this to 2.7
+        ruby-version: '2.5.3'
     - uses: actions/checkout@v2
     # - name: Install Dependencies (linux)
     #   if: matrix.platform == 'ubuntu-latest'
