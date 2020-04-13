@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dmerrick/middleman-images.git
+  remote: https://github.com/dmerrick/middleman-images.git
   revision: 1bc654b95429dde4dae9eeac968c9dbc50521147
   specs:
     middleman-images (0.0.1)
@@ -124,7 +124,7 @@ GEM
       rouge (~> 2.0)
     middleman-title (1.0.0)
       middleman-core (>= 4.0)
-    mini_magick (4.9.2)
+    mini_magick (4.10.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     nokogiri (1.8.5)
@@ -189,4 +189,4 @@ DEPENDENCIES
   redcarpet
 
 BUNDLED WITH
-   1.16.2
+   2.1.2
