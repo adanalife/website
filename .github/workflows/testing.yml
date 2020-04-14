@@ -22,6 +22,7 @@ jobs:
     - name: Install Gems
       run: |
         gem install bundler
+        gem install image_optim_pack
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3
     - run: echo $ENV
