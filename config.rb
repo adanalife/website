@@ -20,16 +20,18 @@ page '/404.html', directory_index: false
 # page "/path/to/file.html", layout: :otherlayout
 
 # create a photo landing page for every image
-ready do
-  #TODO: is there a better way to find all images?
-  images = sitemap.resources.map(&:path)
-  images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\// && s !~ /ogp-image/ }
-  images = images.map {|i| sitemap.find_resource_by_path(i)}
-  images.each do |img|
-    #TODO: add something like this to speed it up?
-    # next if sitemap.find_resource_by_path(...)
-    short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
-    proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
+if ENV['ENV'] != 'test'
+  ready do
+    #TODO: is there a better way to find all images?
+    images = sitemap.resources.map(&:path)
+    images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\// && s !~ /ogp-image/ }
+    images = images.map {|i| sitemap.find_resource_by_path(i)}
+    images.each do |img|
+      #TODO: add something like this to speed it up?
+      # next if sitemap.find_resource_by_path(...)
+      short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
+      proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
+    end
   end
 end
 
