@@ -98,6 +98,10 @@ configure :test do
   # Don't minify images in test
   activate :images do |images|
     images.optimize = false
+    images.image_optim = {
+      # disabling pngout because it complains about the missing tool
+      pngout: false
+    }
   end
 end
 
