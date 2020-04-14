@@ -74,7 +74,8 @@ configure :build do
     # see https://github.com/toy/image_optim for all available options
     images.image_optim = {
       # disabling svgo because it complains about the missing tool
-      svgo: false
+      svgo: false,
+      pngout: ENV['ENV'] != 'test'
     }
   end
 
@@ -91,17 +92,6 @@ configure :development do
   # Don't minify images in development
   activate :images do |images|
     images.optimize = false
-  end
-end
-
-configure :test do
-  # Don't minify images in test
-  activate :images do |images|
-    images.optimize = false
-    images.image_optim = {
-      # disabling pngout because it complains about the missing tool
-      pngout: false
-    }
   end
 end
 
