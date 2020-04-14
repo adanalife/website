@@ -70,12 +70,11 @@ configure :build do
 
   # Minify images on build
   activate :images do |images|
-    images.optimize = true
+    images.optimize = ENV['ENV'] != 'test'
     # see https://github.com/toy/image_optim for all available options
     images.image_optim = {
       # disabling svgo because it complains about the missing tool
-      svgo: false,
-      pngout: ENV['ENV'] != 'test'
+      svgo: false
     }
   end
 
