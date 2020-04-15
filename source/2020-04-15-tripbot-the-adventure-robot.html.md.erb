@@ -2,21 +2,20 @@
 
 title: Tripbot, the Adventure Robot
 date: 2020-04-15 00:00 UTC
-tags: TODO, van, design, meta, aws, code
-location: TODO
+tags: van, design, meta, aws, code
 ogp:
   og:
-    description: TODO
+    description: An introduction to the robot that powers the most boring stream on Twitch.
     image:
       '': https://www.dana.lol/2020/04/15/tripbot-the-adventure-robot/header.png
       secure_url: https://www.dana.lol/2020/04/15/tripbot-the-adventure-robot/header.png
-      alt: TODO
+      alt: A geyser erupting as seen from a parking lot in Yellowstone National Park
       width: 1200
       height: 630
 
 ---
 
-<%= mn(linked_image("#{current_article.url}screencap.png", 'TODO')) %>
+<%= mn(linked_image("#{current_article.url}screencap.png", 'a screencap from dashcam footage showing a geyser erupting from a parking lot in Yellowstone National Park')) %>
 For the past year I've been running [a slow-tv art project](/2020/04/16/the-most-boring-stream-on-twitch/).
 It's comprised of an immense trove of my own dashcam footage, plus a custom chatbot to interact with the footage.
 I'm writing this to announce that I've made the [source code to Tripbot](https://github.com/dmerrick/tripbot) publicly available.
@@ -39,7 +38,7 @@ Future commands include `!map` (to display a map on the stream) and `!temperatur
 
 ## General architecture
 
-<%= f "#{current_article.url}infra-diagram.png", 'TODO' %>
+<%= f "#{current_article.url}infra-diagram.png", 'a technical diagram showing how services interact' %>
 
 The project is comprised of two main components: a bot process and a custom [VLC](https://en.wikipedia.org/wiki/VLC_media_player) process.
 They are both written in Golang, and they talk to one another over HTTP.
