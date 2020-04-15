@@ -40,16 +40,18 @@ Future commands include `!map` (to display a map on the stream) and `!temperatur
 
 <%= f "#{current_article.url}infra-diagram.png", 'a technical diagram showing how services interact' %>
 
-The project is comprised of two main components: a bot process and a custom [VLC](https://en.wikipedia.org/wiki/VLC_media_player) process.
+The project is composed of two main components: a bot process and a custom [VLC](https://en.wikipedia.org/wiki/VLC_media_player) process.
 They are both written in Golang, and they talk to one another over HTTP.
 The bot might ask the VLC process _what video is currently playing?_ or it might say _play this specific video_.
 
-Running alongside VLC is Open Broadcaster Software, or [OBS](https://obsproject.com/).
+Running alongside VLC is Open Broadcaster Software, or [OBS](https://en.wikipedia.org/wiki/Open_Broadcaster_Software).
 It's an open-source, cross-platform streaming tool that has been a joy to use.
 <%= mn "Though getting OBS to work with my old graphics card on Linux consumed many hours of my life!" %>
 
 Also present (though not included in the diagram above) is a music server using [MPD](https://en.wikipedia.org/wiki/Music_Player_Daemon).
 You can think of it like a headless iTunes, through which the bot can control the currently-playing audio.
+
+With these pieces in place we can begin to control the stream.
 
 
 ## An example command flow
@@ -57,7 +59,7 @@ You can think of it like a headless iTunes, through which the bot can control th
 When a user types `!location` in chat, the flow looks something like this:
 
 1. Tripbot listens for messages in Twitch's modified IRC channel
-2. He gets sees the user's message and recognises it as a command
+2. He gets sees the user's message and recognizes it as a command
 3. He fires off the function for that command, which:
   * asks the VLC server what video is currently playing
   * looks up that video in the DB
