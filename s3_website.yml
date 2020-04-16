@@ -61,10 +61,6 @@ cloudfront_wildcard_invalidation: true
 
 # concurrency_level: 5
 
-# redirect examples
-#   index.php: /
-#   about.php: about.html
-#   music-files/promo.mp4: http://www.youtube.com/watch?v=dQw4w9WgXcQ
 redirects:
   # I shared this URL with a buncha NERT members
   radio: 2017/10/11/san-francisco-emergency-radio-setup

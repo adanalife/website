@@ -6,9 +6,17 @@ ogp:
     description: Find new articles to read.
 ---
 
+<h2>Find Articles</h2>
+<ul>
+  <li><a href='#tags'>By Tag</a></li>
+  <li><a href='#recent'>Recent Articles</a></li>
+  <li><a href='#date'>By Date</a></li>
+</ul>
+
+
 <section>
 <p>
-  <h2>Articles By Tag</h2>
+  <h3><a name='tags'>Articles By Tag</a></h3>
   <ol>
     <% blog.tags.sort_by{|_,a| a.size}.reverse.each do |tag, articles| %>
     <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
@@ -19,7 +27,7 @@ ogp:
 
 <section>
 <p>
-  <h2>Most Recent Articles</h2>
+  <h3><a name='recent'>Most Recent Articles</a></h3>
   <ol>
     <% blog.articles.reject{|a| a.data.unlisted }[0...10].each do |article| %>
       <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
@@ -30,7 +38,7 @@ ogp:
 
 <section>
 <p>
-  <h2>Articles By Year</h2>
+  <h3><a name='date'>Articles By Year</a></h3>
   <ol>
     <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
       <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>

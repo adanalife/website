@@ -1,0 +1,122 @@
+---
+title: The Most Boring Stream on Twitch
+date: 2020-04-16 16:02 UTC
+tags: van, meta, design
+ogp:
+  og:
+    description: Uninteresting content for your viewing pleasure.
+    image:
+      '': https://www.dana.lol/2020/04/16/the-most-boring-stream-on-twitch/header.png
+      secure_url: https://www.dana.lol/2020/04/16/the-most-boring-stream-on-twitch/header.png
+      alt: an empty road with a blue sky, captured by a dashcam
+      width: 1024
+      height: 540
+
+---
+
+A whole year of this.
+Aimlessly driving down American roads.
+This was my experience the year I [lived in a van](/2017/10/25/i-got-a-van/).
+
+<% iframe_wrapper do %>
+  <iframe src="https://player.twitch.tv/?channel=adanalife_&muted=true&autoplay=true" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+<% end %>
+
+It's also been a whole year since I [quietly launched this channel](/2018/08/20/jump-into-my-passenger-seat/) on Twitch.tv.
+I'll be honest, I didn't expect much response.
+As entertainment goes, this is against everything Twitch stands for: it's prerecorded, repetitive, uneventful, and sometimes downright boring.
+But despite all that, last year people watched it for over 56,000 hours at an average of 6.4 concurrent viewers.
+<%= mn("Not bad for a 24/7/365 channel!") %>
+
+I'd like take this opportunity to tell the story of how this project came to be.
+
+
+## Origins
+
+In 2018 I took a year off from my job to pursue a dream of mine: a year-long, cross-country road trip.
+I won't go into too much detail on that here (there's lots of stories in the [archives](/tags/van/)), but during that time I felt pressure to share details of my adventures on social media.
+People who learned of my trip wanted to follow along.
+
+The trouble was, creating content took time away from my time adventuring, not to mention I had no existing social media audience. 
+<%= mn("Other than my wonderful and supportive friends and family :)") %>
+I tried growing a social media presence but I've never felt comfortable promoting myself -- perhaps the primary aspect of the social media game.
+
+At some point in the hundreds of hours of driving I hatched a plan.
+I would save all of my dashcam footage and make it available online, sort of a [slow tv](https://en.wikipedia.org/wiki/Slow_television) art project of grand scale.
+
+This would allow me to "passively" generate content while simply driving.
+I didn't know if anyone would watch it, but I knew the idea was at the very least unique.
+
+<%= f "#{current_article.url}cycling-animation.gif", 'a looping animation of various still frames from dashcam footage' %>
+
+
+## 250+ Hours of Footage
+
+While premise was simple, it wasn't easy.
+The SD card in [my dashcam](https://smile.amazon.com/gp/product/B01M28B92C?tag=danalol-20) could only hold around 8 hours of footage; if I waited too long the oldest footage would be overwritten.
+<%= marginnote("Unfortunately this did happen on occasion, most notably I lost many hours of gorgeous footage of [Badlands National Park](https://en.wikipedia.org/wiki/Badlands_National_Park)") %>
+Every couple days I had to pull out my laptop and back up the footage to an 8TB external hard drive.
+When I had reliable wifi, I backed up the footage to the cloud (using Amazon Glacier).
+
+To conserve disk space, I didn't record any audio with the dashcam.
+This decision ended up being controversial to some members of my future community, but consider yourself lucky you don't have to listen to muffled fragments of my podcasts and audiobooks.
+
+When the trip was over I had in hand about 2.5TB of unedited footage.
+That's enough storage to hold 1/8th the text in the Library of Congress!
+
+In this trove there were a few captivating moments.
+Most of it was uneventful.
+All of it was high-quality, consistent, and honest footage of the United States of America.
+
+
+## Editing
+
+It was obvious that the average user gets immediately bored and "changes the channel" when nothing changes after about 20 seconds or so.
+I tried to trim out all moments where the vehicle wasn't moving.
+<%= marginnote("I did not trim any red lights, traffic, or other normal driving circumstances") %>
+
+Needless to say, editing 250+ hours of footage isn't an easy task.
+There is no software that is designed to work in this immense timescale.
+
+By hand, I searched the footage for thumbnails of gas stations, parking lots, drive-through restaurant lines, and other humdrum moments.
+Instead of cutting them completely, I carefully trimmed them to appear as if I pulled into the parking space, came to a stop, and immediately pulled out.
+There are numerous little cuts like this, and I think most go by without people noticing.
+
+
+## Going Live
+
+Exactly one year ago today (April 16th),
+<%= marginnote("My birthday btw") %>
+I went live.
+The first viewers started to trickle in, mainly people browsing the generally-uninhabited [Travel & Outdoors](https://www.twitch.tv/directory/game/Travel%20%26%20Outdoors) category on Twitch.
+
+The response was generally positive, but it was obvious the channel wasn't for everyone.
+Many new viewers watch the channel for about a minute, realize that it's pre-recorded, and leave forever.
+Put simply, my channel doesn't provide the back-and-forth between streamer and viewer that those users come to expect.
+
+Others, however, got hooked.
+
+I have viewers who have watched hundreds of hours... enough to see the footage loop several times!
+Having a background in software development [I wrote a bot](/2020/04/15/tripbot-the-adventure-robot/) to keep the viewers company.
+Through the bot they compete with each other for a spot on the "miles leaderboard," or use the `!location` command to check in on where we are, or they use the `!timewarp` command to jump to a random moment from the trip.
+
+
+## Some stats
+
+As I wrap up, I wanted to include some stats for the nerds:
+
+ * 46% of the community is from outside the USA.
+ * The most common words viewers use to describe the stream are _relaxing,_ _calming,_ and _peaceful._
+ * The channel gets an average of 242 unique viewers per day.
+ * I have made $213 from the Twitch Affiliate program.
+ * The most-requested feature is to add more footage.
+
+<br>
+
+I really appreciate you stopping by.
+If you're interested in learning more about the bot I wrote, [check out this article about Tripbot](/2020/04/15/tripbot-the-adventure-robot/).
+If you'd like to help support the stream, please consider subscribing for free with [Twitch Prime](/prime).
+
+Thank you!
+
+-Dana
