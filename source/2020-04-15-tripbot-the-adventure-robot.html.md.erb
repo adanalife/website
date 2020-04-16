@@ -59,10 +59,10 @@ With these pieces in place we can begin to control the stream.
 When a user types `!location` in chat, the flow looks something like this:
 
 1. Tripbot listens for messages in Twitch's modified IRC channel
-2. He gets sees the user's message and recognizes it as a command
+2. He sees the user's message and recognizes it as a command
 3. He fires off the function for that command, which:
   * asks the VLC server what video is currently playing
-  * looks up that video in the DB
+  * looks up that video in a SQL database
   * pulls out the GPS coordinates
   <%= mn "If the video isn't in the DB, Tripbot will use [OCR](https://en.wikipedia.org/wiki/Optical_character_recognition) to read the coordinates off the corner of the video" %>
 5. With the coordinates in hand, Tripbot replies to the user in Twitch chat
