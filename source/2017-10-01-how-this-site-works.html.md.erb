@@ -25,14 +25,14 @@ My goals on this project were as follows:
 ### Goal 1: Markdown
 
 I'm a big fan of [Markdown](https://en.wikipedia.org/wiki/Markdown), which provides a very simple syntax for creating formatted documents.
-<%= marginnote("For example, " + link_to("the markdown for this article is available here", "https://github.com/dmerrick/danalol/blob/master/source/2017-10-01-how-this-site-works.html.md.erb")) %>
+<%= marginnote("For example, " + link_to("the markdown for this article is available here", "https://github.com/dmerrick/website/blob/master/source/2017-10-01-how-this-site-works.html.md.erb")) %>
 I feel like Markdown files are very readable and the syntax rarely gets in my way.
 This way I can spend more time writing articles, and less time fighting with HTML.
 
 
 Getting this to work was really easy, because almost every language has a good markdown parser.
 <%= marginnote(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
-You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/danalol/tree/master/source).
+You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/website/tree/master/source).
 
 <br>
 
@@ -64,7 +64,7 @@ The process of writing an article is running `middleman article`, which generate
 To make my life easier, I can run `middleman server`, which launches a development server, allowing me to make changes to the article and view them in my browser in real-time.
 When I'm content with the way the article looks, I run `middleman build` and the article will be compiled to HTML for uploading to S3 for the world to see.
 
-For example, <%= link_to "the source code for this article is available for you to check out here", "https://github.com/dmerrick/danalol/blob/master/source/2017-10-01-how-this-site-works.html.md.erb" %>.
+For example, <%= link_to "the source code for this article is available for you to check out here", "https://github.com/dmerrick/website/blob/master/source/2017-10-01-how-this-site-works.html.md.erb" %>.
 
 <br>
 
