@@ -3,7 +3,7 @@ questions:
   - q: What kind of van was it?
     a: >-
       <p>
-      It was a <strong>92D190V</strong>.
+      It was a <strong><a href="/van-tour">92D190V</a></strong>.
       That's how other Roadtrek owners refer to a 1992 Dodge Roadtrek 190 Versatile.
       The 190 means it's 19ft (5.8m) from bumper to bumper.
       Versatile refers to the van's footprint: four total seat-buckled seats, as opposed to the Roadtrek Popular which only has three.
@@ -31,7 +31,7 @@ questions:
     short: shower
     published: true
 
-  - q: What was your route?
+  - q: Where did you go?
     a: >-
       <p>
       <a href="/2018/09/26/map-adventure-so-far-v2/map" class="no-underline"><img src="/2018/09/26/map-adventure-so-far-v2/map.png" alt="a map showing the journey so far"></a>
