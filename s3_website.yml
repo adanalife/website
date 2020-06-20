@@ -11,7 +11,7 @@ s3_bucket: <%= ENV['STATIC_SITE_BUCKET'] %>
 # Below are examples of all the available configurations.
 # See README for more detailed info on each of them.
 
-# site: path-to-your-website
+site: build/
 
 index_document: index.html
 error_document: 404.html
