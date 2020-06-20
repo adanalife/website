@@ -20,7 +20,6 @@ GEM
     awesome_print (1.8.0)
     backports (3.17.2)
     builder (3.2.4)
-    childprocess (3.0.0)
     coderay (1.1.3)
     coffee-script (2.4.1)
       coffee-script-source
@@ -61,7 +60,6 @@ GEM
       image_optim (~> 0.19)
     image_size (2.0.2)
     in_threads (1.5.4)
-    iniparse (1.5.0)
     kramdown (1.17.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -128,9 +126,6 @@ GEM
     minitest (5.14.1)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    overcommit (0.53.0)
-      childprocess (>= 0.6.3, < 4)
-      iniparse (~> 1.4)
     padrino-helpers (0.13.3.4)
       i18n (~> 0.6, >= 0.6.7)
       padrino-support (= 0.13.3.4)
@@ -182,7 +177,6 @@ DEPENDENCIES
   middleman-syntax
   middleman-title
   nokogiri
-  overcommit
   redcarpet
 
 BUNDLED WITH
