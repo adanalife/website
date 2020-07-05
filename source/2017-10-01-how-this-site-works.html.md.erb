@@ -32,7 +32,7 @@ This way I can spend more time writing articles, and less time fighting with HTM
 
 Getting this to work was really easy, because almost every language has a good markdown parser.
 <%= marginnote(link_to(tag(:img, src: "https://imgs.xkcd.com/comics/standards.png"), 'https://xkcd.com/927/', class: 'no-underline')) %>
-You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/dmerrick/website/tree/master/source).
+You can view my articles (and even more nitty-gritty internals of this site) on my GitHub repo [here](https://github.com/adanalife/website/tree/master/source).
 
 <br>
 
@@ -57,14 +57,14 @@ With Middleman I can still use code in my articles, but instead of that code run
 I spent a few hours building up a "boilerplate" project that basically contains everything but the style and content of this site.
 <%= marginnote '"Boilerplate" projects give developers a starting place if they wish to create their own' %>
 I wanted to share it because if you know Ruby and want to run a static blog, this is a solid place to start.
-You can view [my Middleman Boilerplate project](https://github.com/dmerrick/middleman-blog-boilerplate) here.
+You can view [my Middleman Boilerplate project](https://github.com/adanalife/middleman-blog-boilerplate) here.
 It's intended to be a comfortable starting point for creating a new website if someone wishes to in the future.
 
 The process of writing an article is running `middleman article`, which generates blank article for me to add content.
 To make my life easier, I can run `middleman server`, which launches a development server, allowing me to make changes to the article and view them in my browser in real-time.
 When I'm content with the way the article looks, I run `middleman build` and the article will be compiled to HTML for uploading to S3 for the world to see.
 
-For example, <%= link_to "the source code for this article is available for you to check out here", "https://github.com/dmerrick/website/blob/master/source/2017-10-01-how-this-site-works.html.md.erb" %>.
+For example, <%= link_to "the source code for this article is available for you to check out here", "https://github.com/adanalife/website/blob/master/source/2017-10-01-how-this-site-works.html.md.erb" %>.
 
 <br>
 
