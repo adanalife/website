@@ -32,6 +32,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
-        AWS_ROLE_ARN: ${{ secrets.CI_STAGE_AWS_ROLE_ARN }}
+        # AWS_ROLE_ARN: ${{ secrets.CI_STAGE_AWS_ROLE_ARN }}
         STAGE_S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
-      run: aws --role-arn $AWS_ROLE_ARN s3 ls $STAGE_S3_BUCKET
+      run: aws s3 ls $STAGE_S3_BUCKET
+      # run: aws --role-arn $AWS_ROLE_ARN s3 ls $STAGE_S3_BUCKET
