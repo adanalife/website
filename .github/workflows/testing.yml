@@ -47,3 +47,4 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
         STAGE_S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
       run: aws s3 sync build $STAGE_S3_BUCKET/build/
+      #TODO: it would be nice if we commented on the PR when the push succeeds
