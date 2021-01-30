@@ -156,7 +156,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.5.0)
+    redcarpet (3.5.1)
     rouge (3.20.0)
     s3_website (1.7.6)
       aws-sdk (~> 1)
