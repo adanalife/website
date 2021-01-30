@@ -1,5 +1,9 @@
 name: Testing
-on: [push]
+on:
+  push:
+  pull_request:
+    paths:
+      - .github/workflows/gpu_build.yml
 env:
   ENV: test
 jobs:
