@@ -1,0 +1,21 @@
+name: Release
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - id: get-version
+      uses: battila7/get-version-action@v2
+
+    - name: Post Discord notification
+      if: startsWith(github.ref, 'refs/tags/v')
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        VERSION_TAG: ${{ steps.get-version.outputs.version }}
+      uses: Ilshidur/action-discord@0.3.0
+      with:
+        args: 'New release created for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.compare }})'
