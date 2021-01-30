@@ -27,12 +27,9 @@ jobs:
     - run: echo $ENV
     - name: Attempt to build the static site
       run: bundle exec middleman build --bail
-    #TODO: actually do the push
     - name: Push the static site to stage
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
-        # AWS_ROLE_ARN: ${{ secrets.CI_STAGE_AWS_ROLE_ARN }}
         STAGE_S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
-      run: aws s3 ls $STAGE_S3_BUCKET
-      # run: aws --role-arn $AWS_ROLE_ARN s3 ls $STAGE_S3_BUCKET
+      run: aws s3 sync build $STAGE_S3_BUCKET/build/
