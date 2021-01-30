@@ -1,5 +1,8 @@
 name: Testing
-on: [push]
+on:
+  push:
+  issue_comment:
+    types: [created]
 env:
   ENV: test
 jobs:
@@ -28,6 +31,7 @@ jobs:
     - name: Attempt to build the static site
       run: bundle exec middleman build --bail
     - name: Push the static site to stage
+      if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/push')
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
