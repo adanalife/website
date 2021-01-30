@@ -46,5 +46,3 @@ gem 'builder'
 
 # For parsing Markdown
 gem 'redcarpet'
-
-gem 's3_website'
