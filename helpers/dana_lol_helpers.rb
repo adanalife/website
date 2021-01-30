@@ -8,7 +8,7 @@ module DanaLolHelpers
   alias_method :nt, :newthought
 
   def linked_image(img_src, alt_text = '')
-    link_to(image_tag(img_src, alt: alt_text), img_src, class: 'no-underline')
+    link_to(image_tag(img_src, alt: alt_text), remove_file_extension(img_src), class: 'no-underline')
   end
 
   # used for images and other figures
