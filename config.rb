@@ -28,8 +28,7 @@ ready do
   images.each do |img|
     #TODO: add something like this to speed it up?
     # next if sitemap.find_resource_by_path(...)
-    short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
-    proxy short_path, '/photo.html', layout: 'layout', locals: { photo: img }, ignore: true, content_type: 'text/html'
+    proxy img.destination_path, '/photo.html', layout: 'layout', locals: { photo: img }, ignore: true
   end
 end
 
