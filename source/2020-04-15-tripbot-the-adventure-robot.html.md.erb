@@ -1,0 +1,81 @@
+---
+
+title: Tripbot, the Adventure Robot
+date: 2020-04-15 00:00 UTC
+tags: van, design, meta, aws, code
+ogp:
+  og:
+    description: An introduction to the bot that powers the most boring stream on Twitch.
+    image:
+      '': https://www.dana.lol/2020/04/15/tripbot-the-adventure-robot/header.png
+      secure_url: https://www.dana.lol/2020/04/15/tripbot-the-adventure-robot/header.png
+      alt: A geyser erupting as seen from a parking lot in Yellowstone National Park
+      width: 1200
+      height: 630
+
+---
+
+<%= mn(linked_image("#{current_article.url}screencap.png", 'a screencap from dashcam footage showing a geyser erupting from a parking lot in Yellowstone National Park')) %>
+For the past year I've been running [a slow-tv art project](/2020/04/16/the-most-boring-stream-on-twitch/).
+It's comprised of an immense trove of my own dashcam footage, plus a custom chatbot to interact with the footage.
+I'm writing this to announce that I've made the [source code to Tripbot](https://github.com/adanalife/tripbot) publicly available.
+
+To interact with the bot, simply enter commands in the chat box on the [Twitch channel](https://www.twitch.tv/ADanaLife_).
+
+
+## What can the bot do?
+
+Here are some of the things you can ask of Tripbot:
+
+ * **`!location`** will tell you all about where we are driving
+<%= mn "`!location` also gives a handy Google Maps link" %>
+ * **`!timewarp`** will jump to a random moment in the 250+ hours of footage
+ * **`!date`** tells you the day the footage was recorded
+ * **`!guess`** gives viewers an opportunity to guess what state we're in, e.g. `!guess CA` guesses that we're in California
+ * **`!miles`** are a way to earn points for watching the stream... **`!leaderboard`** shows the users who have the most miles.
+
+Future commands include `!map` (to display a map on the stream) and `!temperature` (to get information about the weather at the time of filming).
+
+
+## General architecture
+
+<%= f "#{current_article.url}infra-diagram.png", 'a technical diagram showing how services interact' %>
+
+The project is composed of two main components: a bot process and a custom [VLC](https://en.wikipedia.org/wiki/VLC_media_player) process.
+They are both written in Golang, and they talk to one another over HTTP.
+The bot might ask the VLC process _what video is currently playing?_ or it might say _play this specific video_.
+
+Running alongside VLC is Open Broadcaster Software, or [OBS](https://en.wikipedia.org/wiki/Open_Broadcaster_Software).
+It's an open-source, cross-platform streaming tool that has been a joy to use.
+<%= mn "Though getting OBS to work on Linux with my ancient graphics card consumed many hours of my life!" %>
+
+Also present (though not included in the diagram above) is a music server using [MPD](https://en.wikipedia.org/wiki/Music_Player_Daemon).
+You can think of it like a headless iTunes, through which the bot can control the currently-playing audio.
+
+With these pieces in place we can begin to control the stream.
+
+
+## An example command flow
+
+When a user types `!location` in chat, the flow looks something like this:
+
+1. Tripbot listens for messages in Twitch's modified IRC channel
+2. He sees the user's message and recognizes it as a command
+3. He fires off the function for that command, which:
+  * asks the VLC server what video is currently playing
+  * looks up that video in a SQL database
+  * pulls out the GPS coordinates
+  <%= mn "If the video isn't in the DB, Tripbot will use [OCR](https://en.wikipedia.org/wiki/Optical_character_recognition) to read the coordinates off the corner of the video" %>
+5. With the coordinates in hand, Tripbot replies to the user in Twitch chat
+
+<br>
+
+Thanks for visiting!
+I hope that gives you more context about how Tripbot works.
+
+If you're interested in learning more about the project, I wrote [another article about the channel origins](/2020/04/16/the-most-boring-stream-on-twitch/).
+If you'd like to help support the project, please consider subscribing for free with [Twitch Prime](/prime).
+
+Onward!
+
+-Dana

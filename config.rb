@@ -23,9 +23,11 @@ page '/404.html', directory_index: false
 ready do
   #TODO: is there a better way to find all images?
   images = sitemap.resources.map(&:path)
-  images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\//}
+  images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\// && s !~ /ogp-image/ }
   images = images.map {|i| sitemap.find_resource_by_path(i)}
   images.each do |img|
+    #TODO: add something like this to speed it up?
+    # next if sitemap.find_resource_by_path(...)
     short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
     proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
   end
@@ -68,7 +70,7 @@ configure :build do
 
   # Minify images on build
   activate :images do |images|
-    images.optimize = true
+    images.optimize = ENV['ENV'] != 'test'
     # see https://github.com/toy/image_optim for all available options
     images.image_optim = {
       # disabling svgo because it complains about the missing tool

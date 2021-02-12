@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'awesome_print'
 
 # the static website generator
-gem 'middleman', '~> 4.2'
+gem 'middleman', '~> 4.3'
 
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
@@ -41,12 +41,10 @@ gem 'nokogiri'
 # for loading ENV vars from a .env file
 gem 'dotenv'
 
-# for managing git hooks
-gem 'overcommit'
-
 # For feed.xml.builder
 gem 'builder'
 
 # For parsing Markdown
 gem 'redcarpet'
 
+gem 's3_website'

@@ -1,5 +1,6 @@
-
-# A Dana Life - Source Code
+[![Version](https://img.shields.io/github/v/release/dmerrick/website?sort=semver&include_prereleases)](https://github.com/dmerrick/website/releases)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fdmerrick%2Fwebsite%2Fbadge&style=flat)](https://actions-badge.atrox.dev/dmerrick/website/goto)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Live site available here: [https://www.dana.lol](http://www.dana.lol)
 

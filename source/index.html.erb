@@ -5,7 +5,13 @@ ogp:
   og:
     description: Plug into my mind.
 ---
-<% page_articles.reject{|a| a.data.unlisted }.each_with_index do |article, i| %>
+<% page_articles.select{|a| a.data.pinned }.each_with_index do |article, i| %>
+  <h2><em>Pinned:</em> <%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
+  <%= summary(article) %>
+  <br>
+  <hr>
+<% end %>
+<% page_articles.reject{|a| a.data.unlisted || a.data.pinned }.each_with_index do |article, i| %>
   <h2><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
   <%= summary(article) %>
   <br>
