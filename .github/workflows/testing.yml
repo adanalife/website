@@ -47,7 +47,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
         STAGE_S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
       run: aws s3 sync build $STAGE_S3_BUCKET/build/
-    - uses: actions/github-script@v3
+    - uses: actions/github-script@v4.0.2
       name: comment-on-pr
       if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/push') && ! failure()
       with:
