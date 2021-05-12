@@ -25,7 +25,7 @@ jobs:
       with:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
     - uses: actions/cache@v1
       with:
         path: vendor/bundle
