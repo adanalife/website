@@ -8,7 +8,6 @@
 /.bundle
 
 # Ignore local rvm setup
-.ruby-version
 .ruby-gemset
 
 # Ignore the build directory
