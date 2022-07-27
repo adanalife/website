@@ -36,7 +36,7 @@ GEM
       deep_merge (= 1.0.0)
     contracts (0.13.0)
     deep_merge (1.0.0)
-    dotenv (2.7.5)
+    dotenv (2.8.1)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
