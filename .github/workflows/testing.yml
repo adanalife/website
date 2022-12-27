@@ -26,7 +26,7 @@ jobs:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
     - uses: actions/checkout@v2
-    - uses: actions/cache@v2.1.7
+    - uses: actions/cache@v3.2.2
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
