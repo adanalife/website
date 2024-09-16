@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang='en'>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%# add meta tags for cute link previews %>
     <% ogp_tags do |property, content| %>
@@ -18,15 +18,16 @@
     <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#ff0000">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="">
 
     <title>
       <%= '[d] ' if development? %>
       <%= page_title %>
     </title>
 
+    <%# include bare minimum styling so it looks decent before the CSS loads %>
+    <%# set background color and hide everything else %>
     <style>
-      <%# include bare minimum styling so it looks decent before the CSS loads %>
-      <%# set background color and hide everything else %>
       body{ background-color: #fffff8; padding-left: 12.5% }
       article, aside { display: none; }
     </style>
