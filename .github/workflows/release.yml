@@ -10,13 +10,13 @@ jobs:
     steps:
     - id: get-version
       uses: battila7/get-version-action@v2
+    - uses: actions/checkout@v2
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - uses: actions/checkout@v2
     # - uses: actions/cache@v2.1.7
     #   with:
     #     path: vendor/bundle
@@ -25,10 +25,6 @@ jobs:
     #       ${{ runner.os }}-gems-
     - name: Install pngout
       run: |
-        # wget http://static.jonof.id.au/dl/kenutils/pngout-20200115-linux-static.tar.gz
-        # tar -xvf pngout-20200115-linux-static.tar.gz
-        # sudo mv pngout-20200115-linux-static/x86_64/pngout /usr/local/bin/
-        # rm -rf pngout-20200115-linux-static*
         sudo apt-get update
         sudo apt-get install -y wget
         wget https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
