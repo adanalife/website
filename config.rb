@@ -22,7 +22,7 @@ page '/404.html', directory_index: false
 # create a photo landing page for every image
 ready do
   # Iterate over all .html.md.erb files to find associated images
-  sitemap.resources.select { |r| r.path.end_with?(".html") }.each do |page|
+  sitemap.resources.select { |r| r.path.end_with?(".html") && !r.path.include?("photo.html") }.each do |page|
     # Get the directory for the page
     page_dir = File.dirname(page.path)
 
