@@ -19,6 +19,10 @@ page '/404.html', directory_index: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
+# Ignore `photo.html.erb` to prevent it from being processed directly
+ignore "photo.html"
+ignore "photo.html.erb"
+
 # create a photo landing page for every image
 ready do
   # Iterate over all .html.md.erb files to find associated images
