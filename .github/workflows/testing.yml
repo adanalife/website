@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Install Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
