@@ -15,6 +15,7 @@ jobs:
       with:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
+        #bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - uses: actions/checkout@v2
     - uses: actions/cache@v2.1.7
       with:
