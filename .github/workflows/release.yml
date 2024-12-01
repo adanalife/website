@@ -1,8 +1,8 @@
 name: Release
 on:
   push:
-    tags:
-      - v*
+    # tags:
+    #   - v*
 
 jobs:
   build:
@@ -29,12 +29,18 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Build the static site
       run: bundle exec middleman build --bail
-    - name: Push the static site to prod
+    - name: Push the static site to stage
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_PROD_AWS_SECRET_ACCESS_KEY }}
-        PROD_S3_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
-      run: aws s3 sync build $PROD_S3_BUCKET/build/
+        AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
+        S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
+      run: aws s3 sync build $S3_BUCKET/build/
+    # - name: Push the static site to prod
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_PROD_AWS_SECRET_ACCESS_KEY }}
+    #     S3_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
+    #   run: aws s3 sync build $S3_BUCKET/build/
 
     - name: Post Discord notification
       if: startsWith(github.ref, 'refs/tags/v')
