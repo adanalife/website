@@ -6,10 +6,17 @@ jobs:
     name: misspell
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: misspell
         uses: reviewdog/action-misspell@v1.10
         with:
           github_token: ${{ secrets.github_token }}
           locale: "US"
           level: info
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.1
