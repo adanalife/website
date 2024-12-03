@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - v*
+    branches:
+      - master
 
 jobs:
   build:
@@ -10,31 +12,35 @@ jobs:
     steps:
     - id: get-version
       uses: battila7/get-version-action@v2
+    - uses: actions/checkout@v2
     - name: Install Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v2.1.7
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-    - name: Install Gems
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install pngout
       run: |
-        gem install bundler
-        bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3
+        sudo apt-get update
+        sudo apt-get install -y wget
+        wget https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
+        tar -xvf pngout-20200115-linux.tar.gz
+        sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
+        rm -rf pngout-20200115-linux*
     - name: Build the static site
       run: bundle exec middleman build --bail
-    - name: Push the static site to prod
+    - name: Push the static site to stage
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_PROD_AWS_SECRET_ACCESS_KEY }}
-        PROD_S3_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
-      run: aws s3 sync build $PROD_S3_BUCKET/build/
+        AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
+        S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
+      run: aws s3 sync build $S3_BUCKET/build/
+    # - name: Push the static site to prod
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_PROD_AWS_SECRET_ACCESS_KEY }}
+    #     S3_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
+    #   run: aws s3 sync build $S3_BUCKET/build/
 
     - name: Post Discord notification
       if: startsWith(github.ref, 'refs/tags/v')

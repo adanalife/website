@@ -19,17 +19,31 @@ page '/404.html', directory_index: false
 # With alternative layout
 # page "/path/to/file.html", layout: :otherlayout
 
+# Ignore `photo.html.erb` to prevent it from being processed directly
+ignore "photo.html"
+ignore "photo.html.erb"
+
 # create a photo landing page for every image
 ready do
-  #TODO: is there a better way to find all images?
-  images = sitemap.resources.map(&:path)
-  images = images.select {|s| s =~ /\.(jpg|png)$/i && s !~ /assets\// && s !~ /ogp-image/ }
-  images = images.map {|i| sitemap.find_resource_by_path(i)}
-  images.each do |img|
-    #TODO: add something like this to speed it up?
-    # next if sitemap.find_resource_by_path(...)
-    short_path = img.destination_path.sub(/#{File.extname(img.destination_path)}$/, '')
-    proxy short_path, "/photo.html", layout: 'layout', locals: { photo: img }, ignore: true
+  # Iterate over all .html.md.erb files to find associated images
+  sitemap.resources.select { |r| r.path.end_with?(".html") && !r.path.include?("photo.html") }.each do |page|
+    # Get the directory for the page
+    page_dir = File.dirname(page.path)
+
+    # Find all image files in this directory
+    Dir.glob("source/#{page_dir}/*.{jpg,png}").each do |image_path|
+      # Remove "source/" prefix for the relative image path
+      relative_path = image_path.sub(%r{^source/}, '')
+
+      # Get the destination path without the extension
+      short_path = relative_path.sub(/#{File.extname(relative_path)}$/, '')
+
+      # Avoid duplicate proxies
+      next if sitemap.find_resource_by_path(short_path)
+
+      # Create a proxy for the image
+      proxy short_path, "/photo.html", layout: 'layout', locals: { photo: sitemap.find_resource_by_path(relative_path) }, ignore: true
+    end
   end
 end
 
