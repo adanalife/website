@@ -19,12 +19,6 @@ jobs:
         #TODO: bring this back to 2.7
         ruby-version: '2.6'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    # - uses: actions/cache@v2.1.7
-    #   with:
-    #     path: vendor/bundle
-    #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-gems-
     - name: Install pngout
       run: |
         sudo apt-get update
@@ -33,12 +27,6 @@ jobs:
         tar -xvf pngout-20200115-linux.tar.gz
         sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
         rm -rf pngout-20200115-linux*
-    # - name: Install Gems
-    #   run: |
-    #     # use a bundler that supports our ancient ruby
-    #     gem install bundler -v 2.4.22
-    #     bundle config path vendor/bundle
-    #     bundle install --jobs 4 --retry 3
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Push the static site to stage
