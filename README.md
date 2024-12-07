@@ -33,4 +33,3 @@ aws cloudformation create-stack \
       ParameterKey=FullDomainName,ParameterValue=<<WWW.EXAMPLE.COM>> \
       ParameterKey=AcmCertificateArn,ParameterValue=<<ACM ARN STRING>>
 ```
-
