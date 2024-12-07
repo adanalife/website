@@ -27,6 +27,15 @@ jobs:
         tar -xvf pngout-20200115-linux.tar.gz
         sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
         rm -rf pngout-20200115-linux*
+    - name: Cache Middleman and image processing files
+      uses: actions/cache@v3
+      with:
+        path: |
+          .middleman/cache   # Middleman cache directory
+          build              # Cache the build directory if it's reusable
+        key: middleman-${{ hashFiles('**/*') }}
+        restore-keys: |
+          middleman-
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Push the static site to stage
