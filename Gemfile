@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'awesome_print'
 
 # the static website generator
-gem 'middleman', '~> 4.3'
+gem 'middleman', '~> 4.4'
 
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
