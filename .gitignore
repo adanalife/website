@@ -40,6 +40,5 @@ design/favicon-atom.psd
 # No need to commit these
 /bin
 /ignore
-s3_website.jar
 
 design
