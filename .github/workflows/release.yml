@@ -46,7 +46,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
         STATIC_SITE_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
         STATIC_SITE_CLOUDFRONT: ${{ secrets.STAGE_CLOUDFRONT_DISTRIBUTION_ID }}
-      run: bundle exec s3_website push
+      run: bundle exec s3_website push --site build
     # - name: Push the static site to prod
     #   env:
     #     AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
