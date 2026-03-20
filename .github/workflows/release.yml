@@ -23,7 +23,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y wget
-        wget https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
+        wget --user-agent="Mozilla/5.0" https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
         tar -xvf pngout-20200115-linux.tar.gz
         sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
         rm -rf pngout-20200115-linux*
