@@ -3,6 +3,9 @@
 ###
 
 
+# Include .well-known directory (Middleman ignores dot-directories by default)
+page '/.well-known/*', layout: false
+
 # Per-page layout changes:
 #
 # With no layout
