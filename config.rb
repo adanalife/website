@@ -85,15 +85,13 @@ configure :build do
   # Minify HTML on build
   activate :minify_html
 
-  # Minify images on build
-  activate :images do |images|
-    images.optimize = ENV['ENV'] != 'test'
-    # see https://github.com/toy/image_optim for all available options
-    images.image_optim = {
-      # disabling svgo because it complains about the missing tool
-      svgo: false
-    }
-  end
+  # Minify images on build (disabled during Ruby 3 upgrade, re-add later)
+  # activate :images do |images|
+  #   images.optimize = ENV['ENV'] != 'test'
+  #   images.image_optim = {
+  #     svgo: false
+  #   }
+  # end
 
   # Minify Javascript on build
   # activate :minify_javascript
@@ -105,10 +103,10 @@ configure :development do
   # Reload the browser automatically whenever files change
   activate :livereload
 
-  # Don't minify images in development
-  activate :images do |images|
-    images.optimize = false
-  end
+  # Don't minify images in development (disabled during Ruby 3 upgrade)
+  # activate :images do |images|
+  #   images.optimize = false
+  # end
 end
 
 activate :blog do |blog|
