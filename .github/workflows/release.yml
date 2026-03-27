@@ -16,7 +16,7 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.4'
+        ruby-version-file: .tool-versions
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Install ImageMagick
       run: sudo apt-get install -y imagemagick

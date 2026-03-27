@@ -24,7 +24,7 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.4'
+        ruby-version-file: .tool-versions
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: echo $ENV
     - name: Attempt to build the static site
