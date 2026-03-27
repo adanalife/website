@@ -39,20 +39,11 @@ jobs:
           middleman-
     - name: Build the static site
       run: bundle exec middleman build --bail
-    - name: Push the static site to stage
+    - name: Deploy to Cloudflare Pages (staging)
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CI_STAGE_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_STAGE_AWS_SECRET_ACCESS_KEY }}
-        STATIC_SITE_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
-        STATIC_SITE_CLOUDFRONT: ${{ secrets.STAGE_CLOUDFRONT_DISTRIBUTION_ID }}
-      run: bundle exec s3_website push --site build --headless
-    # - name: Push the static site to prod
-    #   env:
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.CI_PROD_AWS_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_PROD_AWS_SECRET_ACCESS_KEY }}
-    #     STATIC_SITE_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
-    #     STATIC_SITE_CLOUDFRONT: ${{ secrets.PROD_CLOUDFRONT_DISTRIBUTION_ID }}
-    #   run: bundle exec s3_website push
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: npx wrangler pages deploy build/ --project-name dana-lol-staging
 
     - name: Post Discord notification
       if: startsWith(github.ref, 'refs/tags/v')
