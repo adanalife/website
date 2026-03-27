@@ -30,9 +30,9 @@ gem 'middleman-minify-html'
 # for generating pretty FB link previews
 gem 'middleman-ogp'
 
-# for shrinking images (disabled during Ruby 3 upgrade, re-add later)
-# gem 'image_optim_pack'
-# gem 'middleman-images', github: 'dmerrick/middleman-images'
+# for shrinking images
+gem 'image_optim_pack'
+gem 'middleman-images'
 
 # for generating article summaries
 gem 'nokogiri'
