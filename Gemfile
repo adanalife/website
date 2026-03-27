@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'awesome_print'
 
 # the static website generator
-gem 'middleman', '~> 4.3'
+gem 'middleman', '~> 4.6'
 
 # this extension adds blog-specific functionality
 gem 'middleman-blog'
@@ -22,9 +22,6 @@ gem 'middleman-syntax'
 # for dynamically generating page titles
 gem 'middleman-title'
 
-# provides a pry-based `middleman console`
-gem 'middleman-pry'
-
 # this will remove whitespace around HTML files
 gem 'middleman-minify-html'
 
@@ -33,7 +30,7 @@ gem 'middleman-ogp'
 
 # for shrinking images
 gem 'image_optim_pack' # this installs the required tools, is optional
-gem 'middleman-images', github: 'dmerrick/middleman-images'
+gem 'middleman-images'
 
 # for generating article summaries
 gem 'nokogiri'
@@ -46,6 +43,3 @@ gem 'builder'
 
 # For parsing Markdown
 gem 'redcarpet'
-
-# pin ffi to a version compatible with Ruby 2.7
-gem 'ffi', '< 1.17'

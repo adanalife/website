@@ -24,8 +24,7 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        #TODO: bring this back to 2.7
-        ruby-version: '2.6'
+        ruby-version-file: .tool-versions
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: echo $ENV
     - name: Attempt to build the static site
