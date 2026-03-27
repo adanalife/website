@@ -29,7 +29,7 @@ gem 'middleman-minify-html'
 gem 'middleman-ogp'
 
 # for shrinking images
-gem 'image_optim_pack'
+gem 'image_optim_pack' # this installs the required tools, is optional
 gem 'middleman-images'
 
 # for generating article summaries
