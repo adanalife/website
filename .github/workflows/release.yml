@@ -16,8 +16,7 @@ jobs:
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        #TODO: bring this back to 2.7
-        ruby-version: '2.6'
+        ruby-version: '3.4'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Install ImageMagick
       run: sudo apt-get install -y imagemagick
