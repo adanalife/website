@@ -22,8 +22,6 @@ gem 'middleman-syntax'
 # for dynamically generating page titles
 gem 'middleman-title'
 
-# middleman-pry removed: conflicts with middleman 4.6's built-in console
-
 # this will remove whitespace around HTML files
 gem 'middleman-minify-html'
 
