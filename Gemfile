@@ -47,4 +47,5 @@ gem 'builder'
 # For parsing Markdown
 gem 'redcarpet'
 
-gem 's3_website'
+# pin ffi to a version compatible with Ruby 2.7
+gem 'ffi', '< 1.17'
