@@ -149,4 +149,3 @@ activate :ogp do |ogp|
   # turn on article support
   ogp.blog = true
 end
-
