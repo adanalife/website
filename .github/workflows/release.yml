@@ -3,21 +3,17 @@ on:
   push:
     tags:
       - v*
-    branches:
-      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - id: get-version
-      uses: battila7/get-version-action@v2
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version-file: .tool-versions
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
     - name: Install ImageMagick
       run: sudo apt-get install -y imagemagick
     - name: Install pngout
@@ -32,8 +28,8 @@ jobs:
       uses: actions/cache@v5
       with:
         path: |
-          .middleman/cache   # Middleman cache directory
-          build              # Cache the build directory if it's reusable
+          .middleman/cache
+          build
         key: middleman-${{ hashFiles('**/*') }}
         restore-keys: |
           middleman-
@@ -46,10 +42,9 @@ jobs:
       run: npx wrangler pages deploy build/ --project-name dana-lol-staging
 
     - name: Post Discord notification
-      if: startsWith(github.ref, 'refs/tags/v')
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        VERSION_TAG: ${{ steps.get-version.outputs.version }}
-      uses: Ilshidur/action-discord@0.3.2
+        VERSION_TAG: ${{ github.ref_name }}
+      uses: Ilshidur/action-discord@0.4.0
       with:
-        args: 'New release created for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.compare }})'
+        args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.compare }})'
