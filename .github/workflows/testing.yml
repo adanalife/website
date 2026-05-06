@@ -1,16 +1,6 @@
 name: Testing
 on:
   pull_request:
-    paths:
-      - .github/workflows/testing.yaml
-      - Gemfile
-      - Gemfile.lock
-      - config.rb
-      - data/**
-      - helpers/**
-      - source/**
-  issue_comment:
-    types: [created]
 
 env:
   ENV: test
@@ -20,31 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version-file: .tool-versions
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - run: echo $ENV
-    - name: Attempt to build the static site
+        bundler-cache: true
+    - name: Build the static site
       run: bundle exec middleman build --bail
-    - name: Push the static site to stage
-      if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/push')
+    - name: Deploy to Cloudflare Pages (staging)
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.CI_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_AWS_SECRET_ACCESS_KEY }}
-        STAGE_S3_BUCKET: ${{ secrets.STAGE_S3_BUCKET }}
-      run: aws s3 sync build $STAGE_S3_BUCKET/build/
-    - uses: actions/github-script@v4.0.2
-      name: comment-on-pr
-      if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/push') && ! failure()
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: "Deployed to stage!"
-          });
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: npx wrangler pages deploy build/ --project-name dana-lol-staging
