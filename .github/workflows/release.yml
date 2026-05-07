@@ -39,7 +39,10 @@ jobs:
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging
+      # Tag pushes have detached HEAD; without --branch, wrangler defaults
+      # to the "head" alias and the deploy never reaches the production
+      # alias serving whalecore.com. Pin to master so releases promote.
+      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
 
     - name: Post Discord notification
       env:
