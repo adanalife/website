@@ -22,8 +22,13 @@ jobs:
         bundler-cache: true
     - name: Build the static site
       run: bundle exec middleman build --bail
+    # Skip CF Pages deploy for Dependabot PRs: GitHub deliberately
+    # withholds repo secrets from Dependabot-triggered runs, so
+    # CLOUDFLARE_API_TOKEN comes through blank and wrangler fails.
+    # Dep bumps don't need a preview deploy anyway.
     - name: Deploy to Cloudflare Pages (staging)
       id: deploy
+      if: github.actor != 'dependabot[bot]'
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -34,6 +39,7 @@ jobs:
         alias=$(grep "Deployment alias URL:" wrangler.out | grep -oE 'https://[^ ]+' | tail -1)
         echo "alias=$alias" >> "$GITHUB_OUTPUT"
     - name: Sticky preview URL comment
+      if: github.actor != 'dependabot[bot]'
       uses: marocchino/sticky-pull-request-comment@v3
       with:
         header: cf-preview
