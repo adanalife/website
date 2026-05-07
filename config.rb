@@ -6,6 +6,15 @@
 # Include .well-known directory (Middleman ignores dot-directories by default)
 page '/.well-known/*', layout: false
 
+# Cloudflare Pages reads /_redirects at the build root for 301/302 rules.
+# Middleman skips files starting with "_" (treats them as partials), so
+# we copy source/_redirects to build/_redirects after each build.
+after_build do |builder|
+  src = File.join(builder.app.root, 'source', '_redirects')
+  dst = File.join(builder.app.root, builder.app.config[:build_dir], '_redirects')
+  FileUtils.cp(src, dst) if File.exist?(src)
+end
+
 # Per-page layout changes:
 #
 # With no layout

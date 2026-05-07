@@ -1,7 +1,6 @@
-
+<!-- markdownlint-disable -->
 
 ---
-<!-- markdownlint-disable -->
 <details>
 <summary>Commands and options</summary>
 <br />

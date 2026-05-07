@@ -1,0 +1,57 @@
+---
+name: Super Linter
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Run Linters
+    runs-on: ubuntu-latest
+
+    steps:
+      # fetch-depth: 0 is required by super-linter v6+: it diffs against
+      # the default branch (master) to figure out which files changed,
+      # which means master has to be present in the local checkout.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: run-linters
+        uses: super-linter/super-linter@v8.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # don't post a "Super-linter summary" comment on every PR run
+          # (the Actions step summary tab still gets the same content)
+          ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          # disabled until we go through and fix the issues
+          VALIDATE_JSCPD: false
+          VALIDATE_ENV: false
+          # disabled — many SCSS modernization issues across source/assets/
+          # (color-function-notation, alpha-value-notation, vendor prefixes,
+          # length-zero-no-unit). Fix is non-trivial; revisit later.
+          VALIDATE_CSS: false
+          VALIDATE_CSS_PRETTIER: false
+          # disabled — needs a .rubocop.yml + bulk auto-fixes for
+          # frozen_string_literal comments and single→double quotes.
+          # Worth a dedicated PR.
+          VALIDATE_RUBY: false
+          # disabled — false-positive: cfn-lint emits a Pydantic/Python 3.14
+          # compat warning to stderr, which super-linter treats as a failure.
+          # The repo has no CFN templates today (legacy CFN samples in README
+          # only).
+          VALIDATE_CLOUDFORMATION: false
+          # disabled until we can resolve their issues
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_GITHUB_ACTIONS: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          VALIDATE_JSON_PRETTIER: false
+          VALIDATE_MARKDOWN_PRETTIER: false
+          VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_SHELL_SHFMT: false
+          VALIDATE_SPELL_CODESPELL: false
+          VALIDATE_TRIVY: false
+          VALIDATE_YAML_PRETTIER: false
