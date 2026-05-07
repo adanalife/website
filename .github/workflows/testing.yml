@@ -34,7 +34,7 @@ jobs:
         alias=$(grep "Deployment alias URL:" wrangler.out | grep -oE 'https://[^ ]+' | tail -1)
         echo "alias=$alias" >> "$GITHUB_OUTPUT"
     - name: Sticky preview URL comment
-      uses: marocchino/sticky-pull-request-comment@v2
+      uses: marocchino/sticky-pull-request-comment@v3
       with:
         header: cf-preview
         message: |
