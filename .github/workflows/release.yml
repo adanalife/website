@@ -35,14 +35,13 @@ jobs:
           middleman-
     - name: Build the static site
       run: bundle exec middleman build --bail
-    - name: Deploy to Cloudflare Pages (staging)
+    - name: Deploy to Cloudflare Pages (production)
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # Tag pushes have detached HEAD; without --branch, wrangler defaults
-      # to the "head" alias and the deploy never reaches the production
-      # alias serving whalecore.com. Pin to master so releases promote.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
+      # Tag pushes have detached HEAD; pin to master so the deploy
+      # lands on the production alias serving www.dana.lol.
+      run: npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
 
     - name: Post Discord notification
       env:
