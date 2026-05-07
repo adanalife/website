@@ -59,7 +59,7 @@ class PhotoLandingPages
     new_proxies = []
 
     resources.each do |r|
-      next unless r.path =~ /\.(jpg|png)$/i
+      next unless r.path =~ /\.(jpg|png|gif)$/i
       next if r.path =~ %r{^assets/} || r.path =~ /ogp-image/
 
       ext = File.extname(r.destination_path)
