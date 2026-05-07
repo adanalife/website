@@ -9,12 +9,12 @@ Live site available here: [https://www.dana.lol](http://www.dana.lol)
 If you want you can read these two articles about how the site works: [part 1](https://www.dana.lol/2017/10/01/how-this-site-works) and [part 2](https://www.dana.lol/2017/10/12/how-this-site-works-p-2).
 
 
-### Contact Form
+## Contact Form
 
 The site is designed to be static, but there is a small app that runs [the contact page](https://www.dana.lol/contact). You can view the code that runs the contact page in the [`danalol-contact-form` project](https://github.com/dmerrick/danalol-contact-form).
 
 
-### Technical Infrastructure
+## Technical Infrastructure
 
 To build out the infrastructure required to run this site, you can use the CloudFormation templates found in `cloudformation/`
 
