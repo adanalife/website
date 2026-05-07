@@ -5,7 +5,7 @@
 }
 
 .heading li {
-  color: grey;
+  color: var(--color-muted);
   display: inline;
   font-size: 0.9em;
   margin-right: 0.5em;
@@ -75,6 +75,19 @@ aside.footer {
   margin-bottom: 1em;
 }
 
+button.theme-toggle {
+  background: none;
+  border: 0;
+  padding: 0 0.4em;
+  margin-left: 0.4em;
+  cursor: pointer;
+  font-size: 1em;
+  color: inherit;
+  opacity: 0.6;
+
+  &:hover { opacity: 1; }
+}
+
 .btn {
   position: relative;
   vertical-align: top;
@@ -82,10 +95,10 @@ aside.footer {
   height: 60px;
   padding: 0;
   font-size: 22px;
-  color: white;
+  color: var(--color-btn-text);
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-btn-overlay);
   border: 0;
   cursor: pointer;
 }

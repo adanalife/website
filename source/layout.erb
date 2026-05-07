@@ -24,10 +24,25 @@
       <%= page_title %>
     </title>
 
+    <%# Set data-theme on <html> before paint to avoid a flash of the wrong theme. %>
+    <%# Reads localStorage.theme; falls back to OS prefers-color-scheme. %>
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement;
+          var saved = localStorage.getItem('theme');
+          var theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          d.setAttribute('data-theme', theme);
+          d.style.setProperty('color-scheme', theme);
+        } catch (e) {}
+      })();
+    </script>
+
     <style>
       <%# include bare minimum styling so it looks decent before the CSS loads %>
       <%# set background color and hide everything else %>
       body{ background-color: #fffff8; padding-left: 12.5% }
+      html[data-theme='dark'] body { background-color: #1a1a1a; }
       article, aside { display: none; }
     </style>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
@@ -66,6 +81,7 @@
     <aside class='footer'>
       © <%= link_to 'Dana', '/contact' %> <%= Date.today.year %>, unless noted otherwise.
       Big thanks to <%= link_to 'these people', '/thanks' %>.
+      <button type='button' class='theme-toggle' aria-label='Toggle dark mode' onclick="(function(){var d=document.documentElement;var next=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',next);d.style.setProperty('color-scheme',next);try{localStorage.setItem('theme',next);}catch(e){}})()">🌓</button>
     </aside>
 
     <%# this stuff is Google's recommendation for faster page loading %>

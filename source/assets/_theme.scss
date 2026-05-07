@@ -1,0 +1,28 @@
+// Theme variables — dark mode is driven by `data-theme="dark"|"light"` on <html>.
+// An inline script in layout.erb sets the attribute before first paint, falling
+// back to prefers-color-scheme. A footer toggle flips and persists via localStorage.
+
+:root,
+[data-theme='light'] {
+  --color-bg: #fffff8;
+  --color-text: #111;
+  --color-border: #ccc;
+  --color-muted: grey;
+  --color-selection: #b4d5fe;
+  --color-btn-text: white;
+  --color-btn-overlay: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --color-bg: #1a1a1a;
+  --color-text: #e8e6d8;
+  --color-border: #444;
+  --color-muted: #888;
+  --color-selection: #2d4a7a;
+  --color-btn-text: var(--color-text);
+  --color-btn-overlay: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] img {
+  filter: brightness(0.9) contrast(1.1);
+}
