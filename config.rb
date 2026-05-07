@@ -115,6 +115,52 @@ configure :build do
   activate :minify_html
 
   # Minify images on build
+  #
+  # Two fixes are needed for middleman-images 0.2.0 against this blog setup;
+  # without them image optimization is silently a no-op (templates render with
+  # the original src, no -opt resource is generated):
+  #
+  # 1. Priority 120 (default 50) so the manipulator runs after directory_indexes
+  #    (100) and Collections (110, which realizes app.data). Otherwise the
+  #    inspector's `resource.render({}, {})` pass sees `current_article.url`
+  #    still in `.html` form, and the lazy `data.ogp.og` accessor resolves to
+  #    nil — both of which make `<%= figure "#{current_article.url}foo.jpg" %>`
+  #    look up a malformed path that doesn't exist in the sitemap.
+  # 2. Lookup by destination_path, not source path. middleman-images' built-in
+  #    `image_path` calls `find_resource_by_path`, but blog images have
+  #    `path = 2017-11-27-foo/img.jpg` (source-file form) while their
+  #    `destination_path = 2017/11/27/foo/img.jpg` (URL form). Templates
+  #    reference the URL form, so the path-based lookup misses every blog image.
+  Middleman::Images::Extension.resource_list_manipulator_priority = 120
+  Middleman::Images::Extension.class_eval do
+    def image_path(path, process_options)
+      source = app.sitemap.find_resource_by_destination_path(send(:absolute_path, path))
+      return path if source.nil?
+
+      process_options[:image_optim] = options[:image_optim]
+      process_options[:optimize] = options[:optimize] unless process_options.key?(:optimize)
+
+      if process_options[:resize] || process_options[:optimize]
+        processed_path = Pathname.new(send(:add_processed_resource, source, process_options))
+        path = processed_path.relative_path_from(Pathname.new(app.config[:images_dir])).to_s
+      else
+        @manipulator.preserve_original source
+      end
+
+      path
+    end
+
+    # Build the -opt resource path off destination_path (URL form) instead of
+    # normalized_path (source-file form). Otherwise blog images get optimized
+    # to /2017-11-27-foo/img-opt.jpg instead of /2017/11/27/foo/img-opt.jpg
+    # and the rendered HTML 404s in prod.
+    def build_processed_path(source, process_options)
+      destination = source.destination_path.sub(/#{source.ext}$/, "")
+      destination += "-" + CGI.escape(process_options[:resize].to_s) if process_options[:resize]
+      destination += "-opt" if process_options[:optimize]
+      destination + source.ext
+    end
+  end
   activate :images do |images|
     images.optimize = ENV['ENV'] != 'test'
     # see https://github.com/toy/image_optim for all available options
