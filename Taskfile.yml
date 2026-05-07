@@ -1,9 +1,10 @@
 # Taskfile for the dana.lol Middleman site.
 #
-# Cloudflare Pages is the new staging deploy target (deploy:stage).
-# Production currently still serves from S3 — see :s3-suffixed tasks.
-# A follow-up will add a Cloudflare prod target (deploy:prod) once the
-# dana-lol Pages project is provisioned in terraform/prod-1/.
+# Cloudflare Pages is the deploy target for both staging (deploy:stage,
+# project: dana-lol-staging, custom domain: www.whalecore.com) and
+# production (deploy:prod, project: dana-lol-production, custom domain:
+# www.dana.lol). The :s3-suffixed tasks are retained as a fallback in
+# case CF Pages needs to be rolled back.
 
 version: '3'
 
@@ -31,10 +32,21 @@ tasks:
       - task: build:fast
       - task: deploy:stage
 
+  deploy:prod:
+    desc: Deploy build/ to Cloudflare Pages production (dana-lol-production)
+    cmds:
+      - npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
+
+  release:prod:
+    desc: Build (with image optimization) and deploy to Cloudflare Pages production
+    cmds:
+      - task: build
+      - task: deploy:prod
+
   # --- Legacy S3 paths ------------------------------------------------------
-  # Staging S3 retained as a fallback in case the Cloudflare Pages staging
-  # path needs to be rolled back. Prod S3 is the current production target
-  # for www.dana.lol (no Cloudflare prod project exists yet).
+  # Retained as a fallback in case the Cloudflare Pages path needs to
+  # be rolled back. Both staging and prod CF Pages projects are now the
+  # default deploy targets (deploy:stage, deploy:prod).
 
   deploy:stage:s3:
     desc: (fallback) Push build/ to staging S3 (set STAGE_S3_BUCKET and STAGE_CLOUDFRONT_DISTRIBUTION_ID)
@@ -45,7 +57,7 @@ tasks:
       - bundle exec s3_website push --site build
 
   deploy:prod:s3:
-    desc: Push build/ to prod S3 — current www.dana.lol target (set PROD_S3_BUCKET and PROD_CLOUDFRONT_DISTRIBUTION_ID)
+    desc: (fallback) Push build/ to prod S3 (set PROD_S3_BUCKET and PROD_CLOUDFRONT_DISTRIBUTION_ID)
     env:
       STATIC_SITE_BUCKET: $PROD_S3_BUCKET
       STATIC_SITE_CLOUDFRONT: $PROD_CLOUDFRONT_DISTRIBUTION_ID
@@ -59,7 +71,7 @@ tasks:
       - task: deploy:stage:s3
 
   release:prod:s3:
-    desc: Build (with image optimization) and deploy to prod S3 (current prod)
+    desc: (fallback) Build (with image optimization) and deploy to prod S3
     cmds:
       - task: build
       - task: deploy:prod:s3
