@@ -1,0 +1,22 @@
+# Cloudflare Pages redirects.
+# Translated 1:1 from s3_website.yml's `redirects:` block — those S3
+# server-side redirects don't apply on Cloudflare Pages, so we re-declare
+# them here. Keep this in sync with s3_website.yml until prod also runs
+# on Cloudflare Pages and the S3 deploy path is retired.
+
+# Convenience short URLs
+/radio          /2017/10/11/san-francisco-emergency-radio-setup/             301
+/fb             https://www.facebook.com/adanalifeblog                       301
+/facebook       https://www.facebook.com/adanalifeblog                       301
+/youtube        https://www.youtube.com/channel/UC8Q7uFC1Xyr2ZnTWOk9Aizg     301
+/instagram      https://instagram.com/adanalife_                             301
+/twitter        https://twitter.com/adanalife_                               301
+/twitch         https://twitch.tv/adanalife_                                 301
+/van-tour       https://youtu.be/_own6DuEpLc                                 301
+/survey         https://forms.gle/a52NamfEfCcSP7Vc9                          301
+
+# Renamed articles — keep old URLs working
+/2018/03/05/trip-recap-central-coast/    /2018/03/05/trip-report-central-coast/  301
+/2019/01/13/eleven-month-update/         /2019/01/13/post-adventure-summary/     301
+/2017/10/01/how-this-site-works-p-2/     /2017/10/12/how-this-site-works-p-2/    301
+/2017/10/12/how-this-site-works-p-1/     /2017/10/01/how-this-site-works/        301
