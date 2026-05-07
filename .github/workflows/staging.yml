@@ -3,11 +3,6 @@ on:
   push:
     branches: [develop]
 
-# Build settings mirror testing.yml: ENV=test skips image optimization,
-# which is fine for staging where merges land more often than tag releases.
-env:
-  ENV: test
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
