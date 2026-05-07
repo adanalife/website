@@ -35,29 +35,49 @@ page '/404.html', directory_index: false
 ignore "photo.html"
 ignore "photo.html.erb"
 
-# create a photo landing page for every image
-ready do
-  # Iterate over all .html.md.erb files to find associated images
-  sitemap.resources.select { |r| r.path.end_with?(".html") && !r.path.include?("photo.html") }.each do |page|
-    # Get the directory for the page
-    page_dir = File.dirname(page.path)
+# Generate a photo landing page (/photo.html) for every image, mounted at
+# the image's slug-without-extension. linked_image() in dana_lol_helpers
+# wraps every <img> in <a href="<slug>"> pointing here.
+#
+# Implemented as a single sitemap manipulator (rather than calling proxy
+# in a `ready do` loop): each proxy() call inside ready triggers a full
+# manipulator pipeline re-run, including middleman-images. With ~190
+# images the build went from ~2 minutes to ~10. Adding them as one
+# batch keeps the manipulator pipeline at one pass.
+#
+# Priority 90 runs after the blog plugin (default 50, sets URL-style
+# destination_paths for date-folder images) and before directory_indexes
+# (100, rewrites the .html proxy path into <slug>/index.html so CF Pages
+# serves it as text/html at the bare-slug URL).
+class PhotoLandingPages
+  def initialize(app)
+    @app = app
+  end
 
-    # Find all image files in this directory
-    Dir.glob("source/#{page_dir}/*.{jpg,png}").each do |image_path|
-      # Remove "source/" prefix for the relative image path
-      relative_path = image_path.sub(%r{^source/}, '')
+  def manipulate_resource_list(resources)
+    existing = resources.map(&:path).to_set
+    new_proxies = []
 
-      # Get the destination path without the extension
-      short_path = relative_path.sub(/#{File.extname(relative_path)}$/, '')
+    resources.each do |r|
+      next unless r.path =~ /\.(jpg|png)$/i
+      next if r.path =~ %r{^assets/} || r.path =~ /ogp-image/
 
-      # Avoid duplicate proxies
-      next if sitemap.find_resource_by_path(short_path)
+      ext = File.extname(r.destination_path)
+      short_path = r.destination_path.sub(/#{Regexp.escape(ext)}$/, '') + '.html'
+      next if existing.include?(short_path)
+      existing << short_path
 
-      # Create a proxy for the image
-      proxy short_path, "/photo.html", layout: 'layout', locals: { photo: sitemap.find_resource_by_path(relative_path) }, ignore: true
+      proxy = ::Middleman::Sitemap::ProxyResource.new(@app.sitemap, short_path, '/photo.html')
+      proxy.add_metadata(locals: { photo: r }, options: { layout: 'layout' })
+      new_proxies << proxy
     end
+
+    resources + new_proxies
   end
 end
+
+require 'set'
+sitemap.register_resource_list_manipulator(:photo_landing_pages, PhotoLandingPages.new(self), 90)
 
 # set the default URL
 set :url_root, @app.data.settings.site.url
