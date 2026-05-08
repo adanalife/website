@@ -35,7 +35,7 @@ jobs:
       shell: bash
       run: |
         set -o pipefail
-        npx wrangler pages deploy build/ --project-name dana-lol-staging --branch ${{ github.head_ref }} | tee wrangler.out
+        npx wrangler pages deploy build/ --project-name dana-lol-stage-1 --branch ${{ github.head_ref }} | tee wrangler.out
         alias=$(grep "Deployment alias URL:" wrangler.out | grep -oE 'https://[^ ]+' | tail -1)
         echo "alias=$alias" >> "$GITHUB_OUTPUT"
     - name: Sticky preview URL comment

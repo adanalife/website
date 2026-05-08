@@ -1,7 +1,7 @@
 # Taskfile for the dana.lol Middleman site.
 #
 # Cloudflare Pages is the deploy target for both staging (deploy:stage,
-# project: dana-lol-staging, custom domain: www.whalecore.com) and
+# project: dana-lol-stage-1, custom domain: www.whalecore.com) and
 # production (deploy:prod, project: dana-lol-production, custom domain:
 # www.dana.lol). The :s3-suffixed tasks are retained as a fallback in
 # case CF Pages needs to be rolled back.
@@ -22,9 +22,9 @@ tasks:
       - bundle exec middleman build --bail
 
   deploy:stage:
-    desc: Deploy build/ to Cloudflare Pages staging (dana-lol-staging)
+    desc: Deploy build/ to Cloudflare Pages staging (dana-lol-stage-1)
     cmds:
-      - npx wrangler pages deploy build/ --project-name dana-lol-staging
+      - npx wrangler pages deploy build/ --project-name dana-lol-stage-1
 
   release:stage:
     desc: Build (fast) and deploy to Cloudflare Pages staging
