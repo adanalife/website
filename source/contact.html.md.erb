@@ -20,8 +20,10 @@ You can find me on the following sites and contact me through there.
 
 ## Contact Dana
 
+<%# Backend: adanalife/contact-form running on the stage-1 k3d cluster.
+    Update this URL when prod-1 stands up its own deployment. %>
 <p>
-  <form action='https://danalol-contact.herokuapp.com/' method='post'>
+  <form id='contact-form' action='https://contact.stage.whereisdana.today/' method='post'>
     <p>
     <label>Your name and message:</label><br>
     <textarea name='message' class='contact'></textarea>
@@ -34,5 +36,46 @@ You can find me on the following sites and contact me through there.
     <input type='submit' value='Send!' class='btn'>
     </p>
   </form>
+  <p id='contact-form-status' role='status' aria-live='polite' hidden></p>
+  <noscript>
+    <p><em>Form not working? You can email me directly at
+    <a href='mailto:danadotlol@gmail.com'>danadotlol@gmail.com</a>.</em></p>
+  </noscript>
 </p>
+
+<script>
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var status = document.getElementById('contact-form-status');
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      status.hidden = false;
+      status.textContent = 'Sending…';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(form)),
+        mode: 'cors',
+        // Don't follow the backend's 302 to /success — that crosses
+        // origins again and trips CORS on the redirected GET. The
+        // opaqueredirect response is enough to know it succeeded.
+        redirect: 'manual',
+        credentials: 'omit'
+      }).then(function (res) {
+        if (res.type === 'opaqueredirect' || res.ok) {
+          form.style.display = 'none';
+          status.textContent = 'Thanks for reaching out — it really means a lot.';
+        } else {
+          throw new Error('HTTP ' + res.status);
+        }
+      }).catch(function () {
+        status.innerHTML = 'Sorry, the form is having trouble right now. ' +
+          'You can email me directly at ' +
+          '<a href="mailto:danadotlol@gmail.com">danadotlol@gmail.com</a>.';
+      });
+    });
+  })();
+</script>
 
