@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        # Preserve markdown's "two trailing spaces = <br>" syntax.
+        # The .erb pages under source/ are processed as middleman markdown,
+        # so include them too.
+        args: ["--markdown-linebreak-ext=md,erb"]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-yaml
+        # CloudFormation templates use custom tags (!Ref, !Join, !GetAtt) that
+        # PyYAML's safe_load (which check-yaml uses) rejects. Skip them here;
+        # they're validated by AWS at deploy time anyway.
+        exclude: ^cloudformation/
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=1000"]
