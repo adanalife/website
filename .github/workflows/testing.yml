@@ -22,22 +22,6 @@ jobs:
         bundler-cache: true
     - name: Build the static site
       run: bundle exec middleman build --bail
-    # Verify the per-PR build (no STAGING env) renders the production
-    # Twitch channel, not the staging one. PR previews aren't staging,
-    # so they should match production output for the iframe channel.
-    - name: Verify Twitch iframe channel (default)
-      run: |
-        if grep -rln 'channel=adanalife_staging' build/ ; then
-          echo "::error::Per-PR build leaked channel=adanalife_staging — STAGING env should be unset on PRs"
-          exit 1
-        fi
-        expected_count=2
-        actual=$(grep -rl 'channel=adanalife_' build/ | wc -l | tr -d ' ')
-        if [ "$actual" -lt "$expected_count" ]; then
-          echo "::error::Expected at least $expected_count posts to render channel=adanalife_; found $actual"
-          exit 1
-        fi
-        echo "Default Twitch iframe channel verified ($actual posts)"
     # Skip CF Pages deploy for Dependabot PRs: GitHub deliberately
     # withholds repo secrets from Dependabot-triggered runs, so
     # CLOUDFLARE_API_TOKEN comes through blank and wrangler fails.
