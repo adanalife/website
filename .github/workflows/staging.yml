@@ -17,6 +17,23 @@ jobs:
       env:
         STAGING: 'true'
       run: bundle exec middleman build --bail
+    # Verify the staging build actually renders the staging Twitch channel
+    # in both posts that embed the player. Catches a future regression in
+    # config.rb's twitch_channel helper or a missing STAGING env-var.
+    - name: Verify Twitch iframe channel (staging)
+      run: |
+        expected_count=2
+        actual=$(grep -rl 'channel=adanalife_staging' build/ | wc -l | tr -d ' ')
+        if [ "$actual" -ne "$expected_count" ]; then
+          echo "::error::Expected $expected_count posts to render channel=adanalife_staging; found $actual"
+          grep -rln 'channel=adanalife' build/ || true
+          exit 1
+        fi
+        if grep -rln 'channel=adanalife_"' build/ ; then
+          echo "::error::Found channel=adanalife_ in staging build — STAGING env-var not propagating to twitch_channel helper"
+          exit 1
+        fi
+        echo "Staging Twitch iframe channel verified ($actual posts)"
     - name: Deploy to Cloudflare Pages (staging)
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
