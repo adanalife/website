@@ -106,4 +106,3 @@ module DanaLolHelpers
   end
 
 end
-
