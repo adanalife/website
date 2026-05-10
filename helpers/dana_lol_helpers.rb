@@ -52,6 +52,10 @@ module DanaLolHelpers
     content_tag(:figure, class: 'iframe-wrapper') { yield }
   end
 
+  def twitch_channel
+    ENV['STAGING'] == 'true' ? 'adanalife_staging' : 'adanalife_'
+  end
+
   def sidenote(content = nil)
     # auto-magically create incremental CSS ids
     @@sidenote ||= 0

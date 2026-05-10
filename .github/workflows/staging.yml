@@ -14,6 +14,8 @@ jobs:
         ruby-version-file: .tool-versions
         bundler-cache: true
     - name: Build the static site
+      env:
+        STAGING: 'true'
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (staging)
       env:
