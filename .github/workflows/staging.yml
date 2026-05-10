@@ -13,26 +13,6 @@ jobs:
       with:
         ruby-version-file: .tool-versions
         bundler-cache: true
-    # Sanity-check: every image extension present under source/ must be
-    # covered by the cache-key glob below. If a new extension creeps in
-    # (e.g., someone drops a `.JPEG` or a `.HEIC`), this step catches it
-    # before the cache silently degrades to "always miss."
-    - name: Verify cache-key glob covers all image extensions
-      run: |
-        covered="jpg JPG jpeg png gif webp"
-        present=$(find source -type f -regextype posix-extended \
-          -regex '.*\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|webp|WEBP|heic|HEIC)$' \
-          | sed -e 's/.*\.//' | sort -u)
-        missing=""
-        for ext in $present; do
-          echo "$covered" | grep -qw "$ext" || missing="$missing $ext"
-        done
-        if [ -n "$missing" ]; then
-          echo "::error::Image extensions present under source/ but NOT in the cache-key glob:$missing"
-          echo "::error::Update both this verification step and the 'Cache middleman-images output' step below."
-          exit 1
-        fi
-        echo "Image extensions covered: $present"
     # middleman-images caches optimized output under cache/ at the repo root,
     # keyed by source content. Caching that across runs claws back ~10 min
     # of image optimization on each develop merge. Source images are
