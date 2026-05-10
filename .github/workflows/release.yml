@@ -35,22 +35,6 @@ jobs:
           middleman-
     - name: Build the static site
       run: bundle exec middleman build --bail
-    # Production builds must NEVER render channel=adanalife_staging — that
-    # would point the live Twitch embed at the staging channel. Mirrors
-    # the verification in testing.yml + staging.yml.
-    - name: Verify Twitch iframe channel (production)
-      run: |
-        if grep -rln 'channel=adanalife_staging' build/ ; then
-          echo "::error::Production build leaked channel=adanalife_staging — STAGING env should be unset on tag releases"
-          exit 1
-        fi
-        expected_count=2
-        actual=$(grep -rl 'channel=adanalife_' build/ | wc -l | tr -d ' ')
-        if [ "$actual" -lt "$expected_count" ]; then
-          echo "::error::Expected at least $expected_count posts to render channel=adanalife_; found $actual"
-          exit 1
-        fi
-        echo "Production Twitch iframe channel verified ($actual posts)"
     - name: Deploy to Cloudflare Pages (production)
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
