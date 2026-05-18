@@ -22,4 +22,4 @@ jobs:
       # The staging CF Pages project's production_branch is "master", and
       # its master alias is what serves www.whalecore.com. Pinning to
       # --branch master here means develop merges land on whalecore.com.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
+      run: npx wrangler pages deploy build/ --project-name dana-lol-stage-1 --branch master
