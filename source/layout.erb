@@ -8,6 +8,10 @@
     <%# add meta tags for cute link previews %>
     <% ogp_tags do |property, content| %>
       <meta property="<%= property %>" content="<%= content %>" />
+      <%# mirror og:description into a classic <meta name="description"> for SEO %>
+      <% if property == 'og:description' %>
+        <meta name="description" content="<%= content %>" />
+      <% end %>
     <% end %>
 
     <%# favicons for all of the different platforms %>
