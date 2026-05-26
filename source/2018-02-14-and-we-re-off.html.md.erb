@@ -19,10 +19,7 @@ ogp:
 Yesterday was my last day as a resident of San Francisco.
 It was a busy day: I still had to pack some stuff, move some furniture onto the street, clean up the apartment, and load up the van.
 
-<%= content_tag(:figure) do
-  linked_image("#{current_article.url}before-loading.jpg", 'Everything that was to be loaded into the van') +
-  mn("Everything I brought with me in the van.")
-end %>
+<%= f 'before-loading.jpg', 'Everything that was to be loaded into the van', note: "Everything I brought with me in the van." %>
 
 It's absurd how many things needed to be done to prep for this journey, it's like moving to two different places (the van and the storage container) while also packing for two vacations (camping and a road trip).
 I am a person who enjoys logistics but after four consecutive days of this I was physically and mentally exhausted.
@@ -39,7 +36,7 @@ All day yesterday I counted all of my lasts: my last time sleeping in my bed, my
 I drove to Santa Cruz where I had made arrangements to stay in the driveway of a lovely couple.
 I had stayed with them once before during a practice trip to Monterey, and it took a load off my mind to have my first night be somewhere I was familiar with.
 
-<%= f "#{current_article.url}santa-cruz-parking.jpg", 'The van in a driveway in Santa Cruz' %>
+<%= f 'santa-cruz-parking.jpg', 'The van in a driveway in Santa Cruz' %>
 
 The van itself is a mess, I haven't put anything away so to move around I have to move boxes from one available surface to another.
 I have tons of time to figure that out though, so I'm not worried about it.
@@ -51,5 +48,5 @@ I'll take lots of pictures though.
 
 I want to end this by thanking you for taking the time to read this.
 It actually makes a huge impact that there are people out there who care about me and want to see me succeed.
-If you'd like to interact with me or just stay current with my updates, be sure to "like" [my Facebook page](https://www.facebook.com/adanalifeblog/).
+If you'd like to interact with me or just stay current with my updates, be sure to "like" [my Facebook page](https://www.facebook.com/adanalifeunderscore/).
 

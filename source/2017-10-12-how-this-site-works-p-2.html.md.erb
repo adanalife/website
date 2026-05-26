@@ -13,7 +13,7 @@ ogp:
 
 ---
 
-In this article I'll talk the design of the site and how I did it. For technical implementation details, check out <%= link_to('part 1', '/2017/10/01/how-this-site-works/') %>.
+In this article I'll talk the design of the site and how I did it. For technical implementation details, check out <%= link_to('part 1', '/2017/10/01/how-this-site-works/') %>.<%= mn "Some links in this post are Amazon affiliate links — I get a small commission if you buy through them." %>
 
 <br>
 
@@ -27,7 +27,7 @@ Nowadays that is horrible practice, and I want to follow best practices wherever
 
 So I know that I needed an off-the-shelf template for the visual design.
 I wanted something that followed best practices so I wouldn't have to figure them out, or embarrass myself by reinventing the wheel.
-<%= marginnote(link_to(image_tag("#{current_article.url}the-visual-display-of-quantitative-information.jpg", alt: 'an image of the cover of The Visual Display of Quantitative Information by Edward Tufte'), 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20', class: 'no-underline')) %>
+<%= mi 'the-visual-display-of-quantitative-information.jpg', 'an image of the cover of The Visual Display of Quantitative Information by Edward Tufte', link: 'https://smile.amazon.com/Visual-Display-Quantitative-Information/dp/0961392142?tag=danalol-20' %>
 
 <br>
 
