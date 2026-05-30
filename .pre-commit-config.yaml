@@ -17,6 +17,10 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
         args: [--allow-multiple-documents]
+        # CloudFormation templates use intrinsic tags (!Ref, !GetAtt, …) that
+        # the plain YAML parser can't construct. They're valid CFN, not ours
+        # to reformat into tag-free YAML.
+        exclude: '^cloudformation/'
       - id: check-json
       - id: check-executables-have-shebangs
 

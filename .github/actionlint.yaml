@@ -1,0 +1,10 @@
+# actionlint config.
+#
+# `ruby-version-file` IS a valid input to ruby/setup-ruby@v1 (it reads the
+# Ruby version from .tool-versions / .ruby-version). actionlint ships a
+# stale snapshot of that action's input list and flags it as undefined —
+# a known false positive. Suppress just that message; everything else stays on.
+paths:
+  .github/workflows/**/*.{yml,yaml}:
+    ignore:
+      - 'input "ruby-version-file" is not defined in action "ruby/setup-ruby@v1"'
