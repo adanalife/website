@@ -3,6 +3,14 @@ on:
   push:
     branches: [develop]
 
+# Only deploy the newest develop merge. Two pushes close together would race,
+# and the older deploy finishing last would leave staging on stale content.
+# Cancel an in-flight deploy when a newer develop push arrives so staging tracks
+# HEAD. (Tag-triggered release.yml is NOT guarded — every release must ship.)
+concurrency:
+  group: staging-deploy
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
