@@ -16,7 +16,7 @@ jobs:
       # fetch-depth: 0 is required by super-linter v6+: it diffs against
       # the default branch (master) to figure out which files changed,
       # which means master has to be present in the local checkout.
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: run-linters
@@ -45,6 +45,11 @@ jobs:
           VALIDATE_CLOUDFORMATION: false
           # disabled until we can resolve their issues
           VALIDATE_BIOME_FORMAT: false
+          # disabled — Biome 2.5 (pulled in by super-linter @v8) parses .svg
+          # and .erb files as HTML/JSX and false-positives on SVG comments
+          # (`<!-- Adobe Illustrator … -->`) and ERB tags (`<% … %>`). This is
+          # a Ruby/Middleman site with no first-party JS/TS for Biome to lint.
+          VALIDATE_BIOME_LINT: false
           VALIDATE_CHECKOV: false
           VALIDATE_GITHUB_ACTIONS: false
           VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
