@@ -85,8 +85,7 @@
     <aside class='footer'>
       © <%= link_to 'Dana', '/about' %> <%= Date.today.year %>, unless noted otherwise.
       Big thanks to <%= link_to 'these people', '/thanks' %>.
-      <%= link_to 'privacy', '/privacy' %>.
-      <%= link_to 'terms', '/terms' %>.
+      <%= link_to 'Privacy', '/privacy' %> &amp; <%= link_to 'terms', '/terms' %>.
       <button type='button' class='theme-toggle' aria-label='Toggle dark mode' onclick="(function(){var d=document.documentElement;var next=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',next);d.style.setProperty('color-scheme',next);try{localStorage.setItem('theme',next);}catch(e){}})()">🌓</button>
     </aside>
 
