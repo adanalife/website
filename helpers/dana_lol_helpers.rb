@@ -1,3 +1,5 @@
+require 'json'
+
 # Methods defined in the helpers block are available in templates
 module DanaLolHelpers
 
@@ -138,6 +140,92 @@ module DanaLolHelpers
   # just a simple way to keep this somewhere central
   def google_analytics
     'UA-106965485-1'
+  end
+
+  # Site root without a trailing slash (data.settings.site.url has one).
+  def site_root
+    data.settings.site.url.chomp('/')
+  end
+
+  # Safely dig into the current page's `ogp:` front matter, e.g.
+  # og_dig('og', 'description') or og_dig('og', 'image', '') for the secure_url.
+  def og_dig(*keys)
+    node = current_page.data['ogp']
+    keys.each do |key|
+      return nil unless node.respond_to?(:[])
+      node = node[key]
+    end
+    node
+  end
+
+  # Build the schema.org structured-data graph for the current page. Every page
+  # gets the WebSite + Person nodes (referenced by @id so they aren't duplicated);
+  # article pages additionally get a BlogPosting node linked back to both.
+  def json_ld_data
+    person_id  = "#{site_root}/#person"
+    website_id = "#{site_root}/#website"
+
+    graph = [
+      {
+        '@type'     => 'WebSite',
+        '@id'       => website_id,
+        'url'       => "#{site_root}/",
+        'name'      => data.settings.site.title,
+        'inLanguage' => 'en',
+        'publisher' => { '@id' => person_id }
+      },
+      {
+        '@type'  => 'Person',
+        '@id'    => person_id,
+        'name'   => 'Dana',
+        'url'    => "#{site_root}/about",
+        'image'  => "#{site_root}/about/dana.jpg",
+        'sameAs' => [
+          'https://www.twitch.tv/adanalife_',
+          'https://twitter.com/adanalife_',
+          'https://instagram.com/adanalife_',
+          'https://github.com/dmerrick'
+        ]
+      }
+    ]
+
+    if current_article
+      url = "#{site_root}#{current_article.url}"
+      posting = {
+        '@type'            => 'BlogPosting',
+        '@id'              => "#{url}#article",
+        'headline'         => current_article.title,
+        'url'              => url,
+        'datePublished'    => current_article.date.strftime('%Y-%m-%d'),
+        'author'           => { '@id' => person_id },
+        'publisher'        => { '@id' => person_id },
+        'isPartOf'         => { '@id' => website_id },
+        'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => url }
+      }
+      if (description = og_dig('og', 'description'))
+        posting['description'] = description
+      end
+      if (image = og_dig('og', 'image', '') || og_dig('og', 'image'))
+        posting['image'] = image
+      end
+      if (tags = current_article.tags) && tags.any?
+        posting['keywords'] = tags.join(', ')
+      end
+      graph << posting
+    end
+
+    { '@context' => 'https://schema.org', '@graph' => graph }
+  end
+
+  # JSON-LD string for the <script type="application/ld+json"> tag. The angle
+  # brackets and ampersand are escaped to their \uXXXX forms so a value can
+  # never break out of the <script> element (e.g. a literal </script>).
+  def json_ld
+    JSON.generate(json_ld_data)
+      .gsub('<', '\\u003c')
+      .gsub('>', '\\u003e')
+      .gsub('&', '\\u0026')
+      .html_safe
   end
 
 end
