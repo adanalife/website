@@ -1,37 +1,39 @@
 # A Dana Life website
 
-[![Version](https://img.shields.io/github/v/release/dmerrick/website?sort=semver&include_prereleases)](https://github.com/dmerrick/website/releases)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fdmerrick%2Fwebsite%2Fbadge&style=flat)](https://actions-badge.atrox.dev/dmerrick/website/goto)
+[![Version](https://img.shields.io/github/v/release/adanalife/website?sort=semver&include_prereleases)](https://github.com/adanalife/website/releases)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-Live site available here: [https://www.dana.lol](http://www.dana.lol)
+The source for [https://www.dana.lol](https://www.dana.lol) — Dana's personal site and blog. It's a static site built with [Middleman](https://middlemanapp.com/).
 
-If you want you can read these two articles about how the site works: [part 1](https://www.dana.lol/2017/10/01/how-this-site-works) and [part 2](https://www.dana.lol/2017/10/12/how-this-site-works-p-2).
+## Local development
 
+Ruby 3.4 is pinned in `.tool-versions` (managed with [mise](https://mise.jdx.dev/)):
 
-## Contact Form
-
-The site is designed to be static, but there is a small app that runs [the contact page](https://www.dana.lol/contact). You can view the code that runs the contact page in the [`danalol-contact-form` project](https://github.com/dmerrick/danalol-contact-form).
-
-
-## Technical Infrastructure
-
-To build out the infrastructure required to run this site, you can use the CloudFormation templates found in `cloudformation/`
-
-You will need domain name (like `example.com`), a blog domain name (like `www.example.com`), and an AWS ACM Certificate ARN string.
 ```sh
-# create the hosted zone in Route53
-aws cloudformation create-stack \
-  --stack-name <<ROUTE53 STACK NAME>> \
-  --template-body file://./cloudformation/route53-zone.yaml \
-  --parameters ParameterKey=DomainName,ParameterValue=<<EXAMPLE.COM>>
-
-# create the S3 bucket and CloudFront setup
-aws cloudformation create-stack \
-  --stack-name <<CDN STACK NAME>> \
-  --template-body file://./cloudformation/s3-static-website-with-cloudfront-and-route-53.yaml \
-  --parameters \
-      ParameterKey=DomainName,ParameterValue=<<EXAMPLE.COM>> \
-      ParameterKey=FullDomainName,ParameterValue=<<WWW.EXAMPLE.COM>> \
-      ParameterKey=AcmCertificateArn,ParameterValue=<<ACM ARN STRING>>
+mise install
+bundle install
+bundle exec middleman server
 ```
+
+The dev server runs at [http://localhost:4567](http://localhost:4567).
+
+Common tasks live in the [Taskfile](https://taskfile.dev/) (`task --list` for the full set):
+
+```sh
+task build          # full build with image optimization
+task release:stage  # build (fast) + deploy to Cloudflare Pages staging
+task release:prod   # build + deploy to Cloudflare Pages production
+```
+
+## Deploys
+
+The site deploys to [Cloudflare Pages](https://pages.cloudflare.com/) via wrangler. The legacy S3 + CloudFront setup (`cloudformation/`, the `*:s3` tasks) is retained only as a rollback fallback.
+
+Branch flow:
+
+- **`develop`** is the default branch — feature PRs target it. Every PR gets a preview deploy at `<branch>.dana-lol-staging.pages.dev` (see `testing.yml`).
+- **`master`** is the release branch — periodic release PRs merge `develop` into it. Each merge auto-tags a version (`auto-tag.yml`) and the tag triggers the production deploy (`release.yml`).
+
+## Contact form
+
+The site is static, but a small Sinatra app backs [the contact page](https://www.dana.lol/contact) and [/ama](https://www.dana.lol/ama). It lives in the [`contact-form` repo](https://github.com/adanalife/contact-form).
