@@ -1,16 +1,21 @@
 ---
 name: super-linter
 
+# Per-PR lint coverage comes from pre-commit (pre-commit.yml) and the
+# misspell reviewdog check (linting.yml); super-linter runs as a weekly
+# whole-codebase sweep instead of on every PR/push.
 on:
-  pull_request:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '19 9 * * 1' # Mondays 09:19 UTC
+  workflow_dispatch:
 
 jobs:
   build:
     name: Run Linters
     runs-on: ubuntu-latest
+    # 30 rather than the usual 15 for lint jobs: the weekly sweep lints the
+    # whole codebase, not a PR diff.
+    timeout-minutes: 30
 
     steps:
       # fetch-depth: 0 is required by super-linter v6+: it diffs against
@@ -23,6 +28,8 @@ jobs:
         uses: super-linter/super-linter@v8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # weekly sweep: lint everything, not just files changed vs master
+          VALIDATE_ALL_CODEBASE: true
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
