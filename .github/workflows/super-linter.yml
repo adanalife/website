@@ -47,8 +47,8 @@ jobs:
           VALIDATE_RUBY: false
           # disabled — false-positive: cfn-lint emits a Pydantic/Python 3.14
           # compat warning to stderr, which super-linter treats as a failure.
-          # The repo has no CFN templates today (legacy CFN samples in README
-          # only).
+          # The only CFN in the repo is the legacy S3/CloudFront rollback
+          # setup under cloudformation/.
           VALIDATE_CLOUDFORMATION: false
           # disabled until we can resolve their issues
           VALIDATE_BIOME_FORMAT: false

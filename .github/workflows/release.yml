@@ -27,8 +27,8 @@ jobs:
         rm -rf pngout-20200115-linux*
     # Same cache scheme as staging.yml: middleman-images output under cache/,
     # keyed by source image hashes so the key only changes when images change
-    # (the old whole-repo hashFiles('**/*') key changed every commit and never
-    # hit). Identical path+key means release restores the cache staging saved.
+    # (a whole-repo hashFiles key would change every commit and never hit).
+    # Identical path+key means release restores the cache staging saved.
     - name: Cache middleman-images output
       uses: actions/cache@v5
       with:
