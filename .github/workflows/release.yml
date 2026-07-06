@@ -30,7 +30,7 @@ jobs:
     # (a whole-repo hashFiles key would change every commit and never hit).
     # Identical path+key means release restores the cache staging saved.
     - name: Cache middleman-images output
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: cache
         key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}

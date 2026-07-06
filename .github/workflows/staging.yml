@@ -29,7 +29,7 @@ jobs:
     # union of image extensions found under source/ — both lower- and
     # upper-case .JPG since hashFiles globs are case-sensitive on Linux.
     - name: Cache middleman-images output
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: cache
         key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
