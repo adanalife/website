@@ -42,7 +42,7 @@ data that isn't part of the public live chat.
 
 On both Twitch and YouTube, your public display name and message text are
 written to short-lived operational logs (used for debugging and abuse
-prevention) that are automatically deleted after about 14 days. On Twitch, your
+prevention) that are automatically deleted within 14 days. On Twitch, your
 public display name may also be associated with stream features such as the
 miles leaderboard.
 
@@ -62,8 +62,8 @@ owner can revoke Tripbot's access at any time through the
 
 Public chat data read through the API is used to generate a real-time reply. Your
 display name and message text are also written to short-lived operational logs
-(for debugging and abuse prevention) that are automatically deleted after about
-14 days. This data is **not** profiled, combined with data from other sources,
+(for debugging and abuse prevention) that are automatically deleted within 14
+days. This data is **not** profiled, combined with data from other sources,
 sold, or used for advertising. It is shared with only two parties: YouTube's own
 API, when Tripbot posts its reply back into the same chat, and the third-party
 logging provider that stores those short-lived operational logs on our behalf.
@@ -80,20 +80,24 @@ of this data.
 
 Contact-form messages are kept only as long as needed to respond to them.
 Public live-chat data (your display name and message text, from both Twitch and
-YouTube) is written to operational logs that are automatically deleted after
-about 14 days. Twitch chat activity that powers stream features (such as the
+YouTube) is written to operational logs that are automatically deleted within
+14 days. Twitch chat activity that powers stream features (such as the
 leaderboard) is kept for as long as those features run, and can be removed on
 request. Nothing else is retained.
 
 ### Cookies and device storage
 
 **This website.** The site does not use analytics, advertising, or tracking
-cookies, and sets no first-party cookies of its own. The host (Cloudflare) may
-place strictly-necessary cookies (such as `__cf_bm`) on your device to serve
-pages and protect against abuse; these are described in the
-[Cloudflare cookie policy](https://www.cloudflare.com/cookie-policy/). Nothing
-on the site reads or writes any other cookies, `localStorage`, or similar
-technology on your device or browser.
+cookies. The only first-party storage it uses is functional: a `theme` value
+saved in your browser's `localStorage` to remember your light/dark-mode choice,
+plus the strictly-necessary cookies our host (Cloudflare) may set (such as
+`__cf_bm`) to serve pages and protect against abuse, described in the
+[Cloudflare cookie policy](https://www.cloudflare.com/cookie-policy/).
+
+Some blog posts embed third-party players — YouTube videos and the Twitch
+stream. When a page containing one of these embeds loads, that provider may set
+its own cookies on your device, governed by its own privacy policy (see
+"Third-party services" below). Pages without an embed load none of these.
 
 **Tripbot (YouTube live chat).** Tripbot runs server-side against the YouTube
 API. It does **not** place, access, or recognize any cookies, identifiers, or
