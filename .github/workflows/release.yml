@@ -1,4 +1,4 @@
-name: Release
+name: release
 on:
   push:
     tags:
@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v7
     - name: Install Ruby
@@ -24,15 +25,17 @@ jobs:
         tar -xvf pngout-20200115-linux.tar.gz
         sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
         rm -rf pngout-20200115-linux*
-    - name: Cache Middleman and image processing files
+    # Same cache scheme as staging.yml: middleman-images output under cache/,
+    # keyed by source image hashes so the key only changes when images change
+    # (a whole-repo hashFiles key would change every commit and never hit).
+    # Identical path+key means release restores the cache staging saved.
+    - name: Cache middleman-images output
       uses: actions/cache@v5
       with:
-        path: |
-          .middleman/cache
-          build
-        key: middleman-${{ hashFiles('**/*') }}
+        path: cache
+        key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
         restore-keys: |
-          middleman-
+          middleman-images-
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (production)

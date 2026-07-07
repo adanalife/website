@@ -50,6 +50,10 @@
       article, aside { display: none; }
     </style>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+
+    <%# schema.org structured data (JSON-LD) so crawlers + LLMs understand %>
+    <%# the site, the author, and each article. See json_ld in helpers. %>
+    <script type="application/ld+json"><%= json_ld %></script>
   </head>
 
   <body>
@@ -85,8 +89,7 @@
     <aside class='footer'>
       © <%= link_to 'Dana', '/about' %> <%= Date.today.year %>, unless noted otherwise.
       Big thanks to <%= link_to 'these people', '/thanks' %>.
-      <%= link_to 'privacy', '/privacy' %>.
-      <%= link_to 'terms', '/terms' %>.
+      <%= link_to 'Privacy', '/privacy' %> &amp; <%= link_to 'terms', '/terms' %>.
       <button type='button' class='theme-toggle' aria-label='Toggle dark mode' onclick="(function(){var d=document.documentElement;var next=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',next);d.style.setProperty('color-scheme',next);try{localStorage.setItem('theme',next);}catch(e){}})()">🌓</button>
     </aside>
 
