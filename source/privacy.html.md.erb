@@ -38,9 +38,11 @@ name** and the **text of the message** you send. Tripbot does **not** access
 your email address, private messages, watch history, subscriptions, or any
 data that isn't part of the public live chat.
 
-On Twitch, your public display name may be associated with stream features such
-as the miles leaderboard. On YouTube, Tripbot does not store viewer identity or
-per-user data — it reads a chat message, responds, and keeps nothing.
+On both Twitch and YouTube, your public display name and message text are
+written to short-lived operational logs (used for debugging and abuse
+prevention) that are automatically deleted after about 15 days. On Twitch, your
+public display name may also be associated with stream features such as the
+miles leaderboard.
 
 ### How YouTube data is used
 
@@ -56,13 +58,15 @@ by individual viewers, so there is no per-viewer login to revoke. The channel
 owner can revoke Tripbot's access at any time through the
 [Google security settings](https://security.google.com/settings/security/permissions).
 
-Public chat data read through the API is processed only in memory to generate a
-real-time reply, and is then discarded. It is **not** stored, logged, profiled,
-combined with data from other sources, sold, or used for advertising. It is
-**not shared with any internal team or external third party**: the only place a
-message goes is back to YouTube's own API when Tripbot posts its reply into the
-same chat. A Dana Life, LLC is a single-operator company with no other internal
-recipients of this data.
+Public chat data read through the API is used to generate a real-time reply. Your
+display name and message text are also written to short-lived operational logs
+(for debugging and abuse prevention) that are automatically deleted after about
+15 days. This data is **not** profiled, combined with data from other sources,
+sold, or used for advertising. It is shared with only two parties: YouTube's own
+API, when Tripbot posts its reply back into the same chat, and the third-party
+logging provider that stores those short-lived operational logs on our behalf.
+A Dana Life, LLC is a single-operator company with no other internal recipients
+of this data.
 
 ### What is not done
 
@@ -73,9 +77,11 @@ recipients of this data.
 ### Data retention
 
 Contact-form messages are kept only as long as needed to respond to them.
-Public YouTube live-chat data is processed transiently and not stored. Twitch
-chat activity that powers stream features (such as the leaderboard) is kept for
-as long as those features run, and can be removed on request.
+Public live-chat data (your display name and message text, from both Twitch and
+YouTube) is written to operational logs that are automatically deleted after
+about 15 days. Twitch chat activity that powers stream features (such as the
+leaderboard) is kept for as long as those features run, and can be removed on
+request. Nothing else is retained.
 
 ### Cookies and device storage
 
