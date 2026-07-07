@@ -42,7 +42,7 @@ data that isn't part of the public live chat.
 
 On both Twitch and YouTube, your public display name and message text are
 written to short-lived operational logs (used for debugging and abuse
-prevention) that are automatically deleted after about 14 days. On Twitch, your
+prevention) that are automatically deleted within 14 days. On Twitch, your
 public display name may also be associated with stream features such as the
 miles leaderboard.
 
@@ -62,38 +62,56 @@ owner can revoke Tripbot's access at any time through the
 
 Public chat data read through the API is used to generate a real-time reply. Your
 display name and message text are also written to short-lived operational logs
-(for debugging and abuse prevention) that are automatically deleted after about
-14 days. This data is **not** profiled, combined with data from other sources,
-sold, or used for advertising. It is shared with only two parties: YouTube's own
-API, when Tripbot posts its reply back into the same chat, and the third-party
-logging provider that stores those short-lived operational logs on our behalf.
-A Dana Life, LLC is a single-operator company with no other internal recipients
-of this data.
+(for debugging and abuse prevention) that are automatically deleted within 14
+days, and are mirrored in real time to a private operator console so the stream
+operator can watch chat as it happens. This data is **not** profiled, combined
+with data from other sources, sold, or used for advertising. Apart from posting
+Tripbot's reply back to YouTube's own API, it is handled only by the
+infrastructure services that run these functions for us — a logging provider, an
+error-monitoring service, and, if you send the operator a report, the alerting
+channel that report is delivered to. A Dana Life, LLC is operated by one person
+and shares this data with no one else.
 
 ### What is not done
 
 - Your information is **not sold** or rented to anyone.
-- Information is **not used for advertising** or ad targeting.
+- Your data is **not used for advertising** or ad targeting — see "Affiliate
+  links" below for the one form of advertising the site does contain.
 - No attempt is made to identify viewers beyond their public chat display name.
+
+### Affiliate links
+
+Some blog posts contain Amazon affiliate links, marked with `#ad`. If you buy
+something through one, A Dana Life, LLC may earn a small commission at no extra
+cost to you. These are ordinary web links: they don't use your personal
+information, and no viewer data is involved in showing them. The YouTube and
+Twitch Tripbot chat experience itself contains no ads or affiliate links.
 
 ### Data retention
 
 Contact-form messages are kept only as long as needed to respond to them.
 Public live-chat data (your display name and message text, from both Twitch and
-YouTube) is written to operational logs that are automatically deleted after
-about 14 days. Twitch chat activity that powers stream features (such as the
-leaderboard) is kept for as long as those features run, and can be removed on
-request. Nothing else is retained.
+YouTube) is written to operational logs that are automatically deleted within
+14 days. Some of this activity may also appear in supporting operational
+records — error-monitoring diagnostics, and any report you choose to send the
+operator — which are retained per those services' standard retention and used
+only to run and debug the stream. Twitch chat activity that powers stream
+features (such as the leaderboard) is kept for as long as those features run,
+and can be removed on request.
 
 ### Cookies and device storage
 
 **This website.** The site does not use analytics, advertising, or tracking
-cookies, and sets no first-party cookies of its own. The host (Cloudflare) may
-place strictly-necessary cookies (such as `__cf_bm`) on your device to serve
-pages and protect against abuse; these are described in the
-[Cloudflare cookie policy](https://www.cloudflare.com/cookie-policy/). Nothing
-on the site reads or writes any other cookies, `localStorage`, or similar
-technology on your device or browser.
+cookies. The only first-party storage it uses is functional: a `theme` value
+saved in your browser's `localStorage` to remember your light/dark-mode choice,
+plus the strictly-necessary cookies our host (Cloudflare) may set (such as
+`__cf_bm`) to serve pages and protect against abuse, described in the
+[Cloudflare cookie policy](https://www.cloudflare.com/cookie-policy/).
+
+Some blog posts embed third-party players — YouTube videos and the Twitch
+stream. When a page containing one of these embeds loads, that provider may set
+its own cookies on your device, governed by its own privacy policy (see
+"Third-party services" below). Pages without an embed load none of these.
 
 **Tripbot (YouTube live chat).** Tripbot runs server-side against the YouTube
 API. It does **not** place, access, or recognize any cookies, identifiers, or

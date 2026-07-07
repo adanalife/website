@@ -137,11 +137,6 @@ module DanaLolHelpers
     path.sub(/#{File.extname(path)}$/, '')
   end
 
-  # just a simple way to keep this somewhere central
-  def google_analytics
-    'UA-106965485-1'
-  end
-
   # Site root without a trailing slash (data.settings.site.url has one).
   def site_root
     data.settings.site.url.chomp('/')
