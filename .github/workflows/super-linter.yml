@@ -19,8 +19,8 @@ jobs:
 
     steps:
       # fetch-depth: 0 is required by super-linter v6+: it diffs against
-      # the default branch (master) to figure out which files changed,
-      # which means master has to be present in the local checkout.
+      # the default branch (main) to figure out which files changed,
+      # which means main has to be present in the local checkout.
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
@@ -28,7 +28,7 @@ jobs:
         uses: super-linter/super-linter@v8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # weekly sweep: lint everything, not just files changed vs master
+          # weekly sweep: lint everything, not just files changed vs main
           VALIDATE_ALL_CODEBASE: true
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)

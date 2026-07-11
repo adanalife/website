@@ -1,0 +1,31 @@
+name: release-please
+# Trunk-based release flow: release-please maintains a standing release PR on
+# main (version + CHANGELOG computed from conventional commits). Merging that
+# PR creates the vX.Y.Z tag + GitHub Release; release.yml is then dispatched at
+# the tag explicitly because GITHUB_TOKEN-created tags don't fire push triggers.
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write # tag + GitHub Release + release-PR branch
+  pull-requests: write # open/update the release PR
+  actions: write # dispatch release.yml
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      - name: Dispatch release workflow at the new tag
+        if: ${{ steps.release.outputs.release_created }}
+        run: gh workflow run release.yml --repo "$GITHUB_REPOSITORY" --ref "${{ steps.release.outputs.tag_name }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

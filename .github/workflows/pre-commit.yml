@@ -17,7 +17,7 @@ jobs:
       # ubuntu-latest ships the Go toolchain preinstalled.
       - uses: actions/setup-python@v6
       # no-commit-to-branch guards local commits; in CI the checkout is the
-      # branch itself, so the hook would false-positive on develop/master.
+      # branch itself, so the hook would false-positive on main.
       - uses: pre-commit/action@v3.0.1
         env:
           SKIP: no-commit-to-branch

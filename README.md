@@ -31,8 +31,8 @@ The site deploys to [Cloudflare Pages](https://pages.cloudflare.com/) via wrangl
 
 Branch flow:
 
-- **`develop`** is the default branch — feature PRs target it. Every PR gets a preview deploy at `<branch>.dana-lol-staging.pages.dev` (see `testing.yml`).
-- **`master`** is the release branch — periodic release PRs merge `develop` into it. Each merge auto-tags a version (`auto-tag.yml`) and the tag triggers the production deploy (`release.yml`).
+- **`main`** is the only long-lived branch — feature PRs target it and squash-merge (the PR title becomes the commit subject, so it must be a [Conventional Commit](https://www.conventionalcommits.org/)). Every PR gets a preview deploy at `<branch>.dana-lol-staging.pages.dev` (see `testing.yml`), and every merge deploys staging (`staging.yml`).
+- Releases are cut by [release-please](https://github.com/googleapis/release-please), which maintains a standing release PR on `main` with the next version and `CHANGELOG.md` entry computed from the conventional commits. Merging that PR tags `vX.Y.Z`, publishes the GitHub Release, and triggers the production deploy (`release.yml`).
 
 ## Contact form
 
