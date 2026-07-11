@@ -1,8 +1,12 @@
 name: release
+# Production deploy to Cloudflare Pages at a release tag.
 on:
   push:
     tags:
       - v*
+  # release-please.yml dispatches this at the tag ref it just created — its
+  # GITHUB_TOKEN-pushed tag can't fire the push trigger above.
+  workflow_dispatch:
 
 jobs:
   build:
@@ -42,8 +46,10 @@ jobs:
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # Tag pushes have detached HEAD; pin to master so the deploy
-      # lands on the production alias serving www.dana.lol.
+      # Tag checkouts have detached HEAD; --branch names the CF Pages
+      # project's production branch ("master" in its config, independent
+      # of any git branch) so the deploy lands on the production alias
+      # serving www.dana.lol.
       run: npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
 
     - name: Post Discord notification
@@ -52,4 +58,6 @@ jobs:
         VERSION_TAG: ${{ github.ref_name }}
       uses: Ilshidur/action-discord@0.4.0
       with:
-        args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.compare }})'
+        # Link the GitHub Release rather than a payload compare URL: the
+        # workflow_dispatch payload has no `compare` field.
+        args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.repository.html_url }}/releases/tag/{{ VERSION_TAG }})'
