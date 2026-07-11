@@ -5,9 +5,13 @@ name: pr-title
 # *title* becomes the commit subject written to history, so it is validated
 # here. Mark this check "required" in branch protection to block non-conforming
 # titles.
+#
+# release-please's standing release PR is titled `chore(main): release X.Y.Z`,
+# itself a conventional subject, so it passes with no exemption.
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
+    branches: [main]
 
 permissions:
   pull-requests: read

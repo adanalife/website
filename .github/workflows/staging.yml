@@ -1,11 +1,11 @@
 name: staging
 on:
   push:
-    branches: [develop]
+    branches: [main]
 
-# Only deploy the newest develop merge. Two pushes close together would race,
+# Only deploy the newest main merge. Two pushes close together would race,
 # and the older deploy finishing last would leave staging on stale content.
-# Cancel an in-flight deploy when a newer develop push arrives so staging tracks
+# Cancel an in-flight deploy when a newer main push arrives so staging tracks
 # HEAD. (Tag-triggered release.yml is NOT guarded — every release must ship.)
 concurrency:
   group: staging-deploy
@@ -24,7 +24,7 @@ jobs:
         bundler-cache: true
     # middleman-images caches optimized output under cache/ at the repo root,
     # keyed by source content. Caching that across runs claws back ~10 min
-    # of image optimization on each develop merge. Source images are
+    # of image optimization on each main merge. Source images are
     # scattered across post directories (not a single tree), so we hash the
     # union of image extensions found under source/ — both lower- and
     # upper-case .JPG since hashFiles globs are case-sensitive on Linux.
@@ -43,7 +43,8 @@ jobs:
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # The staging CF Pages project's production_branch is "master", and
-      # its master alias is what serves www.whalecore.com. Pinning to
-      # --branch master here means develop merges land on whalecore.com.
+      # The staging CF Pages project's production_branch is "master" (CF
+      # config, independent of any git branch), and its master alias is what
+      # serves www.whalecore.com. Pinning to --branch master here means main
+      # merges land on whalecore.com.
       run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
