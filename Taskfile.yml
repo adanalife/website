@@ -35,7 +35,7 @@ tasks:
   deploy:prod:
     desc: Deploy build/ to Cloudflare Pages production (dana-lol-production)
     cmds:
-      - npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
+      - npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
   release:prod:
     desc: Build (with image optimization) and deploy to Cloudflare Pages production
