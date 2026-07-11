@@ -43,8 +43,8 @@ jobs:
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # The staging CF Pages project's production_branch is "master" (CF
-      # config, independent of any git branch), and its master alias is what
-      # serves www.whalecore.com. Pinning to --branch master here means main
-      # merges land on whalecore.com.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
+      # --branch must match the staging CF Pages project's production_branch
+      # ("main", set in infra's terraform, independent of any git branch) —
+      # its production alias is what serves www.whalecore.com. Pinning it
+      # here means main merges land on whalecore.com.
+      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch main
