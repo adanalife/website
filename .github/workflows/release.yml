@@ -53,6 +53,9 @@ jobs:
       run: npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
     - name: Post Discord notification
+      # A rotated or deleted webhook returns 404 and must not fail a release
+      # that already shipped; the notification is best-effort.
+      continue-on-error: true
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         VERSION_TAG: ${{ github.ref_name }}
