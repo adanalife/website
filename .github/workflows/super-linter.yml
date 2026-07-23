@@ -9,6 +9,9 @@ on:
     - cron: '19 9 * * 1' # Mondays 09:19 UTC
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Run Linters
