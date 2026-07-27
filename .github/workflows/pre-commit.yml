@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v7
       # gitleaks + actionlint build from source (language: golang);
       # ubuntu-latest ships the Go toolchain preinstalled.
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
       # no-commit-to-branch guards local commits; in CI the checkout is the
       # branch itself, so the hook would false-positive on main.
       - uses: pre-commit/action@v3.0.1
