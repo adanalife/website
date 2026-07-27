@@ -27,6 +27,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # `gates` is the required-status-check name in this repo's protect-main
+  # ruleset. Renaming this job means updating the ruleset in the same change,
+  # or every subsequent PR hangs on a check that can never report.
   gates:
     runs-on: ubuntu-latest
     timeout-minutes: 15
