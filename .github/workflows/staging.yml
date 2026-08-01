@@ -3,13 +3,16 @@ on:
   push:
     branches: [main]
 
-# Only deploy the newest main merge. Two pushes close together would race,
-# and the older deploy finishing last would leave staging on stale content.
-# Cancel an in-flight deploy when a newer main push arrives so staging tracks
-# HEAD. (Tag-triggered release.yml is NOT guarded — every release must ship.)
+# Serialise, don't cancel. Two pushes close together would otherwise race, and
+# the older deploy finishing last would leave staging on stale content — but
+# cancelling has the same failure with a worse shape: merge a few PRs inside a
+# minute and GitHub cancels the whole burst, tail included, so staging sits on
+# an old commit with no failed run to notice and nothing left to re-run.
+# Queueing converges on the newest merge. (Tag-triggered release.yml is NOT
+# guarded — every release must ship.)
 concurrency:
   group: staging-deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
