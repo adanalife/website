@@ -4,8 +4,9 @@ on:
   push:
     tags:
       - v*
-  # release-please.yml dispatches this at the tag ref it just created — its
-  # GITHUB_TOKEN-pushed tag can't fire the push trigger above.
+  # A manual re-deploy of an existing tag, for when the push-triggered run
+  # failed on something outside the code (a Cloudflare hiccup, an expired
+  # token). Pick the tag as the ref.
   workflow_dispatch:
 
 jobs:
