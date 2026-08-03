@@ -65,3 +65,25 @@ jobs:
         # Link the tagged CHANGELOG.md, not a payload `compare` URL: releases
         # dispatch via workflow_dispatch, whose event payload has no `compare`.
         args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.repository.html_url }}/blob/{{ VERSION_TAG }}/CHANGELOG.md)'
+
+    # Nothing else says a release went red. The release PR merged green long
+    # before the tag ran, so the only record is this run's own entry in a run
+    # list nobody is watching.
+    #
+    # Last, so it is the catch-all: the announcement above cannot trip it,
+    # since continue-on-error keeps a dead webhook out of the job's status.
+    #
+    # Best-effort for the same reason -- a failure to report a failure should
+    # not become a second failure.
+    - name: Alert Discord on failure
+      if: failure()
+      continue-on-error: true
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ALERTS }}
+        VERSION_TAG: ${{ github.ref_name }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      uses: Ilshidur/action-discord@0.4.0
+      with:
+        # Points at the log rather than naming what failed: the build and the
+        # Pages deploy both live in this job and either can be the one.
+        args: 'Release failed for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}) at {{ VERSION_TAG }}: [run log]({{ RUN_URL }})'
