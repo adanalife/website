@@ -3,11 +3,29 @@
 
 version: 2
 updates:
+  # Minor and patch bumps batch into one PR per ecosystem. A major is left out
+  # of every group so a breaking change arrives on its own, attributable to a
+  # single dependency instead of hiding among a dozen safe ones. Security
+  # updates ignore groups entirely and always arrive alone.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
+    groups:
+      actions:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
   - package-ecosystem: bundler
     directory: /
     schedule:
       interval: daily
+    groups:
+      ruby:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
