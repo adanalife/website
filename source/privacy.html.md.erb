@@ -2,17 +2,18 @@
 pageable: false
 ogp:
   og:
-    description: How this site and the Tripbot chat bot handle your data.
+    description: How this site, the Guessr game, and the Tripbot chat bot handle your data.
 ---
 
 ## Privacy Policy
 
-_Last updated: July 7, 2026_
+_Last updated: August 6, 2026_
 
 This policy explains what information is collected when you use this website
-([dana.lol](https://www.dana.lol)) and **Tripbot**, the chat bot that runs in
-the live chat of the A Dana Life livestream on Twitch and YouTube. It is
-written in plain language because the honest summary is short: very little
+([dana.lol](https://www.dana.lol)), **Guessr** (the daily dashcam guessing game
+at [guessr.dana.lol](https://guessr.dana.lol)), and **Tripbot**, the chat bot
+that runs in the live chat of the A Dana Life livestream on Twitch and YouTube.
+It is written in plain language because the honest summary is short: very little
 information is collected, and none of it is sold.
 
 <style>.cmail span { display: none; }</style>
@@ -31,6 +32,30 @@ choose to use the <%= link_to 'contact page', '/contact' %>, the name, email
 address, and message you submit are sent so that your message can be read and
 answered. The site's host (Cloudflare) processes standard server request data
 (such as IP address and browser type) to serve pages and protect against abuse.
+
+**Guessr (the daily game).** Guessr has no accounts, no login, and never asks
+for your name or email address. To keep score across the five rounds of a day
+and put you on the leaderboard, your browser makes up two things the first time
+you play: a random identifier that means nothing outside the game, and a
+two-word alias chosen for you from a fixed list (you can reroll it, but you
+cannot type your own). Both are stored on your device, described under "Cookies
+and device storage" below.
+
+When you submit a guess, what is recorded is the date, that random identifier,
+the alias, which clip you were shown, how far your guess was from the answer,
+and the points it earned. Your IP address is deliberately **not** stored
+alongside it. Practice rounds are not recorded at all.
+
+Your alias and score are public: they appear on the game's leaderboard, and they
+may also be shown on screen during the live stream on Twitch and YouTube. Since
+the alias is assigned rather than typed, it is not meant to identify you — if
+you would rather not appear, don't play the daily game, or ask for your rows to
+be removed using the contact details below.
+
+The game offers a link (and a QR code) for playing on a second device. Opening
+it moves that browser's scores under a single identifier, and only after you
+confirm a prompt. Anyone you show that code to can join their scores to yours,
+so treat it as personal to you.
 
 **Tripbot (Twitch & YouTube live chat).** When you type in the live chat of the
 A Dana Life stream, Tripbot reads public chat messages so it can respond to
@@ -99,6 +124,13 @@ only to run and debug the stream. Twitch chat activity that powers stream
 features (such as the leaderboard) is kept for as long as those features run,
 and can be removed on request.
 
+Guessr scores (the date, the random identifier, the alias, the clip, the
+distance and the points) are kept for as long as the game and its leaderboard
+run, since they are what the leaderboard is. Clearing them from your own browser
+is the "start fresh" button in the game; removing the recorded scores as well is
+a request to the contact address below, and the identifier is the only thing
+that ties them together.
+
 ### Cookies and device storage
 
 **This website.** The site does not use analytics, advertising, or tracking
@@ -113,6 +145,26 @@ stream. When a page containing one of these embeds loads, that provider may set
 its own cookies on your device, governed by its own privacy policy (see
 "Third-party services" below). Pages without an embed load none of these.
 
+**Guessr.** The game sets no cookies. It uses your browser's `localStorage` for
+the state a game needs to work: the random player identifier and assigned alias
+described above, which day you have finished and what you scored, a history of
+your past guesses (kept for the "all my guesses" map, capped at the most recent
+250), your light/dark-mode choice, and two flags recording that you have already
+seen the intro and the about panel. All of it stays on your device — the history
+map is drawn locally and never sent anywhere. The "start fresh" button in the
+game clears everything Guessr has stored in that browser, which also means the
+next guess you make is recorded as a new player.
+
+Guessr uses **Cloudflare Web Analytics** to count page views. It sets no
+cookies, stores no IP addresses, and does not follow you between sites; see the
+[Cloudflare privacy policy](https://www.cloudflare.com/privacypolicy/).
+
+The game's map is drawn from **OpenStreetMap** tiles, the end-of-game screen
+embeds the **YouTube** live stream, and one small library is loaded from the
+**unpkg** CDN. Loading any of these tells that provider your IP address and
+browser, as any web request does; the YouTube embed uses the no-cookie player
+host. See "Third-party services" below.
+
 **Tripbot (YouTube live chat).** Tripbot runs server-side against the YouTube
 API. It does **not** place, access, or recognize any cookies, identifiers, or
 other storage on your device or browser.
@@ -124,7 +176,10 @@ with its own privacy policy:
 
 - **Twitch** — [privacy policy](https://www.twitch.tv/p/legal/privacy-notice/)
 - **YouTube / Google** — [privacy policy](https://policies.google.com/privacy)
-- **Cloudflare** (website hosting) — [privacy policy](https://www.cloudflare.com/privacypolicy/)
+- **Cloudflare** (website hosting, Guessr hosting and analytics) — [privacy policy](https://www.cloudflare.com/privacypolicy/)
+- **OpenStreetMap** (Guessr's map tiles) — [privacy policy](https://osmfoundation.org/wiki/Privacy_Policy)
+- **[unpkg](https://unpkg.com)** (a public CDN serving one library Guessr uses,
+  delivered over Cloudflare's network)
 
 ### Children
 
