@@ -1,25 +1,53 @@
-name: Staging
+name: staging
 on:
   push:
-    branches: [develop]
+    branches: [main]
+
+# Serialise, don't cancel. Two pushes close together would otherwise race, and
+# the older deploy finishing last would leave staging on stale content — but
+# cancelling has the same failure with a worse shape: merge a few PRs inside a
+# minute and GitHub cancels the whole burst, tail included, so staging sits on
+# an old commit with no failed run to notice and nothing left to re-run.
+# Queueing converges on the newest merge. (Tag-triggered release.yml is NOT
+# guarded — every release must ship.)
+concurrency:
+  group: staging-deploy
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version-file: .tool-versions
         bundler-cache: true
+    # middleman-images caches optimized output under cache/ at the repo root,
+    # keyed by source content. Caching that across runs claws back ~10 min
+    # of image optimization on each main merge. Source images are
+    # scattered across post directories (not a single tree), so we hash the
+    # union of image extensions found under source/ — both lower- and
+    # upper-case .JPG since hashFiles globs are case-sensitive on Linux.
+    - name: Cache middleman-images output
+      uses: actions/cache@v6
+      with:
+        path: cache
+        key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
+        restore-keys: |
+          middleman-images-
     - name: Build the static site
+      env:
+        STAGING: 'true'
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (staging)
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # The staging CF Pages project's production_branch is "master", and
-      # its master alias is what serves www.whalecore.com. Pinning to
-      # --branch master here means develop merges land on whalecore.com.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch master
+      # --branch must match the staging CF Pages project's production_branch
+      # ("main", set in infra's terraform, independent of any git branch) —
+      # its production alias is what serves www.whalecore.com. Pinning it
+      # here means main merges land on whalecore.com.
+      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch main

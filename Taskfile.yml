@@ -35,7 +35,7 @@ tasks:
   deploy:prod:
     desc: Deploy build/ to Cloudflare Pages production (dana-lol-production)
     cmds:
-      - npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
+      - npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
   release:prod:
     desc: Build (with image optimization) and deploy to Cloudflare Pages production
@@ -44,9 +44,8 @@ tasks:
       - task: deploy:prod
 
   # --- Legacy S3 paths ------------------------------------------------------
-  # Retained as a fallback in case the Cloudflare Pages path needs to
-  # be rolled back. Both staging and prod CF Pages projects are now the
-  # default deploy targets (deploy:stage, deploy:prod).
+  # Fallback in case the Cloudflare Pages path (deploy:stage, deploy:prod)
+  # needs to be rolled back.
 
   deploy:stage:s3:
     desc: (fallback) Push build/ to staging S3 (set STAGE_S3_BUCKET and STAGE_CLOUDFRONT_DISTRIBUTION_ID)

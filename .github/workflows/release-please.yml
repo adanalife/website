@@ -1,0 +1,41 @@
+name: release-please
+# Trunk-based release flow: release-please maintains a standing release PR on
+# main (version + CHANGELOG computed from conventional commits). Merging that
+# PR creates the vX.Y.Z tag + GitHub Release, and the tag fires release.yml.
+#
+# It runs on the adanalife-automation app token, not GITHUB_TOKEN, and both
+# halves of that matter. Anything github-actions[bot] triggers is held at
+# `action_required` under the repo's first-time-contributor approval policy —
+# a status the bot never outgrows — so every update to the release PR branch
+# parked the required checks unrun and left the PR BLOCKED until someone
+# clicked approve on each. And a GITHUB_TOKEN-pushed tag fires no push trigger
+# at all, which is why this used to dispatch release.yml by hand. An app token
+# is an ordinary actor on both counts: its pull_request events run unheld and
+# its tag reaches release.yml on its own.
+on:
+  push:
+    branches:
+      - main
+
+# Every write goes through the app token below; the job's own GITHUB_TOKEN
+# needs nothing.
+permissions:
+  contents: read
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Mint automation app token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+
+      - uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
