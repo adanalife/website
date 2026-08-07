@@ -1,12 +1,23 @@
-name: Linting
+name: linting
 on: [pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
 
   misspell:
     name: misspell
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: misspell
         uses: reviewdog/action-misspell@v1
         with:

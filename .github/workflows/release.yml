@@ -1,14 +1,20 @@
-name: Release
+name: release
+# Production deploy to Cloudflare Pages at a release tag.
 on:
   push:
     tags:
       - v*
+  # A manual re-deploy of an existing tag, for when the push-triggered run
+  # failed on something outside the code (a Cloudflare hiccup, an expired
+  # token). Pick the tag as the ref.
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -24,29 +30,60 @@ jobs:
         tar -xvf pngout-20200115-linux.tar.gz
         sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
         rm -rf pngout-20200115-linux*
-    - name: Cache Middleman and image processing files
-      uses: actions/cache@v5
+    # Same cache scheme as staging.yml: middleman-images output under cache/,
+    # keyed by source image hashes so the key only changes when images change
+    # (a whole-repo hashFiles key would change every commit and never hit).
+    # Identical path+key means release restores the cache staging saved.
+    - name: Cache middleman-images output
+      uses: actions/cache@v6
       with:
-        path: |
-          .middleman/cache
-          build
-        key: middleman-${{ hashFiles('**/*') }}
+        path: cache
+        key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
         restore-keys: |
-          middleman-
+          middleman-images-
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (production)
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # Tag pushes have detached HEAD; pin to master so the deploy
-      # lands on the production alias serving www.dana.lol.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-production --branch master
+      # Tag checkouts have detached HEAD; --branch names the CF Pages
+      # project's production branch ("main", set in infra's terraform,
+      # independent of any git branch) so the deploy lands on the
+      # production alias serving www.dana.lol.
+      run: npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
-    - name: Post Discord notification
+    - name: Discord notification
+      # A rotated or deleted webhook returns 404 and must not fail a release
+      # that already shipped; the notification is best-effort.
+      continue-on-error: true
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         VERSION_TAG: ${{ github.ref_name }}
       uses: Ilshidur/action-discord@0.4.0
       with:
-        args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.compare }})'
+        # Link the tagged CHANGELOG.md, not a payload `compare` URL: releases
+        # dispatch via workflow_dispatch, whose event payload has no `compare`.
+        args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.repository.html_url }}/blob/{{ VERSION_TAG }}/CHANGELOG.md)'
+
+    # Nothing else says a release went red. The release PR merged green long
+    # before the tag ran, so the only record is this run's own entry in a run
+    # list nobody is watching.
+    #
+    # Last, so it is the catch-all: the announcement above cannot trip it,
+    # since continue-on-error keeps a dead webhook out of the job's status.
+    #
+    # Best-effort for the same reason -- a failure to report a failure should
+    # not become a second failure.
+    - name: Alert Discord on failure
+      if: failure()
+      continue-on-error: true
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_ALERTS }}
+        VERSION_TAG: ${{ github.ref_name }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      uses: Ilshidur/action-discord@0.4.0
+      with:
+        # Points at the log rather than naming what failed: the build and the
+        # Pages deploy both live in this job and either can be the one.
+        args: 'Release failed for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}) at {{ VERSION_TAG }}: [run log]({{ RUN_URL }})'

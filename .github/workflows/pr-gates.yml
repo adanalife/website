@@ -1,0 +1,46 @@
+# The fast per-PR gates, in one job.
+#
+# Fleet convention: every adanalife repo runs its cheap per-PR checks as steps
+# of one `gates` job here, because GitHub bills Actions per job rounded up to
+# the whole minute. This repo currently has only the title check, so there is no
+# saving today — the file exists so the shape matches everywhere and a second
+# gate is a step to add rather than a workflow (and a required-check rename) to
+# introduce.
+#
+# `gates` always reports, even when an individual step is inapplicable, so it is
+# safe to mark required in branch protection — a path-filtered *workflow* would
+# hang as "Expected" and block merges instead.
+name: pr-gates
+
+on:
+  pull_request:
+    branches: [main]
+    # `edited` is what makes the title check re-run when a title is fixed.
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: pr-gates-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  # `gates` is the required-status-check name in this repo's protect-main
+  # ruleset. Renaming this job means updating the ruleset in the same change,
+  # or every subsequent PR hangs on a check that can never report.
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      # Conventional Commits enforcement for the SQUASH SUBJECT. The commit-msg
+      # pre-commit hook only guards local commits; because PRs squash-merge, the
+      # PR *title* becomes the commit subject written to history.
+      #
+      # release-please's standing release PR is titled `chore(main): release
+      # X.Y.Z`, itself a conventional subject, so it passes with no exemption.
+      - name: Conventional PR title
+        uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
