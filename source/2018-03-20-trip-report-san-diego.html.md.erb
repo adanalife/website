@@ -47,8 +47,7 @@ I mean, how could you resist these wonderful puppies?
 Of course, I did do other stuff too!
 I went for walks around a nearby golf course and many beaches, I went sea kayaking with a friend in La Jolla...
 
-<%# TODO: this is messy, but I couldn't get a link to work %>
-<figure><a href="/2018/03/20/trip-report-san-diego/la-jolla-kayaking.JPG" class="no-underline"><img src="/2018/03/20/trip-report-san-diego/la-jolla-kayaking.JPG" alt="Kayaks on the beach at La Jolla"></a>📸 by <a href='https://www.instagram.com/mndhm'>@mndhm</a></figure>
+<%= f 'la-jolla-kayaking.JPG', 'Kayaks on the beach at La Jolla', note: "📸 by #{link_to('@mndhm', 'https://www.instagram.com/mndhm')}" %>
 
 ...and of course, I ate astoundingly delicious Mexican food.
 
@@ -90,5 +89,4 @@ I spent two days there (one at the Zoo and one at the Safari Park), and took cou
 As always, thank you for visiting and looking at my pictures.
 Come visit [my Facebook page](https://www.facebook.com/adanalifeunderscore/) and let me know which pictures were your favorites!
 
-<%# TODO: this is messy, but I couldn't get a link to work %>
-<figure><a href="/2018/03/20/trip-report-san-diego/salk-distant-me.JPG" class="no-underline"><img src="/2018/03/20/trip-report-san-diego/salk-distant-me.JPG" alt="Dana at the Salk Institute"></a>📸 by <a href='https://www.instagram.com/mndhm'>@mndhm</a></figure>
+<%= f 'salk-distant-me.JPG', 'Dana at the Salk Institute', note: "📸 by #{link_to('@mndhm', 'https://www.instagram.com/mndhm')}" %>
