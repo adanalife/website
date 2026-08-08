@@ -4,6 +4,11 @@
 # Ruby version from .tool-versions / .ruby-version). actionlint ships a
 # stale snapshot of that action's input list and flags it as undefined —
 # a known false positive. Suppress just that message; everything else stays on.
+#
+# This path is where actionlint itself looks. super-linter looks somewhere
+# else — LINTER_RULES_PATH/GITHUB_ACTIONS_CONFIG_FILE, i.e.
+# .github/linters/actionlint.yml — so that name is a symlink back to this
+# file. Both readers get one source of truth; don't delete either end.
 paths:
   .github/workflows/**/*.{yml,yaml}:
     ignore:
