@@ -40,7 +40,10 @@ jobs:
           # the share-buttons snippet. They're carried close to upstream so
           # they stay diffable against it, which means their style is upstream's
           # to pick, not ours.
-          FILTER_REGEX_EXCLUDE: '^source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
+          # The paths are matched absolute (super-linter only strips the
+          # workspace prefix when STRIP_DEFAULT_WORKSPACE_FOR_REGEX is true),
+          # so anchor on a path separator rather than start-of-string.
+          FILTER_REGEX_EXCLUDE: '(^|/)source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
           # stylelint reads .github/linters/.stylelintrc.yml rather than
           # super-linter's bundled .stylelintrc.json so the sassc-driven rule
           # exemptions can carry a comment explaining themselves
