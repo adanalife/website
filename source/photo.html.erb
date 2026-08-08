@@ -1,6 +1,7 @@
 ---
 pageable: false
 ---
+<% content_for :title do %>Photo: <%= File.basename(photo.destination_path) %><% end %>
 
 <section>
   <p>
