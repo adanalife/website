@@ -36,6 +36,11 @@ jobs:
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          # the vendored third-party stylesheets — normalize.css, tufte-css and
+          # the share-buttons snippet. They're carried close to upstream so
+          # they stay diffable against it, which means their style is upstream's
+          # to pick, not ours.
+          FILTER_REGEX_EXCLUDE: '^source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
           # disabled until we go through and fix the issues
           VALIDATE_JSCPD: false
           VALIDATE_ENV: false
