@@ -18,7 +18,6 @@ error_document: 404.html
 
 cache_control:
   'assets/*': public, max-age=86400
-  #TODO: confirm this works
   '*.jpg': public, max-age=86400
   '*.png': public, max-age=86400
   'favicon.ico': public, max-age=86400
