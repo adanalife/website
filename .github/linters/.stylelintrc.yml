@@ -1,0 +1,20 @@
+# Mirrors super-linter's bundled stylelint config, with the CSS Color 4 rules
+# turned off: Middleman renders these stylesheets through sassc (libsass),
+# which parses space-separated `rgb(0 0 0 / 25%)` as a Sass function call and
+# fails the build with "Function rgb is missing argument $green". Legacy
+# comma-separated `rgba()` with a 0-1 alpha is the only form that compiles.
+extends:
+  - stylelint-config-standard
+
+overrides:
+  - files:
+      - '*.scss'
+      - '**/*.scss'
+    extends:
+      - stylelint-config-recommended-scss
+    customSyntax: postcss-scss
+
+rules:
+  alpha-value-notation: null
+  color-function-alias-notation: null
+  color-function-notation: null

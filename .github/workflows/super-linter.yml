@@ -41,13 +41,13 @@ jobs:
           # they stay diffable against it, which means their style is upstream's
           # to pick, not ours.
           FILTER_REGEX_EXCLUDE: '^source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
+          # stylelint reads .github/linters/.stylelintrc.yml rather than
+          # super-linter's bundled .stylelintrc.json so the sassc-driven rule
+          # exemptions can carry a comment explaining themselves
+          CSS_FILE_NAME: .stylelintrc.yml
           # disabled until we go through and fix the issues
           VALIDATE_JSCPD: false
           VALIDATE_ENV: false
-          # disabled — many SCSS modernization issues across source/assets/
-          # (color-function-notation, alpha-value-notation, vendor prefixes,
-          # length-zero-no-unit). Fix is non-trivial; revisit later.
-          VALIDATE_CSS: false
           VALIDATE_CSS_PRETTIER: false
           # disabled — needs a .rubocop.yml + bulk auto-fixes for
           # frozen_string_literal comments and single→double quotes.
