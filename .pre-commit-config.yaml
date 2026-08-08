@@ -52,6 +52,18 @@ repos:
     hooks:
       - id: actionlint
 
+  # The site's redirects are declared twice — source/_redirects for Cloudflare
+  # Pages, s3_website.yml's `redirects:` map for the S3 fallback — so a redirect
+  # in only one of them works on one host and 404s on the other.
+  - repo: local
+    hooks:
+      - id: redirects-sync
+        name: source/_redirects agrees with s3_website.yml
+        entry: script/check_redirects_sync.rb
+        language: script
+        files: '^(source/_redirects|s3_website\.yml)$'
+        pass_filenames: false
+
   # Conventional Commits — enforce `type(scope): summary` on commit messages so
   # history stays machine-parseable: it underpins release automation and gives
   # every contributor/agent the same commit grammar without re-explaining it.
