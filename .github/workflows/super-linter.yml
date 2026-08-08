@@ -42,11 +42,6 @@ jobs:
           # would flip it to an allowlist and silently switch the rest off.
           # To turn one of these back on, delete its line.
           #
-          # off — jscpd finds exactly one clone: the shared body of
-          # .git-hooks/pre_push/{build,deploy}_site.rb, a pair of Overcommit
-          # hooks superseded by .pre-commit-config.yaml. Deleting that
-          # directory is the fix; jscpd is clean on everything else.
-          VALIDATE_JSCPD: false
           # off — false-positive: cfn-lint emits a Pydantic/Python 3.14
           # compat warning to stderr, which super-linter treats as a failure.
           # The only CFN in the repo is the legacy S3/CloudFront rollback
