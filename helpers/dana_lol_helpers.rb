@@ -108,7 +108,6 @@ module DanaLolHelpers
   end
   alias_method :mi, :margin_image
 
-  #TODO: maybe some day we will want this to take a block?
   def epigraph(content = nil, footer = nil)
     content_tag(:div, class: 'epigraph') do
       content_tag(:blockquote) do

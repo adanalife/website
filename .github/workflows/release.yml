@@ -56,14 +56,20 @@ jobs:
     - name: Discord notification
       # A rotated or deleted webhook returns 404 and must not fail a release
       # that already shipped; the notification is best-effort.
+      #
+      # Only the tag push announces. A workflow_dispatch run re-deploys a tag
+      # that already shipped, which is operational rather than news. The alert
+      # below stays unconditional: a re-deploy going red is exactly the case
+      # worth paging on.
+      if: github.event_name == 'push'
       continue-on-error: true
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         VERSION_TAG: ${{ github.ref_name }}
       uses: Ilshidur/action-discord@0.4.0
       with:
-        # Link the tagged CHANGELOG.md, not a payload `compare` URL: releases
-        # dispatch via workflow_dispatch, whose event payload has no `compare`.
+        # Link the tagged CHANGELOG.md, not a payload `compare` URL: a
+        # workflow_dispatch event payload has no `compare`.
         args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.repository.html_url }}/blob/{{ VERSION_TAG }}/CHANGELOG.md)'
 
     # Nothing else says a release went red. The release PR merged green long
