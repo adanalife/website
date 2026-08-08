@@ -36,37 +36,79 @@ jobs:
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
-          # disabled until we go through and fix the issues
+          #
+          # Everything not listed below is enabled: super-linter treats an
+          # all-`false` list as a denylist, so setting any entry to `true`
+          # would flip it to an allowlist and silently switch the rest off.
+          # To turn one of these back on, delete its line.
+          #
+          # off — jscpd finds exactly one clone: the shared body of
+          # .git-hooks/pre_push/{build,deploy}_site.rb, a pair of Overcommit
+          # hooks superseded by .pre-commit-config.yaml. Deleting that
+          # directory is the fix; jscpd is clean on everything else.
           VALIDATE_JSCPD: false
-          VALIDATE_ENV: false
-          # disabled — many SCSS modernization issues across source/assets/
-          # (color-function-notation, alpha-value-notation, vendor prefixes,
-          # length-zero-no-unit). Fix is non-trivial; revisit later.
-          VALIDATE_CSS: false
-          VALIDATE_CSS_PRETTIER: false
-          # disabled — needs a .rubocop.yml + bulk auto-fixes for
-          # frozen_string_literal comments and single→double quotes.
-          # Worth a dedicated PR.
-          VALIDATE_RUBY: false
-          # disabled — false-positive: cfn-lint emits a Pydantic/Python 3.14
+          # off — false-positive: cfn-lint emits a Pydantic/Python 3.14
           # compat warning to stderr, which super-linter treats as a failure.
           # The only CFN in the repo is the legacy S3/CloudFront rollback
           # setup under cloudformation/.
           VALIDATE_CLOUDFORMATION: false
-          # disabled until we can resolve their issues
-          VALIDATE_BIOME_FORMAT: false
-          # disabled — Biome 2.5 (pulled in by super-linter @v8) parses .svg
+          # off — checkov flags 10 issues on that same legacy CFN, most of
+          # them the public-read S3 bucket that a static website needs to be
+          # public by design. Re-enable alongside a decision on whether the
+          # cloudformation/ rollback path is still worth keeping.
+          VALIDATE_CHECKOV: false
+          # off — Biome 2.5 (pulled in by super-linter @v8) parses .svg
           # and .erb files as HTML/JSX and false-positives on SVG comments
           # (`<!-- Adobe Illustrator … -->`) and ERB tags (`<% … %>`). This is
           # a Ruby/Middleman site with no first-party JS/TS for Biome to lint.
           VALIDATE_BIOME_LINT: false
-          VALIDATE_CHECKOV: false
-          VALIDATE_GITHUB_ACTIONS: false
-          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
-          VALIDATE_JSON_PRETTIER: false
-          VALIDATE_MARKDOWN_PRETTIER: false
-          VALIDATE_NATURAL_LANGUAGE: false
-          VALIDATE_SHELL_SHFMT: false
-          VALIDATE_SPELL_CODESPELL: false
-          VALIDATE_TRIVY: false
+          # off — Biome formats JSON with tabs, which contradicts the
+          # space-indented JSON that VALIDATE_JSON_PRETTIER enforces (and
+          # that release-please writes back into the manifest on every
+          # release). Re-enabling means a repo-wide biome.json that pins
+          # indentStyle to spaces, and picking a winner between the two.
+          VALIDATE_BIOME_FORMAT: false
+          # off — rubocop's defaults flag ~86 offenses across config.rb,
+          # helpers/ and source/feed.xml.builder: frozen_string_literal
+          # comments, single→double quotes, hash alignment, and Metrics
+          # cops on the long helper methods. Re-enable after a dedicated
+          # cleanup with a chosen .rubocop.yml.
+          VALIDATE_RUBY: false
+          # off — stylelint flags ~72 SCSS modernization issues
+          # (color-function-notation, vendor prefixes, length-zero-no-unit),
+          # most of them in the vendored normalize.scss / tufte.scss /
+          # share-buttons.css. Re-enabling wants those excluded as vendored
+          # first, then a pass over the first-party sheets.
+          VALIDATE_CSS: false
+          # off — prettier would reformat all six stylesheets wholesale,
+          # vendored ones included.
+          VALIDATE_CSS_PRETTIER: false
+          # off — prettier would reformat all twelve YAML files, including
+          # every workflow and the CFN templates whose intrinsic tags
+          # (!Ref, !GetAtt) survive the round trip poorly.
           VALIDATE_YAML_PRETTIER: false
+          # off — actionlint's bundled action metadata is stale for
+          # ruby/setup-ruby@v1 and rejects its valid `ruby-version-file`
+          # input. The actionlint pre-commit hook lints the same workflows
+          # on every commit and passes, so this adds nothing but noise.
+          VALIDATE_GITHUB_ACTIONS: false
+          # off — zizmor's blanket policy requires every action pinned to a
+          # commit hash. This repo pins floating major tags on purpose so
+          # minors flow in without a bump PR; re-enabling means reversing
+          # that call, not fixing a bug.
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          # off — trivy reports four advisories against gems in
+          # Gemfile.lock. Dependabot owns those bumps; a lint sweep failing
+          # on upstream CVEs just duplicates its alerts.
+          VALIDATE_TRIVY: false
+          # off — textlint's terminology rule rewrites ordinary prose
+          # ("website" → "site", "repo" → "repository") and flags the
+          # release-please-generated CHANGELOG heading. Wrong ruleset for a
+          # personal blog.
+          VALIDATE_NATURAL_LANGUAGE: false
+          # off — codespell's real hits are in Dana's post prose and in
+          # generated files (it reads the Rouge gem as a misspelling of
+          # "rogue"). Re-enabling needs an ignore-words list plus a content
+          # pass, and the reviewdog misspell check in linting.yml already
+          # covers spelling per-PR.
+          VALIDATE_SPELL_CODESPELL: false
