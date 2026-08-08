@@ -132,6 +132,15 @@ module DanaLolHelpers
     doc.to_s
   end
 
+  # Metric equivalent of an imperial measurement, rendered as a parenthetical so
+  # it composes with any phrasing: "a 3-mile <%= metric(3, :mi) %> hike" reads
+  # "a 3-mile (5 km) hike". Rounds to whole units — these are round numbers in
+  # the prose, not instrument readings.
+  def metric(amount, unit)
+    factor, label = { mi: [1.609344, 'km'], ft: [0.3048, 'm'] }.fetch(unit)
+    "(#{(amount * factor).round} #{label})"
+  end
+
   def remove_file_extension(path)
     path.sub(/#{File.extname(path)}$/, '')
   end
