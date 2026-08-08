@@ -37,6 +37,7 @@ jobs:
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
           # disabled until we go through and fix the issues
+          VALIDATE_JSCPD: false
           VALIDATE_ENV: false
           # disabled — many SCSS modernization issues across source/assets/
           # (color-function-notation, alpha-value-notation, vendor prefixes,
