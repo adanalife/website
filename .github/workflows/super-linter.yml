@@ -87,11 +87,6 @@ jobs:
           # every workflow and the CFN templates whose intrinsic tags
           # (!Ref, !GetAtt) survive the round trip poorly.
           VALIDATE_YAML_PRETTIER: false
-          # off — actionlint's bundled action metadata is stale for
-          # ruby/setup-ruby@v1 and rejects its valid `ruby-version-file`
-          # input. The actionlint pre-commit hook lints the same workflows
-          # on every commit and passes, so this adds nothing but noise.
-          VALIDATE_GITHUB_ACTIONS: false
           # off — zizmor's blanket policy requires every action pinned to a
           # commit hash. This repo pins floating major tags on purpose so
           # minors flow in without a bump PR; re-enabling means reversing
