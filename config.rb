@@ -220,8 +220,14 @@ end
 activate :ogp do |ogp|
   ogp.namespaces = {
     # these are defined in data/ogp/
-    og: data.ogp.og,
-    fb: data.ogp.fb
+    #
+    # @app.data (rather than the lazy `data` proxy) so the defaults arrive as
+    # plain hashes: middleman-ogp merges a page's `ogp:` front matter into the
+    # namespace hash, and a lazy proxy isn't a Hash, so it gets replaced
+    # wholesale instead of merged — dropping og:image on every page that sets
+    # a description of its own.
+    og: @app.data.ogp.og,
+    fb: @app.data.ogp.fb
   }
   # turn on article support
   ogp.blog = true
