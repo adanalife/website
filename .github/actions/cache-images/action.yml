@@ -1,0 +1,21 @@
+name: Cache middleman-images output
+description: Restore the middleman-images optimized output, keyed by source image content.
+
+runs:
+  using: composite
+  steps:
+    # middleman-images caches optimized output under cache/ at the repo root,
+    # keyed by source content. Caching that across runs claws back ~10 min of
+    # image optimization per run. Source images are scattered across post
+    # directories (not a single tree), so we hash the union of image extensions
+    # found under source/ — both lower- and upper-case .JPG since hashFiles
+    # globs are case-sensitive on Linux.
+    #
+    # Sharing one action across workflows is what keeps path+key identical, so
+    # the release run restores the cache the staging run saved.
+    - uses: actions/cache@v6
+      with:
+        path: cache
+        key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
+        restore-keys: |
+          middleman-images-
