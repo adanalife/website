@@ -106,9 +106,7 @@ button.theme-toggle {
 .btn:active,
 .btn:hover {
   outline: none;
-  -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
-  box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.2);
 }
 
 .amaform {
@@ -125,13 +123,12 @@ input.question {
   display: block;
   margin-top: 1.3em;
   // top | right | bottom | left
-  padding: 0.7em 1em 0.7em 1em;
+  padding: 0.7em 1em;
   width: calc(100% - 2em);
   background: transparent;
   font-size: 1.3em;
   line-height: 1;
   opacity: 1;
-  -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
@@ -143,6 +140,7 @@ input.question {
 
 // mobile-only changes
 // note this needs to be at the bottom
+// stylelint-disable-next-line media-feature-range-notation -- range syntax needs Safari 16.4+; max-width keeps the mobile layout on older phones
 @media only screen and (max-width: 960px) {
 
   // reposition the heading links
@@ -155,11 +153,13 @@ input.question {
     position: relative;
     margin-top: 0;
   }
+
   img.header-logo {
     // position the logo nicely with the heading
     position: relative;
     right: -10px;
   }
+
   img.title-logo {
     width: 37px;
     height: auto;
