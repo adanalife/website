@@ -83,6 +83,8 @@ redirects:
   van-tour: https://youtu.be/_own6DuEpLc
   # the stream survey
   survey: https://forms.gle/a52NamfEfCcSP7Vc9
+  # the daily dashcam guessing game
+  game: https://guessr.dana.lol
 
 # routing_rules:
 #   - condition:
