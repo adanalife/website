@@ -36,6 +36,18 @@ jobs:
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          # the vendored third-party stylesheets — normalize.css, tufte-css and
+          # the share-buttons snippet. They're carried close to upstream so
+          # they stay diffable against it, which means their style is
+          # upstream's to pick, not ours.
+          # Matched against absolute paths: super-linter only strips the
+          # workspace prefix when STRIP_DEFAULT_WORKSPACE_FOR_REGEX is true,
+          # so anchor on a path separator rather than start-of-string.
+          FILTER_REGEX_EXCLUDE: '(^|/)source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
+          # stylelint reads .github/linters/.stylelintrc.yml rather than
+          # super-linter's bundled .stylelintrc.json so the sassc-driven rule
+          # exemptions can carry a comment explaining themselves
+          CSS_FILE_NAME: .stylelintrc.yml
           #
           # Everything not listed below is enabled: super-linter treats an
           # all-`false` list as a denylist, so setting any entry to `true`
@@ -69,12 +81,6 @@ jobs:
           # cops on the long helper methods. Re-enable after a dedicated
           # cleanup with a chosen .rubocop.yml.
           VALIDATE_RUBY: false
-          # off — stylelint flags ~72 SCSS modernization issues
-          # (color-function-notation, vendor prefixes, length-zero-no-unit),
-          # most of them in the vendored normalize.scss / tufte.scss /
-          # share-buttons.css. Re-enabling wants those excluded as vendored
-          # first, then a pass over the first-party sheets.
-          VALIDATE_CSS: false
           # off — prettier would reformat all six stylesheets wholesale,
           # vendored ones included.
           VALIDATE_CSS_PRETTIER: false
