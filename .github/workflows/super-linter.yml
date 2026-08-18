@@ -11,6 +11,10 @@ on:
 
 permissions:
   contents: read
+  # super-linter reports each linter as its own commit status (MULTI_STATUS,
+  # on by default). Without statuses: write every one of those POSTs 403s —
+  # a WARN that doesn't fail the run, so the reporting just silently no-ops.
+  statuses: write
 
 jobs:
   build:
