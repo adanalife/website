@@ -13,7 +13,7 @@ pageable: false
   </p>
 
   <a href="/<%= photo.destination_path %>" class='no-underline'>
-    <%= image_tag photo.destination_path, optimize: false, class: 'really-wide' %>
+    <%= image_tag photo.destination_path, class: 'really-wide' %>
   </a>
 
   <%= partial 'share_buttons' %>

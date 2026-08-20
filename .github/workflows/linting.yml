@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: misspell
+        # Advisory only: findings post as annotations and never fail the run
+        # (the action's default fail_level is none), so a red step can only
+        # mean reviewdog itself crashed — e.g. GitHub returns 422 "diff is
+        # taking too long to generate" on PRs that rewrite the whole image
+        # corpus. Don't let that noise fail the job.
+        continue-on-error: true
         uses: reviewdog/action-misspell@v1
         with:
           github_token: ${{ secrets.github_token }}
