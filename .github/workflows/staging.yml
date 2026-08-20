@@ -21,7 +21,6 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - uses: ./.github/actions/install-ruby
-    - uses: ./.github/actions/cache-images
     - name: Build the static site
       env:
         STAGING: 'true'

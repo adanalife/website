@@ -10,14 +10,7 @@ version: '3'
 
 tasks:
   build:
-    desc: Build the static site with full image optimization
-    cmds:
-      - bundle exec middleman build --bail
-
-  build:fast:
-    desc: Build without image optimization (faster, suitable for staging)
-    env:
-      ENV: test
+    desc: Build the static site
     cmds:
       - bundle exec middleman build --bail
 
@@ -27,9 +20,9 @@ tasks:
       - npx wrangler pages deploy build/ --project-name dana-lol-staging
 
   release:stage:
-    desc: Build (fast) and deploy to Cloudflare Pages staging
+    desc: Build and deploy to Cloudflare Pages staging
     cmds:
-      - task: build:fast
+      - task: build
       - task: deploy:stage
 
   deploy:prod:
@@ -38,7 +31,7 @@ tasks:
       - npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
   release:prod:
-    desc: Build (with image optimization) and deploy to Cloudflare Pages production
+    desc: Build and deploy to Cloudflare Pages production
     cmds:
       - task: build
       - task: deploy:prod
@@ -64,13 +57,13 @@ tasks:
       - bundle exec s3_website push --site build
 
   release:stage:s3:
-    desc: (fallback) Build (fast) and deploy to staging S3
+    desc: (fallback) Build and deploy to staging S3
     cmds:
-      - task: build:fast
+      - task: build
       - task: deploy:stage:s3
 
   release:prod:s3:
-    desc: (fallback) Build (with image optimization) and deploy to prod S3
+    desc: (fallback) Build and deploy to prod S3
     cmds:
       - task: build
       - task: deploy:prod:s3

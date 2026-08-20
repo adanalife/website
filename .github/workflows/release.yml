@@ -16,17 +16,6 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - uses: ./.github/actions/install-ruby
-    - name: Install ImageMagick
-      run: sudo apt-get install -y imagemagick
-    - name: Install pngout
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget --user-agent="Mozilla/5.0" https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
-        tar -xvf pngout-20200115-linux.tar.gz
-        sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
-        rm -rf pngout-20200115-linux*
-    - uses: ./.github/actions/cache-images
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (production)
