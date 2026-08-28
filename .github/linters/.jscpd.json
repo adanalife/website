@@ -5,7 +5,10 @@
     "**/__snapshots__/**",
     "**/node_modules/**",
     "**/.github/workflows/**",
-    "**/source/assets/et-book/**"
+    "**/source/assets/et-book/**",
+    "**/source/assets/normalize.scss",
+    "**/source/assets/tufte.scss",
+    "**/source/assets/share-buttons.css"
   ],
   "absolute": true
 }

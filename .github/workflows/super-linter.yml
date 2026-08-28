@@ -60,9 +60,11 @@ jobs:
           #   .github/workflows/ — the jobs/runs-on/steps/checkout scaffolding
           #     GitHub Actions requires in every workflow. What could be shared
           #     already is, in .github/actions/install-ruby.
-          #   source/assets/et-book/ — the webfonts tufte-css ships with. Five
-          #     generated SVG font outlines that share long stretches of glyph
-          #     markup.
+          #   the vendored assets listed in FILTER_REGEX_EXCLUDE below, plus
+          #     the et-book webfonts tufte-css ships with — five generated SVG
+          #     font outlines sharing long stretches of glyph markup, and a
+          #     normalize.scss that repeats itself. Upstream's copies, so
+          #     upstream's duplication.
           #
           # Everything not listed below is enabled: super-linter treats an
           # all-`false` list as a denylist, so setting any entry to `true`
