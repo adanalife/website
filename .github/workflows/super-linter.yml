@@ -40,27 +40,29 @@ jobs:
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
-          # the vendored third-party assets — normalize.css, tufte-css, the
-          # share-buttons snippet, and the et-book webfonts tufte-css ships
-          # with. They're carried close to upstream so they stay diffable
-          # against it, which means their style is upstream's to pick, not
-          # ours. The five et-book SVGs are generated font outlines and share
-          # long stretches of glyph markup, so jscpd reads them as clones.
+          # the vendored third-party stylesheets — normalize.css, tufte-css and
+          # the share-buttons snippet. They're carried close to upstream so
+          # they stay diffable against it, which means their style is
+          # upstream's to pick, not ours.
           # Matched against absolute paths: super-linter only strips the
           # workspace prefix when STRIP_DEFAULT_WORKSPACE_FOR_REGEX is true,
           # so anchor on a path separator rather than start-of-string.
-          FILTER_REGEX_EXCLUDE: '(^|/)source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css|et-book/.*)$'
+          FILTER_REGEX_EXCLUDE: '(^|/)source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
           # stylelint reads .github/linters/.stylelintrc.yml rather than
           # super-linter's bundled .stylelintrc.json so the sassc-driven rule
           # exemptions can carry a comment explaining themselves
           CSS_FILE_NAME: .stylelintrc.yml
           #
           # jscpd and markdownlint pick their configs up automatically from
-          # .github/linters/. jscpd's ignores .github/workflows/ — the one
-          # clone it finds is the jobs/runs-on/steps/checkout scaffolding
-          # GitHub Actions requires in every workflow, and the parts that
-          # could be shared already are, in .github/actions/install-ruby.
-          # JSON takes no comments, hence this note.
+          # .github/linters/. jscpd walks the workspace itself rather than the
+          # fileset FILTER_REGEX_EXCLUDE builds, so its two exclusions have to
+          # live in .jscpd.json — which, being JSON, can't explain itself:
+          #   .github/workflows/ — the jobs/runs-on/steps/checkout scaffolding
+          #     GitHub Actions requires in every workflow. What could be shared
+          #     already is, in .github/actions/install-ruby.
+          #   source/assets/et-book/ — the webfonts tufte-css ships with. Five
+          #     generated SVG font outlines that share long stretches of glyph
+          #     markup.
           #
           # Everything not listed below is enabled: super-linter treats an
           # all-`false` list as a denylist, so setting any entry to `true`

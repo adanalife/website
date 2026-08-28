@@ -4,7 +4,8 @@
   "ignore": [
     "**/__snapshots__/**",
     "**/node_modules/**",
-    "**/.github/workflows/**"
+    "**/.github/workflows/**",
+    "**/source/assets/et-book/**"
   ],
   "absolute": true
 }
