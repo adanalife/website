@@ -53,6 +53,13 @@ jobs:
           # exemptions can carry a comment explaining themselves
           CSS_FILE_NAME: .stylelintrc.yml
           #
+          # jscpd and markdownlint pick their configs up automatically from
+          # .github/linters/. jscpd's ignores .github/workflows/ — the one
+          # clone it finds is the jobs/runs-on/steps/checkout scaffolding
+          # GitHub Actions requires in every workflow, and the parts that
+          # could be shared already are, in .github/actions/install-ruby.
+          # JSON takes no comments, hence this note.
+          #
           # Everything not listed below is enabled: super-linter treats an
           # all-`false` list as a denylist, so setting any entry to `true`
           # would flip it to an allowlist and silently switch the rest off.

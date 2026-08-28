@@ -1,0 +1,23 @@
+---
+# Based on super-linter's bundled TEMPLATES/.markdown-lint.yml — naming a
+# config replaces the bundled one wholesale rather than merging with it, so
+# every default below is carried over verbatim. Only MD024 is ours.
+
+MD004: false # Unordered list style
+MD007:
+  indent: 2 # Unordered list indentation
+MD013:
+  line_length: 400 # Line length 80 is far too short
+MD024:
+  # release-please writes one "### Bug Fixes" heading per release into
+  # CHANGELOG.md, so identical headings under different version headings are
+  # the generator's normal output. siblings_only keeps the rule live within a
+  # single section, where a repeated heading really is a mistake.
+  siblings_only: true
+MD026:
+  punctuation: ".,;:!。，；:" # List of not allowed
+MD029: false # Ordered list item prefix
+MD033: false # Allow inline HTML
+MD036: false # Emphasis used instead of a heading
+
+blank_lines: false # Error on blank lines

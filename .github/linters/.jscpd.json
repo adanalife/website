@@ -1,11 +1,10 @@
 {
   "threshold": 0,
   "reporters": ["consoleFull"],
-  "absolute": true,
   "ignore": [
     "**/__snapshots__/**",
     "**/node_modules/**",
-    "source/assets/et-book/**",
-    "source/assets/normalize.scss"
-  ]
+    "**/.github/workflows/**"
+  ],
+  "absolute": true
 }
