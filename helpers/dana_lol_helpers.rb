@@ -59,7 +59,7 @@ module DanaLolHelpers
     end
   end
 
-  # used for images and other figures that have no link
+  # full-width variant, for images and other figures that have no link
   def nolink_full_figure(img_src, alt_text = '', note: nil)
     content_tag(:figure, class: 'fullwidth') do
       body = image_tag(article_image_path(img_src), alt: alt_text)

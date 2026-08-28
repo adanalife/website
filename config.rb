@@ -118,8 +118,8 @@ configure :build do
 
   # Images are not processed at build time. Source images are already
   # losslessly optimized — they're optimized once, when they enter source/,
-  # and the committed bytes are what ships. The retired -opt URLs from the
-  # old build-time pipeline 301 to the bare filenames via source/_redirects.
+  # and the committed bytes are what ships. The -opt URLs still in the wild
+  # 301 to the bare filenames via source/_redirects.
 
   # Minify Javascript on build
   # activate :minify_javascript
