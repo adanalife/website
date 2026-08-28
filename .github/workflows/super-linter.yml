@@ -55,14 +55,17 @@ jobs:
           #
           # jscpd and markdownlint pick their configs up automatically from
           # .github/linters/. jscpd walks the workspace itself rather than the
-          # fileset FILTER_REGEX_EXCLUDE builds, so its two exclusions have to
-          # live in .jscpd.json — which, being JSON, can't explain itself:
+          # fileset FILTER_REGEX_EXCLUDE builds, so everything it should skip
+          # has to be named in .jscpd.json — which, being JSON, can't explain
+          # itself. Every pattern there needs a `**/` prefix: the config sets
+          # `absolute: true`, so globs are matched against /github/workspace
+          # paths and a repo-relative one silently never fires. What's listed:
           #   .github/workflows/ — the jobs/runs-on/steps/checkout scaffolding
           #     GitHub Actions requires in every workflow. What could be shared
           #     already is, in .github/actions/install-ruby.
-          #   the vendored assets listed in FILTER_REGEX_EXCLUDE below, plus
-          #     the et-book webfonts tufte-css ships with — five generated SVG
-          #     font outlines sharing long stretches of glyph markup, and a
+          #   the vendored assets FILTER_REGEX_EXCLUDE names below, plus the
+          #     et-book webfonts tufte-css ships with — five generated SVG font
+          #     outlines sharing long stretches of glyph markup, and a
           #     normalize.scss that repeats itself. Upstream's copies, so
           #     upstream's duplication.
           #
