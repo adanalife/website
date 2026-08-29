@@ -9,6 +9,10 @@
 # Every rule the site has today is expressible on both hosts. A Cloudflare-only
 # rule (a splat or a :placeholder, which S3 can't express) would have no
 # counterpart — adding one means teaching this check to skip it.
+#
+# The one Cloudflare-only class today: the retired `-opt` image URLs from the
+# old build-time image pipeline, which 301 to the bare filenames. The S3
+# fallback never served the bare filenames, so those rules are skipped here.
 
 require 'yaml'
 
@@ -27,6 +31,8 @@ cf = File.readlines(File.join(ROOT, CF_FILE), chomp: true).map do |line|
   next if line.strip.empty? || line.start_with?('#')
 
   from, to, = line.split
+  next if from.match?(/-opt\.(jpe?g|png|gif)\z/i)
+
   [normalize(from), normalize(to)]
 end.compact.to_h
 
