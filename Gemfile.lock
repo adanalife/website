@@ -16,10 +16,16 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
+    anthropic (1.67.0)
+      base64 (~> 0.1)
+      cgi (~> 0.1)
+      connection_pool (>= 2, < 4)
+      standardwebhooks (~> 1.0)
     awesome_print (1.9.2)
     base64 (0.3.0)
     bigdecimal (4.1.2)
     builder (3.3.0)
+    cgi (0.5.2)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -164,6 +170,7 @@ GEM
       ffi (~> 1.9)
     securerandom (0.4.1)
     servolux (0.13.0)
+    standardwebhooks (1.1.0)
     temple (0.10.4)
     thor (1.5.0)
     tilt (2.7.0)
@@ -187,6 +194,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  anthropic
   awesome_print
   builder
   dotenv
