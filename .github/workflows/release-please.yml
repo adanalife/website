@@ -6,11 +6,11 @@ name: release-please
 # It runs on the adanalife-automation app token, not GITHUB_TOKEN, and both
 # halves of that matter. Anything github-actions[bot] triggers is held at
 # `action_required` under the repo's first-time-contributor approval policy —
-# a status the bot never outgrows — so every update to the release PR branch
-# parked the required checks unrun and left the PR BLOCKED until someone
-# clicked approve on each. And a GITHUB_TOKEN-pushed tag fires no push trigger
-# at all, which is why this used to dispatch release.yml by hand. An app token
-# is an ordinary actor on both counts: its pull_request events run unheld and
+# a status the bot never outgrows — so its updates to the release PR branch
+# leave the required checks unrun and the PR BLOCKED until someone clicks
+# approve on each. And a GITHUB_TOKEN-pushed tag fires no push trigger at all,
+# so release.yml never sees it. An app token is an ordinary actor on both
+# counts: its pull_request events run unheld and
 # its tag reaches release.yml on its own.
 on:
   push:
