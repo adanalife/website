@@ -5,6 +5,10 @@
 //
 // where <id> is time-sortable so the drain processes oldest first. The
 // worker never touches pixels — the drain side runs script/ingest-image.
+//
+// A drained message is moved under archive/<id>/ rather than deleted: the
+// photos as uploaded (full EXIF, no watermark) are the originals corpus,
+// which is what lets the drain run anywhere — no NAS needed.
 import PostalMime from 'postal-mime'
 
 export default {
@@ -61,6 +65,7 @@ export default {
       do {
         const page = await env.INBOX.list({ cursor })
         for (const obj of page.objects) {
+          if (obj.key.startsWith('archive/')) continue
           const [id, ...rest] = obj.key.split('/')
           ;(messages[id] ??= []).push(rest.join('/'))
         }
@@ -75,11 +80,16 @@ export default {
       return new Response(obj.body, { headers: { 'content-type': obj.httpMetadata?.contentType || 'application/octet-stream' } })
     }
 
+    // "Delete" = archive. R2 has no rename, so copy then delete.
     if (method === 'DELETE' && url.pathname.startsWith('/messages/')) {
       const prefix = url.pathname.slice('/messages/'.length) + '/'
       const page = await env.INBOX.list({ prefix })
+      for (const o of page.objects) {
+        const src = await env.INBOX.get(o.key)
+        await env.INBOX.put(`archive/${o.key}`, src.body, { httpMetadata: src.httpMetadata })
+      }
       await env.INBOX.delete(page.objects.map(o => o.key))
-      return json({ deleted: page.objects.length })
+      return json({ archived: page.objects.length })
     }
 
     return new Response('not found', { status: 404 })

@@ -1,6 +1,7 @@
 // The post-from-phone inbox: photos mailed to post@whalecore.com (or POSTed
-// from the iOS Shortcut) land in R2 as one message directory each, and
-// `task post:drain` turns each directory into a draft article PR.
+// from the iOS Shortcut) land in R2 as one message directory each, and the
+// drain (script/drain-inbox, on a schedule in CI) turns each into a draft
+// article PR, then moves it under archive/ as the untouched-originals corpus.
 //
 // Deploy: `task post:worker:deploy`. Secrets, once, from the laptop:
 //   npx wrangler -c worker/wrangler.jsonc secret put INBOX_TOKEN       # bearer for the Shortcut + drain
