@@ -53,6 +53,6 @@ jobs:
           # Originals live in the worker's archive/ prefix; nothing to keep here.
           INGEST_ARCHIVE: ${{ runner.temp }}/archive
         run: |
-          git config user.name "[bot]"
-          git config user.email "[bot]@users.noreply.github.com"
+          git config user.name "adanalife-automation[bot]"
+          git config user.email "adanalife-automation[bot]@users.noreply.github.com"
           bundle exec script/drain-inbox
