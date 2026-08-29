@@ -95,6 +95,11 @@ jobs:
           # release). Re-enabling means a repo-wide biome.json that pins
           # indentStyle to spaces, and picking a winner between the two.
           VALIDATE_BIOME_FORMAT: false
+          # off — the only first-party JS is worker/, written to standard
+          # style (VALIDATE_JAVASCRIPT_STANDARD stays on). ESLint has no
+          # config here and Prettier's semicolons contradict standard.
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_JAVASCRIPT_PRETTIER: false
           # off — rubocop's defaults flag ~86 offenses across config.rb,
           # helpers/ and source/feed.xml.builder: frozen_string_literal
           # comments, single→double quotes, hash alignment, and Metrics
