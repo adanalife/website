@@ -97,10 +97,13 @@ messages.each do |msg|
     end
     scaffold(worktree, name, meta, figures)
 
+    # Conventional Commits, as the commit-msg hook and the squash title need;
+    # `feat(posts)` is how the repo types article work.
+    title = "feat(posts): #{meta['subject'].empty? ? name : meta['subject']}"
     sh('git', 'add', 'source', chdir: worktree)
-    sh('git', 'commit', '-q', '-m', "post: #{meta['subject'].empty? ? name : meta['subject']}", chdir: worktree)
+    sh('git', 'commit', '-q', '-m', title, chdir: worktree)
     sh('git', 'push', '-q', '-u', 'origin', branch, chdir: worktree)
-    pr = sh('gh', 'pr', 'create', '--draft', '--title', "post: #{meta['subject'].empty? ? name : meta['subject']}",
+    pr = sh('gh', 'pr', 'create', '--draft', '--title', title,
             '--body', "Drafted from the #{meta['source']} inbox (#{meta['date']}).\n\n#{meta['body']}", chdir: worktree).strip
     puts "  #{pr}"
   ensure
