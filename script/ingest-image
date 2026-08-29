@@ -1,0 +1,120 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# The single door images enter source/ through.
+#
+#   script/ingest-image <article-dir> <photo>...      (or: task img:add)
+#
+# For each photo: archive the untouched original (full EXIF) to the NAS,
+# auto-orient, composite the logo watermark, strip EXIF/GPS, write the
+# optimized public copy into source/<article-dir>/, and print a
+# ready-to-paste figure line with a suggested alt text.
+#
+# A photo already inside the destination directory is rewritten in place
+# (this is how the one-shot batch over the existing corpus runs).
+#
+# Env:
+#   INGEST_ARCHIVE   originals corpus root (default: the NAS share)
+#   INGEST_NO_ALT=1  skip the alt-text API call
+
+require 'fileutils'
+require 'shellwords'
+require 'tmpdir'
+require 'base64'
+
+ROOT = File.expand_path('..', __dir__)
+LOGO_SVG = File.join(ROOT, 'design/logo.svg')
+ARCHIVE = ENV.fetch('INGEST_ARCHIVE', '/Volumes/ADanaLife/website/originals')
+
+# Watermark look, settled via mockups 2026-08-19: white logo, bottom-right,
+# 5% of image width (capped at 20% of height so panoramas don't oversize
+# it), 25% opacity, tucked 0.5% of width off both edges.
+LOGO_WIDTH_FRAC = 0.05
+LOGO_HEIGHT_CAP = 0.20
+LOGO_OPACITY = 0.25
+MARGIN_FRAC = 0.005
+
+def sh(*cmd)
+  out = IO.popen(cmd, err: %i[child out], &:read)
+  abort "#{cmd.first} failed:\n#{out}" unless $?.success?
+  out
+end
+
+def white_logo(dir)
+  black = File.join(dir, 'logo-black.png')
+  white = File.join(dir, 'logo-white.png')
+  sh('rsvg-convert', '-w', '1024', LOGO_SVG, '-o', black)
+  # The SVG has no fill (renders black); negate RGB only so the antialiased
+  # alpha edge survives.
+  sh('magick', black, '-channel', 'RGB', '-negate', white)
+  white
+end
+
+def archive(photo, article)
+  dest = File.join(ARCHIVE, article)
+  unless Dir.exist?(ARCHIVE)
+    abort "archive root #{ARCHIVE} is not mounted — mount the NAS or set INGEST_ARCHIVE"
+  end
+  FileUtils.mkdir_p(dest)
+  target = File.join(dest, File.basename(photo))
+  abort "refusing to overwrite archived original #{target}" if File.exist?(target)
+  FileUtils.cp(photo, target, preserve: true)
+end
+
+def process(photo, logo, out)
+  w, h, quality, sampling = sh('magick', photo, '-auto-orient', '-format', '%w %h %Q %[jpeg:sampling-factor]', 'info:').split
+  w = w.to_i
+  h = h.to_i
+  lw = [w * LOGO_WIDTH_FRAC, h * LOGO_HEIGHT_CAP].min.round
+  margin = (w * MARGIN_FRAC).round
+
+  # Re-encoding is lossy; match the source's quality + chroma subsampling so
+  # the only pixel change is the mark itself. %Q is 0 for non-JPEG input.
+  jpeg_opts = quality.to_i.positive? ? ['-quality', quality, '-sampling-factor', sampling] : []
+
+  sh('magick', photo, '-auto-orient',
+     '(', logo, '-resize', "#{lw}x", '-channel', 'A', '-evaluate', 'multiply', LOGO_OPACITY.to_s, '+channel', ')',
+     '-gravity', 'southeast', '-geometry', "+#{margin}+#{margin}", '-composite',
+     '-strip', '-interlace', 'JPEG', '-define', 'png:compression-level=9', *jpeg_opts, out)
+end
+
+def alt_text(path)
+  return nil if ENV['INGEST_NO_ALT']
+
+  require 'anthropic'
+  media = File.extname(path).downcase == '.png' ? 'image/png' : 'image/jpeg'
+  msg = Anthropic::Client.new.messages.create(
+    model: :'claude-opus-5',
+    max_tokens: 256,
+    messages: [{ role: 'user', content: [
+      { type: 'image', source: { type: 'base64', media_type: media, data: Base64.strict_encode64(File.binread(path)) } },
+      { type: 'text', text: 'Write alt text for this travel-blog photo: one plain sentence, no leading "Image of", no quotes. Reply with the sentence only.' }
+    ] }]
+  )
+  msg.content.find { |b| b.type == :text }&.text&.strip
+rescue StandardError => e
+  warn "alt text skipped for #{File.basename(path)}: #{e.message}"
+  nil
+end
+
+article, *photos = ARGV
+abort 'usage: script/ingest-image <article-dir> <photo>...' if article.nil? || photos.empty?
+
+article = File.basename(article) # accept "source/2026-…-slug" or just the slug
+dest_dir = File.join(ROOT, 'source', article)
+FileUtils.mkdir_p(dest_dir)
+
+Dir.mktmpdir do |tmp|
+  logo = white_logo(tmp)
+  photos.each do |photo|
+    abort "#{photo}: not a file" unless File.file?(photo)
+    archive(photo, article)
+    name = File.basename(photo)
+    out = File.join(dest_dir, name)
+    tmp_out = File.join(tmp, name)
+    process(photo, logo, tmp_out)
+    FileUtils.mv(tmp_out, out)
+    alt = alt_text(out) || 'TODO alt text'
+    puts "<%= f '#{name}', '#{alt.gsub("'", "\\\\'")}' %>"
+  end
+end

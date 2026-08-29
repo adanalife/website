@@ -14,6 +14,21 @@ tasks:
     cmds:
       - bundle exec middleman build --bail
 
+  img:add:
+    desc: "Ingest photos into source/<article-dir>: archive original, watermark, strip EXIF (task img:add -- <article-dir> <photo>...)"
+    cmds:
+      - bundle exec script/ingest-image {{.CLI_ARGS}}
+
+  img:watermark-corpus:
+    desc: One-shot re-ingest of every committed image in place (archive first, watermark once)
+    cmds:
+      - |
+        for dir in source/*/; do
+          set -- "$dir"*.jpg "$dir"*.JPG "$dir"*.png
+          files=(); for f in "$@"; do [ -f "$f" ] && files+=("$f"); done
+          [ ${#files[@]} -gt 0 ] && INGEST_NO_ALT=1 bundle exec script/ingest-image "$dir" "${files[@]}"
+        done
+
   deploy:stage:
     desc: Deploy build/ to Cloudflare Pages staging (dana-lol-staging)
     cmds:
