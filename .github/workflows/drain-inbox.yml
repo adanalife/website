@@ -1,0 +1,58 @@
+# Turn whatever is in the post-from-phone inbox into draft article PRs.
+#
+# Runs on a schedule and on demand. The drain is script/drain-inbox: it
+# ingests each message's photos (script/ingest-image) into a branch off
+# main, scaffolds the article, opens a draft PR, and archives the message.
+# The PR is opened with the automation app's token — not GITHUB_TOKEN — so
+# the draft gets CI like any other PR.
+#
+# Secrets: INBOX_URL, INBOX_TOKEN (the worker), ANTHROPIC_API_KEY (alt-text
+# suggestions; without it the figure lines say 'TODO alt text').
+name: drain-inbox
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: drain-inbox
+  cancel-in-progress: false
+
+jobs:
+  drain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          app-id: ${{ vars.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: ./.github/actions/install-ruby
+
+      - name: Install ImageMagick + rsvg-convert
+        run: sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+
+      - name: Drain
+        env:
+          INBOX_URL: ${{ secrets.INBOX_URL }}
+          INBOX_TOKEN: ${{ secrets.INBOX_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          DRAIN_WORKTREES: ${{ runner.temp }}/worktrees
+          # Originals live in the worker's archive/ prefix; nothing to keep here.
+          INGEST_ARCHIVE: ${{ runner.temp }}/archive
+        run: |
+          git config user.name "[bot]"
+          git config user.email "[bot]@users.noreply.github.com"
+          bundle exec script/drain-inbox
