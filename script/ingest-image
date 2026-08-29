@@ -24,7 +24,8 @@ require 'base64'
 
 ROOT = File.expand_path('..', __dir__)
 LOGO_SVG = File.join(ROOT, 'design/logo.svg')
-ARCHIVE = ENV.fetch('INGEST_ARCHIVE', '/Volumes/ADanaLife/website/originals')
+NAS = '/Volumes/ADanaLife'
+ARCHIVE = ENV.fetch('INGEST_ARCHIVE', "#{NAS}/website/originals")
 
 # Watermark look, settled via mockups 2026-08-19: white logo, bottom-right,
 # 5% of image width (capped at 20% of height so panoramas don't oversize
@@ -52,8 +53,11 @@ end
 
 def archive(photo, article)
   dest = File.join(ARCHIVE, article)
-  unless Dir.exist?(ARCHIVE)
-    abort "archive root #{ARCHIVE} is not mounted — mount the NAS or set INGEST_ARCHIVE"
+  # The directory may not exist yet on a mounted share, and mkdir_p on an
+  # UNmounted one would quietly create it on the local disk — so test the
+  # mount itself (a mount point sits on a different device than its parent).
+  unless ENV['INGEST_ARCHIVE'] || (Dir.exist?(NAS) && File.stat(NAS).dev != File.stat('/Volumes').dev)
+    abort "#{NAS} is not mounted — mount the NAS or set INGEST_ARCHIVE"
   end
   FileUtils.mkdir_p(dest)
   target = File.join(dest, File.basename(photo))
