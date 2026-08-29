@@ -104,7 +104,10 @@ messages.each do |msg|
             '--body', "Drafted from the #{meta['source']} inbox (#{meta['date']}).\n\n#{meta['body']}", chdir: worktree).strip
     puts "  #{pr}"
   ensure
+    # A failed run must leave nothing behind for the retry to trip over:
+    # the worktree and the branch it was created with.
     sh('git', 'worktree', 'remove', '--force', worktree)
+    sh('git', 'branch', '-D', '-q', branch)
   end
 
   api(:Delete, "/messages/#{id}")
