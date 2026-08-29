@@ -11,6 +11,9 @@ repos:
     hooks:
       # Git style
       - id: check-added-large-files
+        # Photos are the site's payload and routinely run to 12 MB; they
+        # enter through script/ingest-image already optimized.
+        exclude: '\.(jpe?g|png|gif)$'
       - id: check-merge-conflict
       - id: check-vcs-permalinks
       - id: forbid-new-submodules
