@@ -1,0 +1,15 @@
+{
+  "name": "dana-lol-post-inbox",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "postal-mime": "^3.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.127.1"
+  }
+}

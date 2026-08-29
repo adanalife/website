@@ -1,0 +1,97 @@
+// Two doors into one inbox. Every message becomes a directory in R2:
+//
+//   <id>/meta.json            {source, from, subject, body, date}
+//   <id>/<n>-<filename>       each photo, in the order it arrived
+//
+// where <id> is time-sortable so the drain processes oldest first. The
+// worker never touches pixels — the drain side runs script/ingest-image.
+import PostalMime from 'postal-mime'
+
+export default {
+  // Door 1: Cloudflare Email Routing hands post@ mail here.
+  async email (message, env) {
+    const allowed = env.ALLOWED_SENDERS.split(',').map(s => s.trim().toLowerCase())
+    if (!allowed.includes(message.from.toLowerCase())) {
+      message.setReject('address not accepted')
+      return
+    }
+    const mail = await PostalMime.parse(message.raw)
+    const photos = mail.attachments
+      .filter(a => a.mimeType.startsWith('image/'))
+      .map(a => ({ name: a.filename || 'photo.jpg', body: a.content, type: a.mimeType }))
+    await store(env.INBOX, {
+      source: 'email',
+      from: message.from,
+      subject: mail.subject || '',
+      body: (mail.text || '').trim(),
+      date: mail.date || new Date().toISOString()
+    }, photos)
+  },
+
+  // Door 2 + the drain API. Everything needs the bearer token.
+  async fetch (request, env) {
+    if (request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
+      return new Response('unauthorized', { status: 401 })
+    }
+    const url = new URL(request.url)
+    const { method } = request
+
+    // iOS Shortcut: multipart form with `subject`, `body`, and any number of files.
+    if (method === 'POST' && url.pathname === '/') {
+      const form = await request.formData()
+      const photos = []
+      for (const [, value] of form) {
+        if (value instanceof File) photos.push({ name: value.name, body: await value.arrayBuffer(), type: value.type })
+      }
+      const id = await store(env.INBOX, {
+        source: 'shortcut',
+        from: '',
+        subject: form.get('subject') || '',
+        body: (form.get('body') || '').trim(),
+        date: new Date().toISOString()
+      }, photos)
+      return json({ id, photos: photos.length })
+    }
+
+    if (method === 'GET' && url.pathname === '/messages') {
+      const messages = {}
+      let cursor
+      do {
+        const page = await env.INBOX.list({ cursor })
+        for (const obj of page.objects) {
+          const [id, ...rest] = obj.key.split('/')
+          ;(messages[id] ??= []).push(rest.join('/'))
+        }
+        cursor = page.truncated ? page.cursor : undefined
+      } while (cursor)
+      return json(Object.entries(messages).sort().map(([id, files]) => ({ id, files })))
+    }
+
+    if (method === 'GET' && url.pathname.startsWith('/o/')) {
+      const obj = await env.INBOX.get(url.pathname.slice(3))
+      if (!obj) return new Response('not found', { status: 404 })
+      return new Response(obj.body, { headers: { 'content-type': obj.httpMetadata?.contentType || 'application/octet-stream' } })
+    }
+
+    if (method === 'DELETE' && url.pathname.startsWith('/messages/')) {
+      const prefix = url.pathname.slice('/messages/'.length) + '/'
+      const page = await env.INBOX.list({ prefix })
+      await env.INBOX.delete(page.objects.map(o => o.key))
+      return json({ deleted: page.objects.length })
+    }
+
+    return new Response('not found', { status: 404 })
+  }
+}
+
+async function store (bucket, meta, photos) {
+  const id = `${new Date().toISOString().replace(/[:.]/g, '-')}-${crypto.randomUUID().slice(0, 8)}`
+  await bucket.put(`${id}/meta.json`, JSON.stringify(meta), { httpMetadata: { contentType: 'application/json' } })
+  await Promise.all(photos.map((p, i) =>
+    bucket.put(`${id}/${String(i + 1).padStart(2, '0')}-${p.name.replace(/[^\w.-]/g, '_')}`, p.body, { httpMetadata: { contentType: p.type } })
+  ))
+  return id
+}
+
+const json = (data, status = 200) =>
+  new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json' } })

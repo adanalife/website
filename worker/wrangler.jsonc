@@ -1,0 +1,15 @@
+// The post-from-phone inbox: photos mailed to post@whalecore.com (or POSTed
+// from the iOS Shortcut) land in R2 as one message directory each, and
+// `task post:drain` turns each directory into a draft article PR.
+//
+// Deploy: `task post:worker:deploy`. Secrets, once, from the laptop:
+//   npx wrangler -c worker/wrangler.jsonc secret put INBOX_TOKEN       # bearer for the Shortcut + drain
+//   npx wrangler -c worker/wrangler.jsonc secret put ALLOWED_SENDERS   # comma-separated; mail from anyone else is rejected at SMTP time
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dana-lol-post-inbox",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-01",
+  "r2_buckets": [{ "binding": "INBOX", "bucket_name": "dana-lol-post-inbox" }],
+  "observability": { "enabled": true }
+}
