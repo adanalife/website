@@ -29,6 +29,18 @@ tasks:
           [ ${#files[@]} -gt 0 ] && INGEST_NO_ALT=1 bundle exec script/ingest-image "$dir" "${files[@]}"
         done
 
+  post:worker:deploy:
+    desc: Deploy the post-from-phone inbox worker (worker/)
+    dir: worker
+    cmds:
+      - npm ci
+      - npx wrangler deploy
+
+  post:drain:
+    desc: Turn every message in the inbox into a draft article PR (needs INBOX_URL + INBOX_TOKEN)
+    cmds:
+      - bundle exec script/drain-inbox {{.CLI_ARGS}}
+
   deploy:stage:
     desc: Deploy build/ to Cloudflare Pages staging (dana-lol-staging)
     cmds:

@@ -1,0 +1,111 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Drain the post-from-phone inbox into draft article PRs.
+#
+#   script/drain-inbox            (or: task post:drain)
+#
+# For each message the worker holds (worker/src/index.js): download its
+# photos, run script/ingest-image over them into a fresh worktree branched
+# off origin/main, scaffold source/<date>-<slug>.html.md.erb from the
+# article template with the figure lines + the message body pre-filled,
+# push, open a draft PR, and delete the message. The draft PR is the
+# review queue — edit front matter and prose there, mark ready, merge.
+#
+# Env: INBOX_URL (the worker's URL), INBOX_TOKEN (its bearer secret); the
+# archive/alt-text env of script/ingest-image passes straight through.
+
+require 'json'
+require 'net/http'
+require 'fileutils'
+require 'tmpdir'
+
+ROOT = File.expand_path('..', __dir__)
+WORKTREES = File.expand_path('~/adanalife/worktrees')
+INBOX = URI(ENV.fetch('INBOX_URL') { abort 'set INBOX_URL' })
+TOKEN = ENV.fetch('INBOX_TOKEN') { abort 'set INBOX_TOKEN' }
+
+def api(method, path, out: nil)
+  uri = INBOX.dup
+  uri.path = path
+  req = Net::HTTP.const_get(method).new(uri)
+  req['Authorization'] = "Bearer #{TOKEN}"
+  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+    http.request(req) do |res|
+      abort "#{method} #{path}: HTTP #{res.code} #{res.body}" unless res.is_a?(Net::HTTPSuccess)
+      return File.open(out, 'wb') { |f| res.read_body { |chunk| f.write(chunk) } } if out
+
+      return res.body
+    end
+  end
+end
+
+def sh(*cmd, chdir: ROOT)
+  out = IO.popen(cmd, chdir: chdir, err: %i[child out], &:read)
+  abort "#{cmd.join(' ')} failed:\n#{out}" unless $?.success?
+  out
+end
+
+def slugify(str)
+  slug = str.downcase.gsub(/[^a-z0-9]+/, '-').gsub(/\A-|-\z/, '')
+  slug.empty? ? 'untitled' : slug[0, 60]
+end
+
+def scaffold(worktree, name, meta, figures)
+  template = File.read(File.join(worktree, 'source/article-template.html.md.erb'))
+  title = meta['subject'].empty? ? 'TODO' : meta['subject'].gsub('"', '\"')
+  body = meta['body'].empty? ? '' : "#{meta['body']}\n\n"
+  article = template
+            .sub('title: "TODO"', "title: \"#{title}\"")
+            .sub('date: TODO # YYYY-MM-DD', "date: #{meta['date'][0, 10]}")
+            .sub(/<%= lorem\.paragraph %>\n(<%= lorem\.paragraph %>\n)+\n<%= lorem\.paragraph %>\n/, body + figures.join("\n") + "\n")
+  File.write(File.join(worktree, 'source', "#{name}.html.md.erb"), article)
+end
+
+messages = JSON.parse(api(:Get, '/messages'))
+puts "#{messages.size} message(s) in the inbox"
+
+messages.each do |msg|
+  id = msg['id']
+  next unless msg['files'].include?('meta.json')
+
+  meta = JSON.parse(api(:Get, "/o/#{id}/meta.json"))
+  photos = msg['files'].reject { |f| f == 'meta.json' }
+  if photos.empty?
+    warn "#{id}: no photos, deleting"
+    api(:Delete, "/messages/#{id}")
+    next
+  end
+
+  date = meta['date'][0, 10]
+  name = "#{date}-#{slugify(meta['subject'])}"
+  worktree = File.join(WORKTREES, "website-post-#{slugify(meta['subject'])}")
+  branch = "post/#{name}"
+  puts "#{id}: #{name} (#{photos.size} photo(s))"
+
+  sh('git', 'fetch', '-q', 'origin')
+  sh('git', 'worktree', 'add', '-q', '-b', branch, worktree, 'origin/main')
+  begin
+    figures = Dir.mktmpdir do |tmp|
+      # Strip the worker's ordering prefix (01-) so the committed name is the phone's.
+      files = photos.map do |f|
+        local = File.join(tmp, f.sub(/\A\d+-/, ''))
+        api(:Get, "/o/#{id}/#{f}", out: local)
+        local
+      end
+      sh('bundle', 'exec', 'script/ingest-image', name, *files, chdir: worktree).lines(chomp: true).grep(/\A<%=/)
+    end
+    scaffold(worktree, name, meta, figures)
+
+    sh('git', 'add', 'source', chdir: worktree)
+    sh('git', 'commit', '-q', '-m', "post: #{meta['subject'].empty? ? name : meta['subject']}", chdir: worktree)
+    sh('git', 'push', '-q', '-u', 'origin', branch, chdir: worktree)
+    pr = sh('gh', 'pr', 'create', '--draft', '--title', "post: #{meta['subject'].empty? ? name : meta['subject']}",
+            '--body', "Drafted from the #{meta['source']} inbox (#{meta['date']}).\n\n#{meta['body']}", chdir: worktree).strip
+    puts "  #{pr}"
+  ensure
+    sh('git', 'worktree', 'remove', '--force', worktree)
+  end
+
+  api(:Delete, "/messages/#{id}")
+end
