@@ -57,6 +57,9 @@ def archive(photo, article)
   end
   FileUtils.mkdir_p(dest)
   target = File.join(dest, File.basename(photo))
+  # A retry after a failure downstream re-archives the same bytes: fine.
+  # Different bytes under the same name would clobber an original: not fine.
+  return if File.exist?(target) && FileUtils.identical?(photo, target)
   abort "refusing to overwrite archived original #{target}" if File.exist?(target)
   FileUtils.cp(photo, target, preserve: true)
 end
