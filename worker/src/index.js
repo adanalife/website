@@ -36,7 +36,9 @@ export default {
     const url = new URL(request.url)
     const { method } = request
 
-    // iOS Shortcut: multipart form with `subject`, `body`, and any number of files.
+    // iOS Shortcut: multipart form with `subject`, `body`, and files. A form
+    // field holds one value in Shortcuts, so a multi-photo share arrives as
+    // one request per photo carrying the same `id`; they join one message.
     if (method === 'POST' && url.pathname === '/') {
       const form = await request.formData()
       const photos = []
@@ -49,7 +51,7 @@ export default {
         subject: form.get('subject') || '',
         body: (form.get('body') || '').trim(),
         date: new Date().toISOString()
-      }, photos)
+      }, photos, form.get('id')?.replace(/[^\w-]/g, ''))
       return json({ id, photos: photos.length })
     }
 
@@ -84,11 +86,13 @@ export default {
   }
 }
 
-async function store (bucket, meta, photos) {
-  const id = `${new Date().toISOString().replace(/[:.]/g, '-')}-${crypto.randomUUID().slice(0, 8)}`
-  await bucket.put(`${id}/meta.json`, JSON.stringify(meta), { httpMetadata: { contentType: 'application/json' } })
+async function store (bucket, meta, photos, id) {
+  id ||= `${new Date().toISOString().replace(/[:.]/g, '-')}-${crypto.randomUUID().slice(0, 8)}`
+  const existing = (await bucket.list({ prefix: `${id}/` })).objects.length
+  if (existing === 0) await bucket.put(`${id}/meta.json`, JSON.stringify(meta), { httpMetadata: { contentType: 'application/json' } })
+  const offset = Math.max(existing - 1, 0)
   await Promise.all(photos.map((p, i) =>
-    bucket.put(`${id}/${String(i + 1).padStart(2, '0')}-${p.name.replace(/[^\w.-]/g, '_')}`, p.body, { httpMetadata: { contentType: p.type } })
+    bucket.put(`${id}/${String(offset + i + 1).padStart(2, '0')}-${p.name.replace(/[^\w.-]/g, '_')}`, p.body, { httpMetadata: { contentType: p.type } })
   ))
   return id
 }
