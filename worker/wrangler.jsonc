@@ -11,5 +11,5 @@
   "main": "src/index.js",
   "compatibility_date": "2026-08-01",
   "r2_buckets": [{ "binding": "INBOX", "bucket_name": "dana-lol-post-inbox" }],
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
 }
