@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/adanalife/website/compare/v1.9.0...v1.9.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* **redirects:** point the -opt.JPG image redirects at the lowercased files ([#303](https://github.com/adanalife/website/issues/303)) ([7428e0b](https://github.com/adanalife/website/commit/7428e0b9b296bed300676236deec86c682393e91))
+
 ## [1.9.0](https://github.com/adanalife/website/compare/v1.8.0...v1.9.0) (2026-08-29)
 
 
