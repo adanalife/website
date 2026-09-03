@@ -37,6 +37,10 @@ page '/404.html', directory_index: false
 ignore "photo.html"
 ignore "photo.html.erb"
 
+# The vendored-asset pin list is provenance for this repo, not something the
+# site serves.
+ignore "assets/vendor.txt"
+
 # Generate a photo landing page (/photo.html) for every image, mounted at
 # the image's slug-without-extension. linked_image() in dana_lol_helpers
 # wraps every <img> in <a href="<slug>"> pointing here.

@@ -63,6 +63,24 @@ tasks:
       - task: build
       - task: deploy:prod
 
+  # Vendored third-party frontend assets (normalize.css, the et-book fonts).
+  # source/assets/vendor.txt is the pin list; bump a version there and re-sync
+  # rather than editing a vendored file in place.
+  vendor:sync:
+    desc: Re-download the vendored frontend assets at the versions pinned in source/assets/vendor.txt
+    cmds:
+      - ./script/vendor.sh sync
+
+  vendor:check:
+    desc: Assert each vendored asset is still byte-identical to its pinned upstream release
+    cmds:
+      - ./script/vendor.sh check
+
+  vendor:latest:
+    desc: Report vendored assets with a newer release upstream
+    cmds:
+      - ./script/vendor.sh latest
+
   # --- Legacy S3 paths ------------------------------------------------------
   # Fallback in case the Cloudflare Pages path (deploy:stage, deploy:prod)
   # needs to be rolled back.

@@ -1,5 +1,10 @@
-# Vendored / generated assets aren't ours to reformat.
-exclude: '^(node_modules/|build/|\.cache/)'
+# Vendored / generated assets aren't ours to reformat. source/assets/vendor.txt
+# lists the vendored ones and the release each came from, and `task vendor:check`
+# compares bytes — so a formatting hook running here would fail that check
+# rather than pass silently. That is not hypothetical: end-of-file-fixer already
+# rewrote the last byte of the et-book SVGs, which is why they are unpinned.
+exclude: >-
+  ^(node_modules/|build/|\.cache/|source/assets/(normalize\.scss|et-book/))
 
 # Install both the pre-commit (file-content) hooks and the commit-msg hook
 # (the Conventional Commits check at the bottom) on a plain `pre-commit install`.
