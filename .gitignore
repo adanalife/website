@@ -46,3 +46,6 @@ design
 
 # Worker deps (worker/package.json)
 /worker/node_modules
+
+# wrangler's scratch state, including the cached account credentials.
+.wrangler/
