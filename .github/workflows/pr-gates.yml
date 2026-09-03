@@ -50,6 +50,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # The vendored frontend assets still match the releases source/assets/
+      # vendor.txt pins them to. Catches a hand-edit, or a formatting hook, on a
+      # file that is supposed to be upstream's bytes; the `latest` half (is there
+      # a newer normalize.css?) needs jq and only runs on the daily sweep in
+      # vendor-freshness.yml.
+      - uses: actions/checkout@v7
+
+      - name: Assert vendored assets match their pinned releases
+        run: ./script/vendor.sh check
+
       # The gates run as steps of one job (see the header), so a red reads
       # `gates` in the checks list with nothing saying which gate died. This step
       # reads the job's own step verdicts back and reports them: a gate/verdict
