@@ -1,0 +1,16 @@
+# Cloudflare Pages reads /_headers at the build root for response headers.
+
+# Without a rule here Pages serves /assets/ with `max-age=0, must-revalidate`,
+# so the stylesheet, fonts, favicons and logo cost a revalidation round-trip on
+# every page view.
+#
+# `all.css` is linked as `?cache=busted` — a fixed literal, not a content hash
+# (config.rb does not activate :asset_hash), so its URL is identical across
+# deploys. That makes `immutable` unsafe: it would strand returning visitors on
+# a stale stylesheet with no way to bust it. max-age is the ceiling on how long
+# a CSS change takes to reach them.
+#
+# ponytail: one hour, one rule for the whole directory. Activating :asset_hash
+# would give real content hashes and let this become max-age=31536000, immutable.
+/assets/*
+  Cache-Control: public, max-age=3600

@@ -20,8 +20,8 @@ The dev server runs at [http://localhost:4567](http://localhost:4567).
 Common tasks live in the [Taskfile](https://taskfile.dev/) (`task --list` for the full set):
 
 ```sh
-task build          # full build with image optimization
-task release:stage  # build (fast) + deploy to Cloudflare Pages staging
+task build          # build the static site
+task release:stage  # build + deploy to Cloudflare Pages staging
 task release:prod   # build + deploy to Cloudflare Pages production
 ```
 

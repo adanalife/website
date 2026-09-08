@@ -23,9 +23,11 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
+    <%# tag and calendar pages only know their title at render time, so they %>
+    <%# set `content_for :title` instead of a front-matter title. %>
     <title>
       <%= '[d] ' if development? %>
-      <%= page_title %>
+      <%= content_for?(:title) ? yield_content(:title) : page_title %>
     </title>
 
     <%# Set data-theme on <html> before paint to avoid a flash of the wrong theme. %>

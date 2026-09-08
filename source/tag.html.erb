@@ -2,6 +2,8 @@
 pageable: true
 per_page: 12
 ---
+<% content_for :title do %>Articles tagged "<%= tagname.gsub('.',' ') %>"<%= " (page #{page_number})" if page_number > 1 %><% end %>
+
 <h2>Here are all of the articles with tag "<%= tagname.gsub('.',' ') %>"</h2>
 
 <% if paginate && num_pages > 1 %>

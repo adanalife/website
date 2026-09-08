@@ -59,7 +59,7 @@ module DanaLolHelpers
     end
   end
 
-  # used for images and other figures that have no link
+  # full-width variant, for images and other figures that have no link
   def nolink_full_figure(img_src, alt_text = '', note: nil)
     content_tag(:figure, class: 'fullwidth') do
       body = image_tag(article_image_path(img_src), alt: alt_text)
@@ -108,7 +108,6 @@ module DanaLolHelpers
   end
   alias_method :mi, :margin_image
 
-  #TODO: maybe some day we will want this to take a block?
   def epigraph(content = nil, footer = nil)
     content_tag(:div, class: 'epigraph') do
       content_tag(:blockquote) do
@@ -131,6 +130,15 @@ module DanaLolHelpers
       figure.css('a').attribute('href').value = article.url
     end
     doc.to_s
+  end
+
+  # Metric equivalent of an imperial measurement, rendered as a parenthetical so
+  # it composes with any phrasing: "a 3-mile <%= metric(3, :mi) %> hike" reads
+  # "a 3-mile (5 km) hike". Rounds to whole units — these are round numbers in
+  # the prose, not instrument readings.
+  def metric(amount, unit)
+    factor, label = { mi: [1.609344, 'km'], ft: [0.3048, 'm'] }.fetch(unit)
+    "(#{(amount * factor).round} #{label})"
   end
 
   def remove_file_extension(path)

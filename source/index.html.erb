@@ -1,10 +1,10 @@
 ---
 pageable: true
 per_page: 10
-ogp:
-  og:
-    description: Plug into my mind.
 ---
+<%# the description comes from the site-wide default in data/ogp/og.yml %>
+<% content_for :title do %><%= data.settings.site.title %><%= " (page #{page_number})" if page_number > 1 %><% end %>
+
 <% page_articles.select{|a| a.data.pinned }.each_with_index do |article, i| %>
   <h2><em>Pinned:</em> <%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
   <%= summary(article) %>

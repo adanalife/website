@@ -28,10 +28,6 @@ gem 'middleman-minify-html'
 # for generating pretty FB link previews
 gem 'middleman-ogp'
 
-# for shrinking images
-gem 'image_optim_pack' # this installs the required tools, is optional
-gem 'middleman-images'
-
 # for generating article summaries
 gem 'nokogiri'
 
@@ -43,3 +39,6 @@ gem 'builder'
 
 # For parsing Markdown
 gem 'redcarpet'
+
+# For suggesting alt text at image ingest (bin/ingest-image)
+gem 'anthropic'

@@ -1,9 +1,7 @@
 ---
 pageable: false
-ogp:
-  og:
-    description: ''
 ---
+<% content_for :title do %>Photo: <%= File.basename(photo.destination_path) %><% end %>
 
 <section>
   <p>
@@ -15,7 +13,7 @@ ogp:
   </p>
 
   <a href="/<%= photo.destination_path %>" class='no-underline'>
-    <%= image_tag photo.destination_path, optimize: false, class: 'really-wide' %>
+    <%= image_tag photo.destination_path, class: 'really-wide' %>
   </a>
 
   <%= partial 'share_buttons' %>

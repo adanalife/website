@@ -10,16 +10,36 @@ version: '3'
 
 tasks:
   build:
-    desc: Build the static site with full image optimization
+    desc: Build the static site
     cmds:
       - bundle exec middleman build --bail
 
-  build:fast:
-    desc: Build without image optimization (faster, suitable for staging)
-    env:
-      ENV: test
+  img:add:
+    desc: "Ingest photos into source/<article-dir>: archive original, watermark, strip EXIF (task img:add -- <article-dir> <photo>...)"
     cmds:
-      - bundle exec middleman build --bail
+      - bundle exec script/ingest-image {{.CLI_ARGS}}
+
+  img:watermark-corpus:
+    desc: One-shot re-ingest of every committed image in place (archive first, watermark once)
+    cmds:
+      - |
+        for dir in source/*/; do
+          set -- "$dir"*.jpg "$dir"*.JPG "$dir"*.png
+          files=(); for f in "$@"; do [ -f "$f" ] && files+=("$f"); done
+          [ ${#files[@]} -gt 0 ] && INGEST_NO_ALT=1 bundle exec script/ingest-image "$dir" "${files[@]}"
+        done
+
+  post:worker:deploy:
+    desc: Deploy the post-from-phone inbox worker (worker/)
+    dir: worker
+    cmds:
+      - npm ci
+      - npx wrangler deploy
+
+  post:drain:
+    desc: Turn every message in the inbox into a draft article PR (needs INBOX_URL + INBOX_TOKEN)
+    cmds:
+      - bundle exec script/drain-inbox {{.CLI_ARGS}}
 
   deploy:stage:
     desc: Deploy build/ to Cloudflare Pages staging (dana-lol-staging)
@@ -27,9 +47,9 @@ tasks:
       - npx wrangler pages deploy build/ --project-name dana-lol-staging
 
   release:stage:
-    desc: Build (fast) and deploy to Cloudflare Pages staging
+    desc: Build and deploy to Cloudflare Pages staging
     cmds:
-      - task: build:fast
+      - task: build
       - task: deploy:stage
 
   deploy:prod:
@@ -38,10 +58,28 @@ tasks:
       - npx wrangler pages deploy build/ --project-name dana-lol-production --branch main
 
   release:prod:
-    desc: Build (with image optimization) and deploy to Cloudflare Pages production
+    desc: Build and deploy to Cloudflare Pages production
     cmds:
       - task: build
       - task: deploy:prod
+
+  # Vendored third-party frontend assets (normalize.css, the et-book fonts).
+  # source/assets/vendor.txt is the pin list; bump a version there and re-sync
+  # rather than editing a vendored file in place.
+  vendor:sync:
+    desc: Re-download the vendored frontend assets at the versions pinned in source/assets/vendor.txt
+    cmds:
+      - ./script/vendor.sh sync
+
+  vendor:check:
+    desc: Assert each vendored asset is still byte-identical to its pinned upstream release
+    cmds:
+      - ./script/vendor.sh check
+
+  vendor:latest:
+    desc: Report vendored assets with a newer release upstream
+    cmds:
+      - ./script/vendor.sh latest
 
   # --- Legacy S3 paths ------------------------------------------------------
   # Fallback in case the Cloudflare Pages path (deploy:stage, deploy:prod)
@@ -64,13 +102,13 @@ tasks:
       - bundle exec s3_website push --site build
 
   release:stage:s3:
-    desc: (fallback) Build (fast) and deploy to staging S3
+    desc: (fallback) Build and deploy to staging S3
     cmds:
-      - task: build:fast
+      - task: build
       - task: deploy:stage:s3
 
   release:prod:s3:
-    desc: (fallback) Build (with image optimization) and deploy to prod S3
+    desc: (fallback) Build and deploy to prod S3
     cmds:
       - task: build
       - task: deploy:prod:s3

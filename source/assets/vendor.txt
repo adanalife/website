@@ -1,0 +1,49 @@
+# Third-party frontend assets vendored into this directory, and the upstream
+# release each one was taken from. `task vendor:sync` re-downloads every file
+# listed here, `task vendor:check` asserts the copy on disk is still byte-
+# identical to that release, and `task vendor:latest` reports which pins have a
+# newer release waiting upstream.
+#
+# Bump by editing the version here and running `task vendor:sync` — never by
+# hand-editing a file in this directory. These paths are excluded from
+# pre-commit for the same reason (see .pre-commit-config.yaml): a formatting
+# hook that strips a trailing newline makes the copy no longer upstream's.
+#
+# `tag` is the npm dist-tag to watch for new releases; `latest` for everything
+# here. normalize.css is pinned at 7.0.0 while upstream is on 8.x, so
+# `vendor.sh latest` reports it every day by design — the pin is the record of
+# what the stylesheet was built against, and the upgrade is a deliberate one.
+#
+# Three things in this directory are deliberately absent:
+#
+#   tufte.scss — a local adaptation, not tufte-css's stylesheet. Its brace and
+#   indentation style were rewritten (263 lines against upstream's 464) and the
+#   declarations diverge, so no tufte-css release can ever match it byte for
+#   byte. It is ours now.
+#
+#   share-buttons.css — written here, not vendored. No upstream to pin to.
+#
+#   et-book/*/*.svg — the five SVG font files. Upstream ends each one with a
+#   trailing space after `</svg>`; the copies here end with a newline, because
+#   pre-commit's end-of-file-fixer rewrote that last byte before this exclude
+#   existed. One byte in each, at end of file. Adding them to the pin list
+#   needs `task vendor:sync` to restore upstream's bytes first, which is a
+#   deliberate change to a committed asset rather than a pin.
+#
+# path                                                              package     tag     version  url ({v} = version)
+normalize.scss                                                      normalize.css latest 7.0.0    https://unpkg.com/normalize.css@{v}/normalize.css
+et-book/et-book-bold-line-figures/et-book-bold-line-figures.eot     tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-bold-line-figures/et-book-bold-line-figures.eot
+et-book/et-book-bold-line-figures/et-book-bold-line-figures.ttf     tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-bold-line-figures/et-book-bold-line-figures.ttf
+et-book/et-book-bold-line-figures/et-book-bold-line-figures.woff    tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-bold-line-figures/et-book-bold-line-figures.woff
+et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.eot  tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.eot
+et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.ttf  tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.ttf
+et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff
+et-book/et-book-roman-line-figures/et-book-roman-line-figures.eot   tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-line-figures/et-book-roman-line-figures.eot
+et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf   tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-line-figures/et-book-roman-line-figures.ttf
+et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff  tufte-css   latest  1.9.0    https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff
+et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.eot   tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.eot
+et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.ttf   tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.ttf
+et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.woff  tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.woff
+et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.eot   tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.eot
+et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.ttf   tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.ttf
+et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.woff  tufte-css latest 1.9.0 https://unpkg.com/tufte-css@{v}/et-book/et-book-semi-bold-old-style-figures/et-book-semi-bold-old-style-figures.woff
