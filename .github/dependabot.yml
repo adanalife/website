@@ -30,8 +30,8 @@ updates:
   #
   # The Actions group takes majors too, unlike the others. An action major is
   # normally a runner or Node version bump rather than an API break, so the
-  # attributability that keeps majors solo elsewhere buys little here — and
-  # holding them out produced a standing queue of one-line PRs nobody merged.
+  # attributability that keeps majors solo elsewhere buys little here, and
+  # holding them out leaves a standing queue of one-line PRs nobody merges.
   - package-ecosystem: github-actions
     directory: /
     schedule:

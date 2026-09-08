@@ -10,9 +10,6 @@ permissions:
   contents: read
   pull-requests: write
 
-env:
-  ENV: test
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,11 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v7
-    - name: Install Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version-file: .tool-versions
-        bundler-cache: true
+    - uses: ./.github/actions/install-ruby
     - name: Build the static site
       run: bundle exec middleman build --bail
     # Skip CF Pages deploy for Dependabot PRs: GitHub deliberately

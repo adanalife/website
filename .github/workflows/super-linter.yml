@@ -11,6 +11,10 @@ on:
 
 permissions:
   contents: read
+  # super-linter reports each linter as its own commit status (MULTI_STATUS,
+  # on by default). Without statuses: write every one of those POSTs 403s —
+  # a WARN that doesn't fail the run, so the reporting just silently no-ops.
+  statuses: write
 
 jobs:
   build:
@@ -36,37 +40,96 @@ jobs:
           # don't post a "Super-linter summary" comment on every PR run
           # (the Actions step summary tab still gets the same content)
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
-          # disabled until we go through and fix the issues
-          VALIDATE_JSCPD: false
-          VALIDATE_ENV: false
-          # disabled — many SCSS modernization issues across source/assets/
-          # (color-function-notation, alpha-value-notation, vendor prefixes,
-          # length-zero-no-unit). Fix is non-trivial; revisit later.
-          VALIDATE_CSS: false
-          VALIDATE_CSS_PRETTIER: false
-          # disabled — needs a .rubocop.yml + bulk auto-fixes for
-          # frozen_string_literal comments and single→double quotes.
-          # Worth a dedicated PR.
-          VALIDATE_RUBY: false
-          # disabled — false-positive: cfn-lint emits a Pydantic/Python 3.14
+          # the vendored third-party stylesheets — normalize.css, tufte-css and
+          # the share-buttons snippet. They're carried close to upstream so
+          # they stay diffable against it, which means their style is
+          # upstream's to pick, not ours.
+          # Matched against absolute paths: super-linter only strips the
+          # workspace prefix when STRIP_DEFAULT_WORKSPACE_FOR_REGEX is true,
+          # so anchor on a path separator rather than start-of-string.
+          FILTER_REGEX_EXCLUDE: '(^|/)source/assets/(normalize\.scss|tufte\.scss|share-buttons\.css)$'
+          # stylelint reads .github/linters/.stylelintrc.yml rather than
+          # super-linter's bundled .stylelintrc.json so the sassc-driven rule
+          # exemptions can carry a comment explaining themselves
+          CSS_FILE_NAME: .stylelintrc.yml
+          #
+          # jscpd and markdownlint pick their configs up automatically from
+          # .github/linters/. jscpd walks the workspace itself rather than the
+          # fileset FILTER_REGEX_EXCLUDE builds, so everything it should skip
+          # has to be named in .jscpd.json — which, being JSON, can't explain
+          # itself. Every pattern there needs a `**/` prefix: the config sets
+          # `absolute: true`, so globs are matched against /github/workspace
+          # paths and a repo-relative one silently never fires. What's listed:
+          #   .github/workflows/ — the jobs/runs-on/steps/checkout scaffolding
+          #     GitHub Actions requires in every workflow. What could be shared
+          #     already is, in .github/actions/install-ruby.
+          #   the vendored assets FILTER_REGEX_EXCLUDE names below, plus the
+          #     et-book webfonts tufte-css ships with — five generated SVG font
+          #     outlines sharing long stretches of glyph markup, and a
+          #     normalize.scss that repeats itself. Upstream's copies, so
+          #     upstream's duplication.
+          #
+          # Everything not listed below is enabled: super-linter treats an
+          # all-`false` list as a denylist, so setting any entry to `true`
+          # would flip it to an allowlist and silently switch the rest off.
+          # To turn one of these back on, delete its line.
+          #
+          # off — false-positive: cfn-lint emits a Pydantic/Python 3.14
           # compat warning to stderr, which super-linter treats as a failure.
           # The only CFN in the repo is the legacy S3/CloudFront rollback
           # setup under cloudformation/.
           VALIDATE_CLOUDFORMATION: false
-          # disabled until we can resolve their issues
-          VALIDATE_BIOME_FORMAT: false
-          # disabled — Biome 2.5 (pulled in by super-linter @v8) parses .svg
+          # off — checkov flags 10 issues on that same legacy CFN, most of
+          # them the public-read S3 bucket that a static website needs to be
+          # public by design. Re-enable alongside a decision on whether the
+          # cloudformation/ rollback path is still worth keeping.
+          VALIDATE_CHECKOV: false
+          # off — Biome 2.5 (pulled in by super-linter @v8) parses .svg
           # and .erb files as HTML/JSX and false-positives on SVG comments
           # (`<!-- Adobe Illustrator … -->`) and ERB tags (`<% … %>`). This is
           # a Ruby/Middleman site with no first-party JS/TS for Biome to lint.
           VALIDATE_BIOME_LINT: false
-          VALIDATE_CHECKOV: false
-          VALIDATE_GITHUB_ACTIONS: false
-          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
-          VALIDATE_JSON_PRETTIER: false
-          VALIDATE_MARKDOWN_PRETTIER: false
-          VALIDATE_NATURAL_LANGUAGE: false
-          VALIDATE_SHELL_SHFMT: false
-          VALIDATE_SPELL_CODESPELL: false
-          VALIDATE_TRIVY: false
+          # off — Biome formats JSON with tabs, which contradicts the
+          # space-indented JSON that VALIDATE_JSON_PRETTIER enforces (and
+          # that release-please writes back into the manifest on every
+          # release). Re-enabling means a repo-wide biome.json that pins
+          # indentStyle to spaces, and picking a winner between the two.
+          VALIDATE_BIOME_FORMAT: false
+          # off — the only first-party JS is worker/, written to standard
+          # style (VALIDATE_JAVASCRIPT_STANDARD stays on). ESLint has no
+          # config here and Prettier's semicolons contradict standard.
+          VALIDATE_JAVASCRIPT_ES: false
+          VALIDATE_JAVASCRIPT_PRETTIER: false
+          # off — rubocop's defaults flag ~86 offenses across config.rb,
+          # helpers/ and source/feed.xml.builder: frozen_string_literal
+          # comments, single→double quotes, hash alignment, and Metrics
+          # cops on the long helper methods. Re-enable after a dedicated
+          # cleanup with a chosen .rubocop.yml.
+          VALIDATE_RUBY: false
+          # off — prettier would reformat all six stylesheets wholesale,
+          # vendored ones included.
+          VALIDATE_CSS_PRETTIER: false
+          # off — prettier would reformat all twelve YAML files, including
+          # every workflow and the CFN templates whose intrinsic tags
+          # (!Ref, !GetAtt) survive the round trip poorly.
           VALIDATE_YAML_PRETTIER: false
+          # off — zizmor's blanket policy requires every action pinned to a
+          # commit hash. This repo pins floating major tags on purpose so
+          # minors flow in without a bump PR; re-enabling means reversing
+          # that call, not fixing a bug.
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          # off — trivy reports four advisories against gems in
+          # Gemfile.lock. Dependabot owns those bumps; a lint sweep failing
+          # on upstream CVEs just duplicates its alerts.
+          VALIDATE_TRIVY: false
+          # off — textlint's terminology rule rewrites ordinary prose
+          # ("website" → "site", "repo" → "repository") and flags the
+          # release-please-generated CHANGELOG heading. Wrong ruleset for a
+          # personal blog.
+          VALIDATE_NATURAL_LANGUAGE: false
+          # off — codespell's real hits are in Dana's post prose and in
+          # generated files (it reads the Rouge gem as a misspelling of
+          # "rogue"). Re-enabling needs an ignore-words list plus a content
+          # pass, and the reviewdog misspell check in linting.yml already
+          # covers spelling per-PR.
+          VALIDATE_SPELL_CODESPELL: false

@@ -1,0 +1,14 @@
+{
+  "threshold": 0,
+  "reporters": ["consoleFull"],
+  "ignore": [
+    "**/__snapshots__/**",
+    "**/node_modules/**",
+    "**/.github/workflows/**",
+    "**/source/assets/et-book/**",
+    "**/source/assets/normalize.scss",
+    "**/source/assets/tufte.scss",
+    "**/source/assets/share-buttons.css"
+  ],
+  "absolute": true
+}

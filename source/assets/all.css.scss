@@ -1,2 +1,3 @@
 // include all of the CSS files as one single file
+// stylelint-disable-next-line import-notation -- Sass partial imports; url() is a CSS-only form Sass won't inline
 @import 'theme', 'normalize', 'tufte', 'syntax.css', 'share-buttons.css', 'danalol';

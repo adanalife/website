@@ -15,32 +15,7 @@ jobs:
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v7
-    - name: Install Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version-file: .tool-versions
-        bundler-cache: true
-    - name: Install ImageMagick
-      run: sudo apt-get install -y imagemagick
-    - name: Install pngout
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget --user-agent="Mozilla/5.0" https://www.jonof.id.au/files/kenutils/pngout-20200115-linux.tar.gz
-        tar -xvf pngout-20200115-linux.tar.gz
-        sudo mv pngout-20200115-linux/amd64/pngout /usr/local/bin/
-        rm -rf pngout-20200115-linux*
-    # Same cache scheme as staging.yml: middleman-images output under cache/,
-    # keyed by source image hashes so the key only changes when images change
-    # (a whole-repo hashFiles key would change every commit and never hit).
-    # Identical path+key means release restores the cache staging saved.
-    - name: Cache middleman-images output
-      uses: actions/cache@v6
-      with:
-        path: cache
-        key: middleman-images-${{ hashFiles('source/**/*.jpg', 'source/**/*.JPG', 'source/**/*.jpeg', 'source/**/*.png', 'source/**/*.gif', 'source/**/*.webp') }}
-        restore-keys: |
-          middleman-images-
+    - uses: ./.github/actions/install-ruby
     - name: Build the static site
       run: bundle exec middleman build --bail
     - name: Deploy to Cloudflare Pages (production)
@@ -56,14 +31,20 @@ jobs:
     - name: Discord notification
       # A rotated or deleted webhook returns 404 and must not fail a release
       # that already shipped; the notification is best-effort.
+      #
+      # Only the tag push announces. A workflow_dispatch run re-deploys a tag
+      # that already shipped, which is operational rather than news. The alert
+      # below stays unconditional: a re-deploy going red is exactly the case
+      # worth paging on.
+      if: github.event_name == 'push'
       continue-on-error: true
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         VERSION_TAG: ${{ github.ref_name }}
       uses: Ilshidur/action-discord@0.4.0
       with:
-        # Link the tagged CHANGELOG.md, not a payload `compare` URL: releases
-        # dispatch via workflow_dispatch, whose event payload has no `compare`.
+        # Link the tagged CHANGELOG.md, not a payload `compare` URL: a
+        # workflow_dispatch event payload has no `compare`.
         args: 'New release for [{{ EVENT_PAYLOAD.repository.full_name }}]({{ EVENT_PAYLOAD.repository.html_url }}): [{{ VERSION_TAG }}]({{ EVENT_PAYLOAD.repository.html_url }}/blob/{{ VERSION_TAG }}/CHANGELOG.md)'
 
     # Nothing else says a release went red. The release PR merged green long

@@ -1,9 +1,12 @@
+# Site-wide fallback so archive, tag and calendar pages still carry a
+# description; any page with its own `ogp: og: description` overrides it.
+description: Plug into my mind.
+# A page that sets its own og:image only overrides the keys it names, so this
+# block stays to the two that describe any image: the URL and its alt text.
+# Dimensions, type and secure_url would otherwise be inherited by an article
+# image they don't describe.
 image:
   '': https://dana.lol/assets/ogp-image.png
-  secure_url: https://dana.lol/assets/ogp-image.png
   alt: 'a dot with a smaller dot orbiting it in a circle, akin to an atom or a satellite'
-  type: image/png
-  width: 400
-  height: 300
 locale:
   '': en_us

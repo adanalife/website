@@ -1,0 +1,10 @@
+name: Install Ruby
+description: Install the Ruby pinned in .tool-versions and restore the bundler cache.
+
+runs:
+  using: composite
+  steps:
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version-file: .tool-versions
+        bundler-cache: true
