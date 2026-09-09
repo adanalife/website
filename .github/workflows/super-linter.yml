@@ -113,6 +113,10 @@ jobs:
           # every workflow and the CFN templates whose intrinsic tags
           # (!Ref, !GetAtt) survive the round trip poorly.
           VALIDATE_YAML_PRETTIER: false
+          # off — shfmt indents with tabs; script/vendor.sh, the only shell
+          # script here, uses two spaces like the rest of the fleet. A
+          # formatter the repo hasn't adopted, same as the Prettier entries.
+          VALIDATE_SHELL_SHFMT: false
           # off — zizmor's blanket policy requires every action pinned to a
           # commit hash. This repo pins floating major tags on purpose so
           # minors flow in without a bump PR; re-enabling means reversing
