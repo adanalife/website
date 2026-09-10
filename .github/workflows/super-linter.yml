@@ -3,8 +3,16 @@ name: super-linter
 
 # Per-PR lint coverage comes from pre-commit (pre-commit.yml) and the
 # misspell reviewdog check (linting.yml); super-linter runs as a weekly
-# whole-codebase sweep instead of on every PR/push.
+# whole-codebase sweep instead of on every PR.
 on:
+  # Also sweep when the sweep's own config lands on main, so a fix to a
+  # reported finding is re-confirmed by the workflow that reported it
+  # rather than waiting for the next Monday cron.
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/super-linter.yml
+      - .github/linters/**
   schedule:
     - cron: '19 9 * * 1' # Mondays 09:19 UTC
   workflow_dispatch:
