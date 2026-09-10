@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/adanalife/website/compare/v1.9.1...v1.10.0) (2026-09-10)
+
+
+### Features
+
+* **privacy:** serve YouTube embeds from youtube-nocookie.com ([#311](https://github.com/adanalife/website/issues/311)) ([7017a60](https://github.com/adanalife/website/commit/7017a607d3096cbba16f3e7a3f761fcd1ce31c4d))
+
 ## [1.9.1](https://github.com/adanalife/website/compare/v1.9.0...v1.9.1) (2026-09-02)
 
 
