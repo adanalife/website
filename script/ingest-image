@@ -10,8 +10,8 @@
 # optimized public copy into source/<article-dir>/, and print a
 # ready-to-paste figure line with a suggested alt text.
 #
-# A photo already inside the destination directory is rewritten in place
-# (this is how the one-shot batch over the existing corpus runs).
+# A photo already inside the destination directory is rewritten in place,
+# so the whole corpus can be re-run through this in one pass.
 #
 # Env:
 #   INGEST_ARCHIVE   originals corpus root (default: the NAS share)
