@@ -22,6 +22,12 @@ on:
 permissions:
   contents: read
 
+# Serial, not cancel-in-progress: an interrupted run can leave the release PR
+# half-updated.
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
