@@ -12,10 +12,14 @@ name: release-please
 # so release.yml never sees it. An app token is an ordinary actor on both
 # counts: its pull_request events run unheld and
 # its tag reaches release.yml on its own.
+# workflow_dispatch is the manual re-run: release-please only rebuilds the PR
+# when a *releasable* commit lands, so a run of chore-only merges leaves the
+# branch on an old base. Dispatching rebases it off current main.
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 # Every write goes through the app token below; the job's own GITHUB_TOKEN
 # needs nothing.
