@@ -2,10 +2,9 @@
 #
 # Fleet convention: every adanalife repo runs its cheap per-PR checks as steps
 # of one `gates` job here, because GitHub bills Actions per job rounded up to
-# the whole minute. This repo currently has only the title check, so there is no
-# saving today — the file exists so the shape matches everywhere and a second
-# gate is a step to add rather than a workflow (and a required-check rename) to
-# introduce.
+# the whole minute. One job means one billed minute however many gates it
+# holds, and a new gate is a step to add rather than a workflow — and a
+# required-check rename — to introduce.
 #
 # `gates` always reports, even when an individual step is inapplicable, so it is
 # safe to mark required in branch protection — a path-filtered *workflow* would
