@@ -39,6 +39,11 @@ jobs:
         with:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_APP_PRIVATE_KEY }}
+          # Without these the token carries the app installation's whole
+          # permission set. release-please needs exactly two: contents to push
+          # the branch and cut the tag, pull-requests to maintain the release PR.
+          permission-contents: write
+          permission-pull-requests: write
 
       - uses: googleapis/release-please-action@v5
         with:
