@@ -8,10 +8,11 @@ ogp:
 Go ahead and ask me a question about anything you like.
 I might answer it in the [FAQ](/faq)!
 
-<%# Backend: adanalife/contact-form running on the stage-1 k3d cluster.
-    Update this URL when prod-1 stands up its own deployment. %>
+<%# Backend: the Cloudflare Worker in worker/ (POST /contact emails the submission). %>
 <p>
-<form id='ama-form' class="amaform" autocomplete="off" action='https://contact.stage.whereisdana.today/' method='post'>
+<form id='ama-form' class="amaform" autocomplete="off" action='https://dana-lol-post-inbox.danadotlol.workers.dev/contact' method='post'>
+  <%# honeypot: hidden from people, filled by bots, dropped server-side %>
+  <input type='text' name='website' hidden tabindex='-1' autocomplete='off'>
   <span><label for="question">What would you like to know?</label></span>
   <br>
   <input class="question" id="question" name="message" type="text"/>
@@ -41,10 +42,9 @@ I might answer it in the [FAQ](/faq)!
         method: 'POST',
         body: new URLSearchParams(new FormData(form)),
         mode: 'cors',
-        redirect: 'manual',
         credentials: 'omit'
       }).then(function (res) {
-        if (res.type === 'opaqueredirect' || res.ok) {
+        if (res.ok) {
           form.style.display = 'none';
           status.textContent = 'Question received — thanks!';
         } else {

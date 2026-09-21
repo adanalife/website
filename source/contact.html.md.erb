@@ -20,10 +20,11 @@ You can find me on the following sites and contact me through there.
 
 ## Contact Dana
 
-<%# Backend: adanalife/contact-form running on the stage-1 k3d cluster.
-    Update this URL when prod-1 stands up its own deployment. %>
+<%# Backend: the Cloudflare Worker in worker/ (POST /contact emails the submission). %>
 <p>
-  <form id='contact-form' action='https://contact.stage.whereisdana.today/' method='post'>
+  <form id='contact-form' action='https://dana-lol-post-inbox.danadotlol.workers.dev/contact' method='post'>
+  <%# honeypot: hidden from people, filled by bots, dropped server-side %>
+  <input type='text' name='website' hidden tabindex='-1' autocomplete='off'>
     <p>
     <label>Your name and message:</label><br>
     <textarea name='message' class='contact'></textarea>
@@ -58,13 +59,9 @@ You can find me on the following sites and contact me through there.
         method: 'POST',
         body: new URLSearchParams(new FormData(form)),
         mode: 'cors',
-        // Don't follow the backend's 302 to /success — that crosses
-        // origins again and trips CORS on the redirected GET. The
-        // opaqueredirect response is enough to know it succeeded.
-        redirect: 'manual',
         credentials: 'omit'
       }).then(function (res) {
-        if (res.type === 'opaqueredirect' || res.ok) {
+        if (res.ok) {
           form.style.display = 'none';
           status.textContent = 'Thanks for reaching out — it really means a lot.';
         } else {

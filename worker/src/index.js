@@ -28,13 +28,27 @@ export default {
     }, photos)
   },
 
-  // Door 2 + the drain API. Everything needs the bearer token.
+  // Door 2 + the drain API. Everything but /contact needs the bearer token.
   async fetch (request, env) {
+    const url = new URL(request.url)
+    const { method } = request
+
+    // Door 3: the dana.lol contact + AMA forms. Public, so it sits before the gate.
+    if (url.pathname === '/contact') {
+      if (method !== 'POST') return new Response('method not allowed', { status: 405 })
+      const origin = request.headers.get('origin') || ''
+      const cors = CONTACT_ORIGINS.test(origin) ? { 'access-control-allow-origin': origin } : {}
+      const mail = contactMail(await request.formData())
+      if (mail) await env.CONTACT.send(mail)
+      // A dropped submission (empty or honeypot-tripped) still reads as success
+      // so a bot learns nothing. The page's script only looks at res.ok; a
+      // no-JS visitor lands on this JSON and has the page's mailto fallback.
+      return json({ ok: true }, 200, cors)
+    }
+
     if (request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
       return new Response('unauthorized', { status: 401 })
     }
-    const url = new URL(request.url)
-    const { method } = request
 
     // iOS Shortcut: multipart form with `subject`, `body`, and files. A form
     // field holds one value in Shortcuts, so a multi-photo share arrives as
@@ -97,5 +111,27 @@ async function store (bucket, meta, photos, id) {
   return id
 }
 
-const json = (data, status = 200) =>
-  new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json' } })
+// Origins allowed to POST /contact cross-site: prod, staging, and per-PR previews.
+const CONTACT_ORIGINS = /^https:\/\/(www\.dana\.lol|staging\.dana\.lol|www\.whalecore\.com|[\w-]+\.dana-lol-staging\.pages\.dev)$/
+
+// Contact form: `message` + `email` (may be blank). AMA form: `message` only.
+// `website` is a honeypot the pages hide; humans never fill it.
+// Returns the send_email payload, or null when the submission should be dropped.
+// ponytail: the honeypot is the whole spam defence; add Turnstile if bots find it
+export function contactMail (form) {
+  const message = (form.get('message') || '').trim().slice(0, 10000)
+  if (!message || form.get('website')) return null
+  const email = (form.get('email') || '').trim()
+  const kind = form.has('email') ? 'contact' : 'ama'
+  const mail = {
+    to: 'danadotlol@gmail.com', // must match the binding's destination_address
+    from: 'contact@whalecore.com',
+    subject: `[dana.lol ${kind}] ${message.replace(/\s+/g, ' ').slice(0, 60)}`,
+    text: `${message}\n\n--\nfrom: ${email || '(no email given)'}\nform: ${kind}\n`
+  }
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) mail.replyTo = email
+  return mail
+}
+
+const json = (data, status = 200, headers = {}) =>
+  new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json', ...headers } })
