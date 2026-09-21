@@ -175,7 +175,8 @@ activate :ogp do |ogp|
     # wholesale instead of merged — dropping og:image on every page that sets
     # a description of its own.
     og: @app.data.ogp.og,
-    fb: @app.data.ogp.fb
+    fb: @app.data.ogp.fb,
+    twitter: @app.data.ogp.twitter
   }
   # turn on article support
   ogp.blog = true
