@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.0](https://github.com/adanalife/website/compare/v1.10.0...v1.11.0) (2026-09-21)
+
+
+### Features
+
+* **contact:** back the contact and AMA forms with the Cloudflare worker ([#325](https://github.com/adanalife/website/issues/325)) ([826c2ad](https://github.com/adanalife/website/commit/826c2ad7354166e7cab9c63ca8c967ae0fbc33d7))
+
+
+### Bug Fixes
+
+* **theme:** invert the logo in dark mode so it stays readable ([#323](https://github.com/adanalife/website/issues/323)) ([6336267](https://github.com/adanalife/website/commit/6336267b732eafbc423c74062ae67f5fa0630e7a))
+
 ## [1.10.0](https://github.com/adanalife/website/compare/v1.9.1...v1.10.0) (2026-09-21)
 
 
