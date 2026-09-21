@@ -7,7 +7,8 @@
 
     <%# add meta tags for cute link previews %>
     <% ogp_tags do |property, content| %>
-      <meta property="<%= property %>" content="<%= content %>" />
+      <%# Twitter's parser looks for name=, everyone else for property= %>
+      <meta <%= property.start_with?('twitter:') ? 'name' : 'property' %>="<%= property %>" content="<%= content %>" />
       <%# mirror og:description into a classic <meta name="description"> for SEO %>
       <% if property == 'og:description' %>
         <meta name="description" content="<%= content %>" />
