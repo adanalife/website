@@ -15,6 +15,8 @@
   "main": "src/index.js",
   "compatibility_date": "2026-08-01",
   "r2_buckets": [{ "binding": "INBOX", "bucket_name": "dana-lol-post-inbox" }],
-  "send_email": [{ "name": "CONTACT", "destination_address": "danadotlol@gmail.com" }],
+  "send_email": [
+    { "name": "CONTACT", "destination_address": "danadotlol@gmail.com" },
+  ],
   "observability": { "enabled": true },
 }
