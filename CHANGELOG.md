@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.11.0](https://github.com/adanalife/website/compare/v1.10.0...v1.11.0) (2026-09-21)
+
+
+### Features
+
+* **contact:** back the contact and AMA forms with the Cloudflare worker ([#325](https://github.com/adanalife/website/issues/325)) ([826c2ad](https://github.com/adanalife/website/commit/826c2ad7354166e7cab9c63ca8c967ae0fbc33d7))
+
+
+### Bug Fixes
+
+* **theme:** invert the logo in dark mode so it stays readable ([#323](https://github.com/adanalife/website/issues/323)) ([6336267](https://github.com/adanalife/website/commit/6336267b732eafbc423c74062ae67f5fa0630e7a))
+
+## [1.10.0](https://github.com/adanalife/website/compare/v1.9.1...v1.10.0) (2026-09-21)
+
+
+### Features
+
+* **blog:** Virginia and the Carlton Bridge ([#321](https://github.com/adanalife/website/issues/321)) ([765f1d3](https://github.com/adanalife/website/commit/765f1d3c024746cb08abbb90fd9b0b157d79c385))
+* **privacy:** serve YouTube embeds from youtube-nocookie.com ([#311](https://github.com/adanalife/website/issues/311)) ([7017a60](https://github.com/adanalife/website/commit/7017a607d3096cbba16f3e7a3f761fcd1ce31c4d))
+
+
+### Bug Fixes
+
+* **ci:** serialize release-please runs ([#318](https://github.com/adanalife/website/issues/318)) ([ab80555](https://github.com/adanalife/website/commit/ab80555649ea8c6bc86f583c735d2593929669de))
+* **forms:** graceful-error UX on the contact and AMA forms ([#210](https://github.com/adanalife/website/issues/210)) ([f0a491b](https://github.com/adanalife/website/commit/f0a491b339e2ebc6c8febc137cfc8f3f61f39b5f))
+* **ogp:** add og:site_name and X card tags to every page ([#322](https://github.com/adanalife/website/issues/322)) ([4e203fc](https://github.com/adanalife/website/commit/4e203fcb105dfd46cc147341b3a2e130f9541894))
+
 ## [1.9.1](https://github.com/adanalife/website/compare/v1.9.0...v1.9.1) (2026-09-02)
 
 

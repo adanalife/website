@@ -26,3 +26,10 @@
 [data-theme='dark'] img {
   filter: brightness(0.9) contrast(1.1);
 }
+
+// The logo is solid black on transparent, so on the dark background it vanishes.
+// Partial invert lands it near --color-text instead of stark white.
+[data-theme='dark'] img.header-logo,
+[data-theme='dark'] img.title-logo {
+  filter: invert(0.9);
+}

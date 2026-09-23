@@ -1,0 +1,4 @@
+# X / Twitter reads its own namespace. `summary_large_image` shows og:image at
+# full card width instead of as a thumbnail; the og:* tags supply the rest.
+card: summary_large_image
+site: '@adanalife_'

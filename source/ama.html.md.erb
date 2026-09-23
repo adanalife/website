@@ -1,5 +1,4 @@
 ---
-page_title: Ask Me Anything
 pageable: false
 ogp:
   og:
@@ -9,8 +8,11 @@ ogp:
 Go ahead and ask me a question about anything you like.
 I might answer it in the [FAQ](/faq)!
 
+<%# Backend: the Cloudflare Worker in worker/ (POST /contact emails the submission). %>
 <p>
-<form class="amaform" autocomplete="off" action='https://danalol-contact.herokuapp.com/' method='post'>
+<form id='ama-form' class="amaform" autocomplete="off" action='https://dana-lol-post-inbox.danadotlol.workers.dev/contact' method='post'>
+  <%# honeypot: hidden from people, filled by bots, dropped server-side %>
+  <input type='text' name='website' hidden tabindex='-1' autocomplete='off'>
   <span><label for="question">What would you like to know?</label></span>
   <br>
   <input class="question" id="question" name="message" type="text"/>
@@ -18,4 +20,41 @@ I might answer it in the [FAQ](/faq)!
     <input type="submit" value="Submit" class="btn">
   </p>
 </form>
+<p id='ama-form-status' role='status' aria-live='polite' hidden></p>
+<noscript>
+  <p><em>Form not working? You can email me directly at
+  <a href='mailto:danadotlol@gmail.com'>danadotlol@gmail.com</a>.</em></p>
+</noscript>
 </p>
+
+<script>
+  (function () {
+    var form = document.getElementById('ama-form');
+    if (!form) return;
+    var status = document.getElementById('ama-form-status');
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      status.hidden = false;
+      status.textContent = 'Sending…';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(form)),
+        mode: 'cors',
+        credentials: 'omit'
+      }).then(function (res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          status.textContent = 'Question received — thanks!';
+        } else {
+          throw new Error('HTTP ' + res.status);
+        }
+      }).catch(function () {
+        status.innerHTML = 'Sorry, the form is having trouble right now. ' +
+          'You can email me directly at ' +
+          '<a href="mailto:danadotlol@gmail.com">danadotlol@gmail.com</a>.';
+      });
+    });
+  })();
+</script>

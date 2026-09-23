@@ -82,21 +82,19 @@ jobs:
           # would flip it to an allowlist and silently switch the rest off.
           # To turn one of these back on, delete its line.
           #
-          # off — false-positive: cfn-lint emits a Pydantic/Python 3.14
-          # compat warning to stderr, which super-linter treats as a failure.
-          # The only CFN in the repo is the legacy S3/CloudFront rollback
-          # setup under cloudformation/.
+          # off — the finding is real, not a false positive. The Pydantic /
+          # Python 3.14 stderr warning this line used to blame no longer
+          # reproduces (cfn-lint on 3.14, 2026-09-22); what a run reports is
+          # E3045 on the bucket's AccessControl, plus two warnings. Turning it
+          # on means fixing or suppressing that — which waits on the same
+          # decision as CHECKOV below: whether the legacy S3/CloudFront
+          # rollback setup under cloudformation/ is still worth keeping.
           VALIDATE_CLOUDFORMATION: false
           # off — checkov flags 10 issues on that same legacy CFN, most of
           # them the public-read S3 bucket that a static website needs to be
           # public by design. Re-enable alongside a decision on whether the
           # cloudformation/ rollback path is still worth keeping.
           VALIDATE_CHECKOV: false
-          # off — Biome 2.5 (pulled in by super-linter @v8) parses .svg
-          # and .erb files as HTML/JSX and false-positives on SVG comments
-          # (`<!-- Adobe Illustrator … -->`) and ERB tags (`<% … %>`). This is
-          # a Ruby/Middleman site with no first-party JS/TS for Biome to lint.
-          VALIDATE_BIOME_LINT: false
           # off — Biome formats JSON with tabs, which contradicts the
           # space-indented JSON that VALIDATE_JSON_PRETTIER enforces (and
           # that release-please writes back into the manifest on every
@@ -108,6 +106,15 @@ jobs:
           # config here and Prettier's semicolons contradict standard.
           VALIDATE_JAVASCRIPT_ES: false
           VALIDATE_JAVASCRIPT_PRETTIER: false
+          # off — Biome would be a SECOND linter over that same worker/, with
+          # style opinions standard disagrees with (it wants a template literal
+          # and objects to `(x ??= []).push(…)`; standard passes the file
+          # clean). Two linters over two files can only disagree. The parse
+          # problem this line used to lead with is real — Biome reads .svg and
+          # .erb as HTML/JSX and errors on SVG comments — but it is a reason to
+          # scope a biome.json, not the reason this is off; the reason is that
+          # the JS here already has a linter and it is not this one.
+          VALIDATE_BIOME_LINT: false
           # off — rubocop's defaults flag ~86 offenses across config.rb,
           # helpers/ and source/feed.xml.builder: frozen_string_literal
           # comments, single→double quotes, hash alignment, and Metrics
