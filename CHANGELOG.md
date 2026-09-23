@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.11.1](https://github.com/adanalife/website/compare/v1.11.0...v1.11.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **a11y:** raise the light-mode muted grey, and measure the theme tokens ([#317](https://github.com/adanalife/website/issues/317)) ([152dd0d](https://github.com/adanalife/website/commit/152dd0dda231348af20ffcd454b3849ef2484071))
+* **ogp:** stop og:title and &lt;title&gt; carrying the rendered page head ([#328](https://github.com/adanalife/website/issues/328)) ([12b1740](https://github.com/adanalife/website/commit/12b17408e73619aad230a46c9424cc019e013be1))
+
 ## [1.11.0](https://github.com/adanalife/website/compare/v1.10.0...v1.11.0) (2026-09-21)
 
 
