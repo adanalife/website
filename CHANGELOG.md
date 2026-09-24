@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.2](https://github.com/adanalife/website/compare/v1.11.1...v1.11.2) (2026-09-24)
+
+
+### Features
+
+* **posts:** link the Virginia video on Instagram and Facebook ([#330](https://github.com/adanalife/website/issues/330)) ([e929c27](https://github.com/adanalife/website/commit/e929c27b296fe14edcf01ae99a5d9c1d0c7d4962))
+
+
+### Miscellaneous Chores
+
+* **release:** type new articles as `post`, released as a patch ([#332](https://github.com/adanalife/website/issues/332)) ([dd4ac0f](https://github.com/adanalife/website/commit/dd4ac0f58a959919fb1ffcb101c13d6191f2cff2))
+
 ## [1.11.1](https://github.com/adanalife/website/compare/v1.11.0...v1.11.1) (2026-09-23)
 
 
