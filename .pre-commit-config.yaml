@@ -105,11 +105,17 @@ repos:
   # it up on `pre-commit install`. Guards LOCAL commits — and since PRs
   # squash-merge, the PR *title* becomes the squash subject, so keep PR titles
   # conventional too.
+  #
+  # `post` is the one type beyond the hook's defaults (listing any type replaces
+  # them, hence the full set): a new article, released as a patch rather than
+  # the minor bump a `feat` would cut. Keep in step with pr-gates.yml and
+  # release-please-config.json's changelog-sections.
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
+        args: [build, chore, ci, docs, feat, fix, perf, post, refactor, revert, style, test]
 
   # This repo is public; the private-notes tree it grew up next to is not. A
   # reference to it anywhere in the tree — a README, a YAML comment, an alert
