@@ -44,10 +44,28 @@ jobs:
       #
       # release-please's standing release PR is titled `chore(main): release
       # X.Y.Z`, itself a conventional subject, so it passes with no exemption.
+      #
+      # `types` replaces the action's defaults, so it carries the full set plus
+      # `post` (a new article, released as a patch — see
+      # release-please-config.json's changelog-sections).
       - name: Conventional PR title
         uses: amannn/action-semantic-pull-request@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            build
+            chore
+            ci
+            docs
+            feat
+            fix
+            perf
+            post
+            refactor
+            revert
+            style
+            test
 
       # The vendored frontend assets still match the releases source/assets/
       # vendor.txt pins them to. Catches a hand-edit, or a formatting hook, on a
