@@ -6,11 +6,11 @@ ogp:
     description: How this site, the Guessr game, and the Tripbot chat bot handle your data.
 ---
 
-_Last updated: September 24, 2026_
+_Last updated: October 1, 2026_
 
 This policy explains what information is collected when you use this website
 ([dana.lol](https://www.dana.lol)), **Guessr** (the daily dashcam guessing game
-at [guessr.dana.lol](https://guessr.dana.lol)), and **Tripbot**, the chat bot
+at [guessr.dana.lol](https://guessr.dana.lol) and its iPhone and iPad app), and **Tripbot**, the chat bot
 that runs in the live chat of the A Dana Life livestream on Twitch and YouTube.
 It is written in plain language because the honest summary is short: very little
 information is collected, and none of it is sold.
@@ -32,8 +32,8 @@ address, and message you submit are sent so that your message can be read and
 answered. The site's host (Cloudflare) processes standard server request data
 (such as IP address and browser type) to serve pages and protect against abuse.
 
-**Guessr (the daily game).** Guessr has no accounts, no login, and never asks
-for your name or email address. To keep score across the five rounds of a day
+**Guessr (the daily game).** Guessr has no accounts and never asks for your
+name or email address. To keep score across the five rounds of a day
 and put you on the leaderboard, your browser makes up two things the first time
 you play: a random identifier that means nothing outside the game, and a
 two-word alias chosen for you from a fixed list (you can reroll it, but you
@@ -55,6 +55,36 @@ The game offers a link (and a QR code) for playing on a second device. Opening
 it moves that browser's scores under a single identifier, and only after you
 confirm a prompt. Anyone you show that code to can join their scores to yours,
 so treat it as personal to you.
+
+**Guessr (the app).** The app is the same game and records the same things,
+under a random identifier and alias it makes up on first launch and keeps in
+the device's Keychain. Three things are particular to the app:
+
+- *Game Center.* If you are signed into Game Center on the device, the app
+  sends your Game Center player identifier to the game's server together with
+  your random game identifier, so the server can submit the points you have
+  already scored to Apple's leaderboards and achievements. Apple's handling of
+  Game Center data is described in the
+  [Apple privacy policy](https://www.apple.com/legal/privacy/). The app never
+  learns your Game Center name.
+- *Twitch sign-in.* The app can sign into your Twitch account, which is
+  optional and exists only so the Chat tab can read and send messages in the
+  stream's live chat. The sign-in token stays on the device, chat goes directly
+  between the app and Twitch under the
+  [Twitch privacy notice](https://www.twitch.tv/p/legal/privacy-notice/), and
+  nothing from your Twitch account is sent to the game's server. Messages you
+  send are public chat messages, the same as typing them on Twitch. Signing out
+  deletes the token.
+- *Diagnostics.* Crash reports, hang reports and request timings are sent to
+  an error-monitoring service (Sentry) so problems can be found and fixed. When
+  an error happens, the report includes the app's recent screens with all text
+  and images masked, the device model and OS version, and your IP address as
+  received by that service. These reports carry no name, email address, Twitch
+  identity or game identifier, and are kept per that service's standard
+  retention.
+
+Daily reminders and the icon badge are scheduled on the device by iOS and send
+nothing anywhere.
 
 **Tripbot (Twitch & YouTube live chat).** When you type in the live chat of the
 A Dana Life stream, Tripbot reads public chat messages so it can respond to
@@ -158,6 +188,11 @@ map is drawn locally and never sent anywhere. The "start fresh" button in the
 game clears everything Guessr has stored in that browser, which also means the
 next guess you make is recorded as a new player.
 
+The Guessr app keeps the same state in the app's own storage on the device
+(the identifier and alias in the Keychain, the rest in the app's preferences),
+plus the last fifty lines of chat so the Chat tab opens on something, and the
+list of chatters you have chosen to hide. Deleting the app removes all of it.
+
 Guessr uses **Cloudflare Web Analytics** to count page views. It sets no
 cookies, stores no IP addresses, and does not follow you between sites; see the
 [Cloudflare privacy policy](https://www.cloudflare.com/privacypolicy/).
@@ -181,6 +216,8 @@ with its own privacy policy:
 - **YouTube / Google** — [privacy policy](https://policies.google.com/privacy)
 - **Cloudflare** (hosting and analytics for the website and Guessr) — [privacy policy](https://www.cloudflare.com/privacypolicy/)
 - **OpenStreetMap** (Guessr's map tiles) — [privacy policy](https://osmfoundation.org/wiki/Privacy_Policy)
+- **Apple** (Game Center and Apple Maps in the Guessr app) — [privacy policy](https://www.apple.com/legal/privacy/)
+- **Sentry** (error monitoring for the Guessr app) — [privacy policy](https://sentry.io/privacy/)
 - **[unpkg](https://unpkg.com)** (a public CDN serving one library Guessr uses,
   delivered over Cloudflare's network)
 
