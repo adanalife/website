@@ -40,5 +40,5 @@ gem 'builder'
 # For parsing Markdown
 gem 'redcarpet'
 
-# For suggesting alt text at image ingest (bin/ingest-image)
+# For suggesting alt text at image ingest (script/ingest-image)
 gem 'anthropic'
