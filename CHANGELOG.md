@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.3](https://github.com/adanalife/website/compare/v1.11.2...v1.11.3) (2026-10-04)
+
+
+### Bug Fixes
+
+* **headings:** promote section h3s to h2 on big-sur and faq ([#221](https://github.com/adanalife/website/issues/221)) ([b0fd2a5](https://github.com/adanalife/website/commit/b0fd2a5549cba249b62e239c387c666b37e751a0))
+
 ## [1.11.2](https://github.com/adanalife/website/compare/v1.11.1...v1.11.2) (2026-09-24)
 
 
