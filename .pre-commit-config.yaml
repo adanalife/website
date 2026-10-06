@@ -61,9 +61,8 @@ repos:
       - id: actionlint
 
   # Images are supposed to enter source/ through script/ingest-image, which
-  # writes optimized bytes. Nothing enforced that, so a photo dragged straight
-  # into an article directory shipped a raw export and the repo quietly stopped
-  # holding what it claims to. Lossless check only — it never second-guesses
+  # writes optimized bytes; a photo dragged straight into an article directory
+  # skips it and ships a raw export. Lossless check only — it never second-guesses
   # the quality the photo was encoded at, just the bytes nobody chose. JPEG
   # only; see the script's header for why the PNGs are not covered yet.
   - repo: local

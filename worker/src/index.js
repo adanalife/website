@@ -33,7 +33,8 @@ export default {
     const url = new URL(request.url)
     const { method } = request
 
-    // Door 3: the dana.lol contact + AMA forms. Public, so it sits before the gate.
+    // The dana.lol contact + AMA forms, not an inbox door. Public, so it sits
+    // before the gate.
     if (url.pathname === '/contact') {
       if (method !== 'POST') return new Response('method not allowed', { status: 405 })
       const origin = request.headers.get('origin') || ''
