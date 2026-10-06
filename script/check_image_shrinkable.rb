@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Images enter source/ through script/ingest-image, which writes optimized
-# bytes. Nothing forced that: a photo dragged straight into an article
+# bytes, but nothing forces that: a photo dragged straight into an article
 # directory ships a raw export, and the repo quietly stops holding what it
 # claims to. This exits non-zero when a staged image could still be losslessly
 # shrunk by more than THRESHOLD.
@@ -13,15 +13,15 @@
 # Huffman table, a baseline JPEG that should be progressive, EXIF and thumbnail
 # blobs riding along in a file that strips them everywhere else.
 #
-# Every one of the 180 JPEGs in source/ is already at this floor, so a finding
-# here is a new file that skipped the ingest script, not a backlog.
+# Every JPEG in source/ sits at this floor, so a finding here is a new file
+# that skipped the ingest script, not a backlog.
 #
-# JPEG only. The 33 PNGs want oxipng or optipng and have never been measured
+# JPEG only. The PNGs want oxipng or optipng and have never been measured
 # against one, so covering them here would be asserting a floor nobody has
 # checked — extend it once someone has.
 #
 # Needs jpegoptim on PATH. Without it the check warns and skips rather than
-# failing, so it can\'t block a commit on a machine that hasn\'t installed it;
+# failing, so it can't block a commit on a machine that hasn't installed it;
 # CI installs it, which is where the verdict that counts is taken.
 
 require 'open3'

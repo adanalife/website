@@ -60,13 +60,9 @@ repos:
     hooks:
       - id: actionlint
 
-  # The site's redirects are declared twice — source/_redirects for Cloudflare
-  # Pages, s3_website.yml's `redirects:` map for the S3 fallback — so a redirect
-  # in only one of them works on one host and 404s on the other.
   # Images are supposed to enter source/ through script/ingest-image, which
-  # writes optimized bytes. Nothing enforced that, so a photo dragged straight
-  # into an article directory shipped a raw export and the repo quietly stopped
-  # holding what it claims to. Lossless check only — it never second-guesses
+  # writes optimized bytes; a photo dragged straight into an article directory
+  # skips it and ships a raw export. Lossless check only — it never second-guesses
   # the quality the photo was encoded at, just the bytes nobody chose. JPEG
   # only; see the script's header for why the PNGs are not covered yet.
   - repo: local
@@ -77,6 +73,9 @@ repos:
         language: script
         files: '^source/.*\.(jpe?g|JPE?G)$'
 
+  # The site's redirects are declared twice — source/_redirects for Cloudflare
+  # Pages, s3_website.yml's `redirects:` map for the S3 fallback — so a redirect
+  # in only one of them works on one host and 404s on the other.
   - repo: local
     hooks:
       - id: redirects-sync
