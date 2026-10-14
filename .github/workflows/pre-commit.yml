@@ -12,19 +12,10 @@ permissions:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v7
-      # gitleaks + actionlint build from source (language: golang);
-      # ubuntu-latest ships the Go toolchain preinstalled.
-      - uses: actions/setup-python@v7
+    uses: adanalife/infra/.github/workflows/hooks.yml@main
+    with:
+      runs-on: ubuntu-latest
+      mise: false
       # image-shrinkable skips every file when jpegoptim is missing, so without
       # this it would pass by doing nothing — CI is where the verdict counts.
-      - name: Install jpegoptim
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends jpegoptim
-      # no-commit-to-branch guards local commits; in CI the checkout is the
-      # branch itself, so the hook would false-positive on main.
-      - uses: pre-commit/action@v3.0.1
-        env:
-          SKIP: no-commit-to-branch
+      setup: sudo apt-get update && sudo apt-get install -y --no-install-recommends jpegoptim
