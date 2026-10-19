@@ -189,4 +189,6 @@ activate :ogp do |ogp|
   }
   # turn on article support
   ogp.blog = true
+  # emits og:url on every page
+  ogp.base_url = @app.data.settings.site.url
 end
