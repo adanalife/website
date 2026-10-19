@@ -14,6 +14,12 @@
 #
 # Env: INBOX_URL (the worker's URL), INBOX_TOKEN (its bearer secret); the
 # archive/alt-text env of script/ingest-image passes straight through.
+# DRAIN_WORKTREES overrides where the per-post worktrees go (CI sets it).
+#
+# Runs on a schedule in .github/workflows/drain-inbox.yml. The originals
+# corpus is the worker's archive/ prefix (drained messages are moved, not
+# deleted), so the NAS archive in script/ingest-image is redundant here and
+# CI points INGEST_ARCHIVE at a scratch dir.
 
 require 'json'
 require 'net/http'
@@ -21,7 +27,7 @@ require 'fileutils'
 require 'tmpdir'
 
 ROOT = File.expand_path('..', __dir__)
-WORKTREES = File.expand_path('~/adanalife/worktrees')
+WORKTREES = ENV.fetch('DRAIN_WORKTREES') { File.expand_path('~/adanalife/worktrees') }
 INBOX = URI(ENV.fetch('INBOX_URL') { abort 'set INBOX_URL' })
 TOKEN = ENV.fetch('INBOX_TOKEN') { abort 'set INBOX_TOKEN' }
 
