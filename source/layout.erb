@@ -22,7 +22,14 @@
     <link rel="manifest" href="/assets/site.webmanifest">
     <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#ff0000">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#fffff8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+
+    <%# one URL per page for search engines; the apex and staging.* serve the same build %>
+    <% unless current_page.path == '404.html' %>
+      <link rel="canonical" href="<%= site_root %><%= current_page.url %>">
+    <% end %>
 
     <%# tag and calendar pages only know their title at render time, so they %>
     <%# set `content_for :title` instead of a front-matter title. %>
