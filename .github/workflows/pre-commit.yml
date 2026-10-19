@@ -16,6 +16,6 @@ jobs:
     with:
       runs-on: ubuntu-latest
       mise: false
-      # image-shrinkable skips every file when jpegoptim is missing, so without
-      # this it would pass by doing nothing — CI is where the verdict counts.
-      setup: sudo apt-get update && sudo apt-get install -y --no-install-recommends jpegoptim
+      # image-shrinkable skips every file when jpegoptim/optipng is missing, so
+      # without this it would pass by doing nothing — CI is where the verdict counts.
+      setup: sudo apt-get update && sudo apt-get install -y --no-install-recommends jpegoptim optipng

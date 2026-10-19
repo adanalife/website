@@ -63,15 +63,14 @@ repos:
   # Images are supposed to enter source/ through script/ingest-image, which
   # writes optimized bytes; a photo dragged straight into an article directory
   # skips it and ships a raw export. Lossless check only — it never second-guesses
-  # the quality the photo was encoded at, just the bytes nobody chose. JPEG
-  # only; see the script's header for why the PNGs are not covered yet.
+  # the quality the photo was encoded at, just the bytes nobody chose.
   - repo: local
     hooks:
       - id: image-shrinkable
         name: source images are already losslessly optimized
         entry: script/check_image_shrinkable.rb
         language: script
-        files: '^source/.*\.(jpe?g|JPE?G)$'
+        files: '^source/.*\.(jpe?g|JPE?G|png|PNG)$'
 
   # The site's redirects are declared twice — source/_redirects for Cloudflare
   # Pages, s3_website.yml's `redirects:` map for the S3 fallback — so a redirect

@@ -13,16 +13,13 @@
 # Huffman table, a baseline JPEG that should be progressive, EXIF and thumbnail
 # blobs riding along in a file that strips them everywhere else.
 #
-# Every JPEG in source/ sits at this floor, so a finding here is a new file
-# that skipped the ingest script, not a backlog.
+# Every JPEG and PNG in source/ sits at this floor, so a finding here is a new
+# file that skipped the ingest script, not a backlog.
 #
-# JPEG only. The PNGs want oxipng or optipng and have never been measured
-# against one, so covering them here would be asserting a floor nobody has
-# checked — extend it once someone has.
-#
-# Needs jpegoptim on PATH. Without it the check warns and skips rather than
-# failing, so it can't block a commit on a machine that hasn't installed it;
-# CI installs it, which is where the verdict that counts is taken.
+# Needs jpegoptim (JPEGs) and optipng (PNGs) on PATH. Without one the check
+# warns and skips that format rather than failing, so it can't block a commit
+# on a machine that hasn't installed it; CI installs both, which is where the
+# verdict that counts is taken.
 
 require 'open3'
 require 'tmpdir'
@@ -32,6 +29,7 @@ require 'tmpdir'
 THRESHOLD = 0.02
 
 JPEG_EXT = %w[.jpg .jpeg].freeze
+PNG_EXT = %w[.png].freeze
 
 def tool?(name)
   system('command', '-v', name, out: File::NULL, err: File::NULL)
@@ -44,12 +42,16 @@ def optimized_size(path, tmp)
   copy = File.join(tmp, "probe#{ext}")
   IO.copy_stream(path, copy)
 
-  return nil unless JPEG_EXT.include?(ext) && tool?('jpegoptim')
-
-  # --strip-all matches what ingest-image writes. jpegoptim declines to write a
-  # file it would make bigger, leaving the copy untouched, which is exactly the
-  # "already at the floor" answer.
-  Open3.capture3('jpegoptim', '--strip-all', '-q', copy)
+  # --strip-all matches what ingest-image writes. Both tools decline to write a
+  # file they would make bigger, leaving the copy untouched, which is exactly
+  # the "already at the floor" answer.
+  if JPEG_EXT.include?(ext) && tool?('jpegoptim')
+    Open3.capture3('jpegoptim', '--strip-all', '-q', copy)
+  elsif PNG_EXT.include?(ext) && tool?('optipng')
+    Open3.capture3('optipng', '-quiet', '-o2', '-strip', 'all', copy)
+  else
+    return nil
+  end
 
   File.size(copy)
 end
@@ -75,8 +77,8 @@ Dir.mktmpdir do |tmp|
 end
 
 unless skipped.empty?
-  warn "image-shrinkable: jpegoptim not installed; skipped #{skipped.size} file(s)."
-  warn '  brew install jpegoptim'
+  warn "image-shrinkable: jpegoptim/optipng not installed; skipped #{skipped.size} file(s)."
+  warn '  brew install jpegoptim optipng'
 end
 
 exit 0 if findings.empty?
@@ -88,4 +90,6 @@ end
 warn ''
 warn 'Re-ingest them so the repo holds optimized bytes:'
 warn "  task img:add -- <article-dir> #{findings.map(&:first).join(' ')}"
+warn 'or, for a PNG that should not be watermarked (icons, diagrams):'
+warn '  optipng -o2 -strip all <file>'
 exit 1
