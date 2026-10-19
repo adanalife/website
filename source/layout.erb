@@ -58,6 +58,7 @@
       body{ background-color: #fffff8; padding-left: 12.5% }
       html[data-theme='dark'] body { background-color: #1a1a1a; }
       article, aside { display: none; }
+      .skip-link { position: absolute; left: -9999px; }
     </style>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
 
@@ -67,6 +68,7 @@
   </head>
 
   <body>
+    <a class='skip-link' href='#main'>Skip to content</a>
     <article>
       <h1 class='title'>
         <% unless current_article || page_title %>
@@ -76,14 +78,14 @@
           <%= current_article ? current_article.title : page_title %>
         <% end %>
       </h1>
-      <div class='heading'>
+      <nav class='heading' aria-label='Site'>
         <ul class='heading'>
           <li><%= link_to 'archives', '/browse' %></li>
           <li><%= link_to 'about', '/about' %></li>
           <li><%= link_to 'ask me anything', '/ama' %></li>
           <li><%= link_to 'faq', '/faq' %></li>
         </ul>
-      </div>
+      </nav>
       <div id="main" role="main">
         <section>
           <%= yield %>
