@@ -15,6 +15,15 @@ after_build do |builder|
     dst = File.join(builder.app.root, builder.app.config[:build_dir], file)
     FileUtils.cp(src, dst) if File.exist?(src)
   end
+
+  # Staging serves the production build on its own hostnames; keep it out of
+  # search results. A header rather than a robots.txt Disallow, because a
+  # crawler that may not fetch a page never sees its noindex.
+  if ENV['STAGING'] == 'true'
+    File.open(File.join(builder.app.root, builder.app.config[:build_dir], '_headers'), 'a') do |f|
+      f.puts "\n/*\n  X-Robots-Tag: noindex"
+    end
+  end
 end
 
 # Per-page layout changes:
@@ -180,4 +189,6 @@ activate :ogp do |ogp|
   }
   # turn on article support
   ogp.blog = true
+  # emits og:url on every page
+  ogp.base_url = @app.data.settings.site.url
 end
