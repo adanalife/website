@@ -6,7 +6,7 @@ ogp:
     description: How this site, the Guessr game, and the Tripbot chat bot handle your data.
 ---
 
-_Last updated: October 1, 2026_
+_Last updated: October 20, 2026_
 
 This policy explains what information is collected when you use this website
 ([dana.lol](https://www.dana.lol)), **Guessr** (the daily dashcam guessing game
@@ -81,7 +81,12 @@ the device's Keychain. Three things are particular to the app:
   and images masked, the device model and OS version, and your IP address as
   received by that service. These reports carry no name, email address, Twitch
   identity or game identifier, and are kept per that service's standard
-  retention.
+  retention. The same service also receives a short record of each step of
+  the day's game (the rounds loading, each clip shown, each guess's points and
+  how long it took, the results screen, and sharing) and iOS's daily summary
+  of the app's performance, so that errors say where in the game they
+  happened and the number of players who finish the day can be counted. Those
+  carry no game identifier either.
 
 Daily reminders and the icon badge are scheduled on the device by iOS and send
 nothing anywhere.
@@ -217,7 +222,7 @@ with its own privacy policy:
 - **Cloudflare** (hosting and analytics for the website and Guessr) — [privacy policy](https://www.cloudflare.com/privacypolicy/)
 - **OpenStreetMap** (Guessr's map tiles) — [privacy policy](https://osmfoundation.org/wiki/Privacy_Policy)
 - **Apple** (Game Center and Apple Maps in the Guessr app) — [privacy policy](https://www.apple.com/legal/privacy/)
-- **Sentry** (error monitoring for the Guessr app) — [privacy policy](https://sentry.io/privacy/)
+- **Sentry** (error monitoring and gameplay diagnostics for the Guessr app) — [privacy policy](https://sentry.io/privacy/)
 - **[unpkg](https://unpkg.com)** (a public CDN serving one library Guessr uses,
   delivered over Cloudflare's network)
 
