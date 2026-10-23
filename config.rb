@@ -24,6 +24,36 @@ after_build do |builder|
       f.puts "\n/*\n  X-Robots-Tag: noindex"
     end
   end
+
+  # Report-only CSP. The inline scripts, inline event handlers and <style>
+  # blocks are allowed by hash, computed here from the built HTML so an edit to
+  # any of them can't leave a stale hash behind.
+  build_dir = File.join(builder.app.root, builder.app.config[:build_dir])
+  scripts = Set.new
+  styles = Set.new
+  Dir.glob(File.join(build_dir, '**', '*.html')).each do |page|
+    doc = Nokogiri::HTML(File.read(page))
+    doc.css('script:not([src])').each { |s| scripts << s.content unless s['type'] == 'application/ld+json' }
+    doc.xpath('//@*[starts-with(name(), "on")]').each { |a| scripts << a.value }
+    doc.css('style').each { |s| styles << s.content }
+  end
+  hash = ->(text) { "'sha256-#{Digest::SHA256.base64digest(text)}'" }
+  workers = 'https://dana-lol-post-inbox.danadotlol.workers.dev'
+  csp = [
+    "default-src 'self'",
+    "script-src 'self' https://static.cloudflareinsights.com 'unsafe-hashes' #{scripts.map(&hash).sort.join(' ')}",
+    "style-src 'self' #{styles.map(&hash).sort.join(' ')}",
+    "img-src 'self' data:",
+    "connect-src 'self' https://cloudflareinsights.com #{workers}",
+    'frame-src https://www.youtube-nocookie.com https://player.twitch.tv https://embed.twitch.tv',
+    "form-action 'self' #{workers}",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'self'"
+  ].join('; ')
+  File.open(File.join(build_dir, '_headers'), 'a') do |f|
+    f.puts "\n/*\n  Content-Security-Policy-Report-Only: #{csp}"
+  end
 end
 
 # Per-page layout changes:
@@ -92,6 +122,8 @@ class PhotoLandingPages
 end
 
 require 'set'
+require 'digest'
+require 'nokogiri'
 sitemap.register_resource_list_manipulator(:photo_landing_pages, PhotoLandingPages.new(self), 90)
 
 # set the default URL
