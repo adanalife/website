@@ -47,7 +47,8 @@ export default {
       return json({ ok: true }, 200, cors)
     }
 
-    if (request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
+    // An unset secret must not turn into the guessable "Bearer undefined".
+    if (!env.INBOX_TOKEN || request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
       return new Response('unauthorized', { status: 401 })
     }
 
