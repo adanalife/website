@@ -21,7 +21,6 @@ GEM
       cgi (~> 0.1)
       connection_pool (>= 2, < 4)
       standardwebhooks (~> 1.0)
-    awesome_print (1.9.2)
     base64 (0.3.0)
     bigdecimal (4.1.3)
     builder (3.3.0)
@@ -196,9 +195,7 @@ PLATFORMS
 
 DEPENDENCIES
   anthropic
-  awesome_print
   builder
-  dotenv
   middleman (~> 4.6)
   middleman-blog
   middleman-livereload
