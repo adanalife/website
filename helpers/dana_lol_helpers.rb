@@ -127,7 +127,9 @@ module DanaLolHelpers
     # make it so clicking an image inside a summary goes to the article and not the image
     doc = Nokogiri::HTML.fragment(summed)
     doc.css('figure').each do |figure|
-      figure.css('a').attribute('href').value = article.url
+      # nolink_figure has no <a>; leave it alone rather than crash the build.
+      link = figure.at_css('a')
+      link['href'] = article.url if link
     end
     doc.to_s
   end
