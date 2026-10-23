@@ -79,8 +79,10 @@ messages.each do |msg|
 
   date = meta['date'][0, 10]
   name = "#{date}-#{slugify(meta['subject'])}"
-  worktree = File.join(WORKTREES, "website-post-#{slugify(meta['subject'])}")
-  branch = "post/#{name}"
+  # The message id keeps two same-day, same-subject (or blank-subject) drafts
+  # off one branch; the article's own name, which becomes its URL, stays clean.
+  worktree = File.join(WORKTREES, "website-post-#{id}")
+  branch = "post/#{name}-#{id}"
   puts "#{id}: #{name} (#{photos.size} photo(s))"
 
   sh('git', 'fetch', '-q', 'origin')
