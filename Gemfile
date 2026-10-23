@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
 
-# print with pretty colors
-# (why isn't this part of the standard library?)
-gem 'awesome_print'
-
 # the static website generator
 gem 'middleman', '~> 4.6'
 
@@ -30,9 +26,6 @@ gem 'middleman-ogp'
 
 # for generating article summaries
 gem 'nokogiri'
-
-# for loading ENV vars from a .env file
-gem 'dotenv'
 
 # For feed.xml.builder
 gem 'builder'
