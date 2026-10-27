@@ -46,3 +46,14 @@ jobs:
         header: cf-preview
         message: |
           🔭 **Preview:** ${{ steps.deploy.outputs.alias }}
+
+  worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: worker
+    steps:
+    - uses: actions/checkout@v7
+    - run: npm ci
+    - run: npm test

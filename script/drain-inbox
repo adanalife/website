@@ -79,8 +79,10 @@ messages.each do |msg|
 
   date = meta['date'][0, 10]
   name = "#{date}-#{slugify(meta['subject'])}"
-  worktree = File.join(WORKTREES, "website-post-#{slugify(meta['subject'])}")
-  branch = "post/#{name}"
+  # The message id keeps two same-day, same-subject (or blank-subject) drafts
+  # off one branch; the article's own name, which becomes its URL, stays clean.
+  worktree = File.join(WORKTREES, "website-post-#{id}")
+  branch = "post/#{name}-#{id}"
   puts "#{id}: #{name} (#{photos.size} photo(s))"
 
   sh('git', 'fetch', '-q', 'origin')
@@ -98,8 +100,8 @@ messages.each do |msg|
     scaffold(worktree, name, meta, figures)
 
     # Conventional Commits, as the commit-msg hook and the squash title need;
-    # `feat(posts)` is how the repo types article work.
-    title = "feat(posts): #{meta['subject'].empty? ? name : meta['subject']}"
+    # `post` is how the repo types a new article (released as a patch).
+    title = "post: #{meta['subject'].empty? ? name : meta['subject']}"
     sh('git', 'add', 'source', chdir: worktree)
     sh('git', 'commit', '-q', '-m', title, chdir: worktree)
     sh('git', 'push', '-q', '-u', 'origin', branch, chdir: worktree)

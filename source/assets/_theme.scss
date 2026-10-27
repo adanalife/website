@@ -7,7 +7,7 @@
   --color-bg: #fffff8;
   --color-text: #111;
   --color-border: #ccc;
-  --color-muted: grey;
+  --color-muted: #767676;
   --color-selection: #b4d5fe;
   --color-btn-text: white;
   --color-btn-overlay: rgba(0, 0, 0, 0.1);
@@ -25,4 +25,11 @@
 
 [data-theme='dark'] img {
   filter: brightness(0.9) contrast(1.1);
+}
+
+// The logo is solid black on transparent, so on the dark background it vanishes.
+// Partial invert lands it near --color-text instead of stark white.
+[data-theme='dark'] img.header-logo,
+[data-theme='dark'] img.title-logo {
+  filter: invert(0.9);
 }

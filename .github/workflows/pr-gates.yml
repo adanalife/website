@@ -1,100 +1,52 @@
-# The fast per-PR gates, in one job.
+# The per-PR gates: the org's reusable `gates` job (adanalife/infra,
+# .github/workflows/gates.yml), configured for this repo.
 #
-# Fleet convention: every adanalife repo runs its cheap per-PR checks as steps
-# of one `gates` job here, because GitHub bills Actions per job rounded up to
-# the whole minute. One job means one billed minute however many gates it
-# holds, and a new gate is a step to add rather than a workflow — and a
-# required-check rename — to introduce.
-#
-# `gates` always reports, even when an individual step is inapplicable, so it is
-# safe to mark required in branch protection — a path-filtered *workflow* would
-# hang as "Expected" and block merges instead.
+# `post` is this repo's own title type: a new blog post is neither a feature
+# nor a fix.
 name: pr-gates
 
 on:
   pull_request:
     # Every PR, whatever it targets. Filtering to `branches: [main]` would leave a
-    # PR stacked on another feature branch running no tests at all — the review
+    # PR stacked on another feature branch running no gates at all — the review
     # that most wants them, since its diff is against a branch nobody has looked
     # at rather than against main.
     #
-    # `edited` is what makes the title check re-run when a title is fixed.
-    types: [opened, edited, reopened, synchronize]
-
-permissions:
-  contents: read
-  pull-requests: read
-  actions: read
+    # `edited` re-runs the title check when a title is fixed; `labeled` /
+    # `unlabeled` the same for the skip-changelog escape hatch.
+    types: [opened, edited, reopened, synchronize, labeled, unlabeled]
 
 concurrency:
   group: pr-gates-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+# What the shared gates job reads: the checkout, the PR (title check) and GHCR
+# (the pinned-tag check); `statuses: write` is for the per-gate commit statuses
+# it posts on the PR head. Without a block every job here would get the repo's
+# default token.
+permissions:
+  contents: read
+  pull-requests: read
+  packages: read
+  statuses: write
+
 jobs:
-  # `gates` is the required-status-check name in this repo's protect-main
-  # ruleset. Renaming this job means updating the ruleset in the same change,
-  # or every subsequent PR hangs on a check that can never report.
   gates:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      # Conventional Commits enforcement for the SQUASH SUBJECT. The commit-msg
-      # pre-commit hook only guards local commits; because PRs squash-merge, the
-      # PR *title* becomes the commit subject written to history.
-      #
-      # release-please's standing release PR is titled `chore(main): release
-      # X.Y.Z`, itself a conventional subject, so it passes with no exemption.
-      - name: Conventional PR title
-        uses: amannn/action-semantic-pull-request@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # The vendored frontend assets still match the releases source/assets/
-      # vendor.txt pins them to. Catches a hand-edit, or a formatting hook, on a
-      # file that is supposed to be upstream's bytes; the `latest` half (is there
-      # a newer normalize.css?) needs jq and only runs on the daily sweep in
-      # vendor-freshness.yml.
-      - uses: actions/checkout@v7
-
-      - name: Assert vendored assets match their pinned releases
-        run: ./script/vendor.sh check
-
-      # The gates run as steps of one job (see the header), so a red reads
-      # `gates` in the checks list with nothing saying which gate died. This step
-      # reads the job's own step verdicts back and reports them: a gate/verdict
-      # table on the run summary, and one error annotation per failed gate,
-      # which is what the PR's checks tab shows under the check. Reporting only —
-      # the job topology, and its single billed minute, are unchanged.
-      - name: Name the failing gate
-        if: failure()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
-          JOB: ${{ github.job }}
-        run: |
-          # A step's verdict lands in the API a beat after the step ends.
-          for _ in 1 2; do
-            gh api --paginate "repos/$GH_REPO/actions/runs/$RUN_ID/jobs" > jobs.json \
-              || { echo "::warning::could not read this job's step verdicts"; exit 0; }
-            jq -r --arg job "$JOB" '
-              .jobs[] | select(.name == $job) | .steps[]
-              | select(.conclusion != null)
-              | select(.name | test("^(Set up job|Complete job|Post )") | not)
-              | "\(.conclusion)\t\(.name)"' jobs.json > verdicts
-            grep -q '^failure' verdicts && break
-            sleep 5
-          done
-          {
-            echo "## pr-gates"
-            echo
-            echo "| Gate | Verdict |"
-            echo "|---|---|"
-            awk -F'\t' '{
-              v = $1 == "success" ? "✅ pass" : $1 == "failure" ? "❌ **fail**" : $1 == "skipped" ? "⏭️ skipped" : $1
-              printf "| %s | %s |\n", $2, v
-            }' verdicts
-          } >> "$GITHUB_STEP_SUMMARY"
-          awk -F'\t' '$1 == "failure" {
-            printf "::error title=pr-gates: %s failed::Open the \"%s\" step in this run'\''s log.\n", $2, $2
-          }' verdicts
+    uses: adanalife/infra/.github/workflows/gates.yml@main
+    with:
+      changelog: false
+      vendor-script: ./script/vendor.sh
+      pr-title-types: |
+        build
+        chore
+        ci
+        docs
+        feat
+        fix
+        perf
+        post
+        refactor
+        revert
+        style
+        test
+    secrets: inherit

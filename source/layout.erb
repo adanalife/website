@@ -7,10 +7,11 @@
 
     <%# add meta tags for cute link previews %>
     <% ogp_tags do |property, content| %>
-      <meta property="<%= property %>" content="<%= content %>" />
+      <%# Twitter's parser looks for name=, everyone else for property= %>
+      <meta <%= property.start_with?('twitter:') ? 'name' : 'property' %>="<%= property %>" content="<%= escape_html(content) %>" />
       <%# mirror og:description into a classic <meta name="description"> for SEO %>
       <% if property == 'og:description' %>
-        <meta name="description" content="<%= content %>" />
+        <meta name="description" content="<%= escape_html(content) %>" />
       <% end %>
     <% end %>
 
@@ -21,7 +22,14 @@
     <link rel="manifest" href="/assets/site.webmanifest">
     <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#ff0000">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#fffff8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+
+    <%# one URL per page for search engines; the apex and staging.* serve the same build %>
+    <% unless current_page.path == '404.html' %>
+      <link rel="canonical" href="<%= site_root %><%= current_page.url %>">
+    <% end %>
 
     <%# tag and calendar pages only know their title at render time, so they %>
     <%# set `content_for :title` instead of a front-matter title. %>
@@ -50,6 +58,7 @@
       body{ background-color: #fffff8; padding-left: 12.5% }
       html[data-theme='dark'] body { background-color: #1a1a1a; }
       article, aside { display: none; }
+      .skip-link { position: absolute; left: -9999px; }
     </style>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
 
@@ -59,6 +68,7 @@
   </head>
 
   <body>
+    <a class='skip-link' href='#main'>Skip to content</a>
     <article>
       <h1 class='title'>
         <% unless current_article || page_title %>
@@ -68,14 +78,14 @@
           <%= current_article ? current_article.title : page_title %>
         <% end %>
       </h1>
-      <div class='heading'>
+      <nav class='heading' aria-label='Site'>
         <ul class='heading'>
           <li><%= link_to 'archives', '/browse' %></li>
           <li><%= link_to 'about', '/about' %></li>
           <li><%= link_to 'ask me anything', '/ama' %></li>
           <li><%= link_to 'faq', '/faq' %></li>
         </ul>
-      </div>
+      </nav>
       <div id="main" role="main">
         <section>
           <%= yield %>

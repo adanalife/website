@@ -4,6 +4,16 @@
   margin-top: 4px;
 }
 
+// hidden off-screen by the inline style in layout.erb until it takes focus
+.skip-link:focus {
+  left: 1em;
+  top: 1em;
+  z-index: 10;
+  padding: 0.5em 1em;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
 .heading li {
   color: var(--color-muted);
   display: inline;

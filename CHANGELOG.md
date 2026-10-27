@@ -1,5 +1,77 @@
 # Changelog
 
+## [1.12.0](https://github.com/adanalife/website/compare/v1.11.3...v1.12.0) (2026-10-23)
+
+
+### Features
+
+* **a11y:** nav landmark and a skip-to-content link ([#346](https://github.com/adanalife/website/issues/346)) ([0a658b5](https://github.com/adanalife/website/commit/0a658b57ec169227b724934014a868372bc69789))
+* **head:** canonical link, og:url, and light/dark theme-color ([#345](https://github.com/adanalife/website/issues/345)) ([df2932b](https://github.com/adanalife/website/commit/df2932b0df6edfdd704766dd9980c91cb72cd3d7))
+* **headers:** Permissions-Policy, security.txt, and a report-only CSP ([#356](https://github.com/adanalife/website/issues/356)) ([34eca46](https://github.com/adanalife/website/commit/34eca46875fef1b83e5f8c2960ea83762eda2601))
+* **staging:** send X-Robots-Tag noindex from the staging build ([#347](https://github.com/adanalife/website/issues/347)) ([7e964dc](https://github.com/adanalife/website/commit/7e964dcb294ad31ad09d13beb660982cf72c3147))
+
+
+### Bug Fixes
+
+* **drain:** key each draft's branch on its message id ([#355](https://github.com/adanalife/website/issues/355)) ([418dcca](https://github.com/adanalife/website/commit/418dcca17b6747508eb9661dd9ec749e96d0f471))
+* **index:** don't crash the build on a summary with a no-link figure ([#350](https://github.com/adanalife/website/issues/350)) ([be8c36b](https://github.com/adanalife/website/commit/be8c36bbcfd8c56b0a97d37619787f549518b624))
+* **privacy:** say the Guessr app reports each step of play to Sentry ([#349](https://github.com/adanalife/website/issues/349)) ([d98dc4c](https://github.com/adanalife/website/commit/d98dc4ca889476dfb5b925f65cf3edb0269e5ad7))
+* **worker:** refuse the inbox API when INBOX_TOKEN is unset ([#351](https://github.com/adanalife/website/issues/351)) ([ae3073a](https://github.com/adanalife/website/commit/ae3073abf3065de68d81757ef806d2fad3b04132))
+
+## [1.11.3](https://github.com/adanalife/website/compare/v1.11.2...v1.11.3) (2026-10-04)
+
+
+### Bug Fixes
+
+* **headings:** promote section h3s to h2 on big-sur and faq ([#221](https://github.com/adanalife/website/issues/221)) ([b0fd2a5](https://github.com/adanalife/website/commit/b0fd2a5549cba249b62e239c387c666b37e751a0))
+
+## [1.11.2](https://github.com/adanalife/website/compare/v1.11.1...v1.11.2) (2026-09-24)
+
+
+### Features
+
+* **posts:** link the Virginia video on Instagram and Facebook ([#330](https://github.com/adanalife/website/issues/330)) ([e929c27](https://github.com/adanalife/website/commit/e929c27b296fe14edcf01ae99a5d9c1d0c7d4962))
+
+
+### Miscellaneous Chores
+
+* **release:** type new articles as `post`, released as a patch ([#332](https://github.com/adanalife/website/issues/332)) ([dd4ac0f](https://github.com/adanalife/website/commit/dd4ac0f58a959919fb1ffcb101c13d6191f2cff2))
+
+## [1.11.1](https://github.com/adanalife/website/compare/v1.11.0...v1.11.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **a11y:** raise the light-mode muted grey, and measure the theme tokens ([#317](https://github.com/adanalife/website/issues/317)) ([152dd0d](https://github.com/adanalife/website/commit/152dd0dda231348af20ffcd454b3849ef2484071))
+* **ogp:** stop og:title and &lt;title&gt; carrying the rendered page head ([#328](https://github.com/adanalife/website/issues/328)) ([12b1740](https://github.com/adanalife/website/commit/12b17408e73619aad230a46c9424cc019e013be1))
+
+## [1.11.0](https://github.com/adanalife/website/compare/v1.10.0...v1.11.0) (2026-09-21)
+
+
+### Features
+
+* **contact:** back the contact and AMA forms with the Cloudflare worker ([#325](https://github.com/adanalife/website/issues/325)) ([826c2ad](https://github.com/adanalife/website/commit/826c2ad7354166e7cab9c63ca8c967ae0fbc33d7))
+
+
+### Bug Fixes
+
+* **theme:** invert the logo in dark mode so it stays readable ([#323](https://github.com/adanalife/website/issues/323)) ([6336267](https://github.com/adanalife/website/commit/6336267b732eafbc423c74062ae67f5fa0630e7a))
+
+## [1.10.0](https://github.com/adanalife/website/compare/v1.9.1...v1.10.0) (2026-09-21)
+
+
+### Features
+
+* **blog:** Virginia and the Carlton Bridge ([#321](https://github.com/adanalife/website/issues/321)) ([765f1d3](https://github.com/adanalife/website/commit/765f1d3c024746cb08abbb90fd9b0b157d79c385))
+* **privacy:** serve YouTube embeds from youtube-nocookie.com ([#311](https://github.com/adanalife/website/issues/311)) ([7017a60](https://github.com/adanalife/website/commit/7017a607d3096cbba16f3e7a3f761fcd1ce31c4d))
+
+
+### Bug Fixes
+
+* **ci:** serialize release-please runs ([#318](https://github.com/adanalife/website/issues/318)) ([ab80555](https://github.com/adanalife/website/commit/ab80555649ea8c6bc86f583c735d2593929669de))
+* **forms:** graceful-error UX on the contact and AMA forms ([#210](https://github.com/adanalife/website/issues/210)) ([f0a491b](https://github.com/adanalife/website/commit/f0a491b339e2ebc6c8febc137cfc8f3f61f39b5f))
+* **ogp:** add og:site_name and X card tags to every page ([#322](https://github.com/adanalife/website/issues/322)) ([4e203fc](https://github.com/adanalife/website/commit/4e203fcb105dfd46cc147341b3a2e130f9541894))
+
 ## [1.9.1](https://github.com/adanalife/website/compare/v1.9.0...v1.9.1) (2026-09-02)
 
 

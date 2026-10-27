@@ -36,4 +36,4 @@ Branch flow:
 
 ## Contact form
 
-The site is static, but a small Sinatra app backs [the contact page](https://www.dana.lol/contact) and [/ama](https://www.dana.lol/ama). It lives in the [`contact-form` repo](https://github.com/adanalife/contact-form).
+The site is static, but the Cloudflare Worker in `worker/` backs [the contact page](https://www.dana.lol/contact) and [/ama](https://www.dana.lol/ama): `POST /contact` mails each submission to Dana through a `send_email` binding locked to that one address. The same worker is the post-from-phone inbox (`task post:drain`). Deploy it with `task post:worker:deploy`.

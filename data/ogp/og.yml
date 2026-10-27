@@ -10,3 +10,5 @@ image:
   alt: 'a dot with a smaller dot orbiting it in a circle, akin to an atom or a satellite'
 locale:
   '': en_us
+# Shown above the title by Discord and Slack; without it the card is anonymous.
+site_name: A Dana Life
