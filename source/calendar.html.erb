@@ -6,7 +6,7 @@ pageable: true
             when 'month' then Date.new(year, month, 1).strftime('%b %Y')
             when 'year'  then year
             end %>
-<% content_for :title do %>Archive for <%= period %><%= " (page #{page_number})" if page_number > 1 %><% end %>
+<% content_for :title, "Archive for #{period}#{" (page #{page_number})" if page_number > 1}" %>
 
 <h1>Archive for <%= period %></h1>
 

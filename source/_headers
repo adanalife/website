@@ -14,3 +14,7 @@
 # would give real content hashes and let this become max-age=31536000, immutable.
 /assets/*
   Cache-Control: public, max-age=3600
+
+# Nothing on the site uses these; a third-party frame can't ask for them either.
+/*
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

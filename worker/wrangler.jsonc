@@ -2,6 +2,10 @@
 // from the iOS Shortcut) land in R2 as one message directory each, and
 // `task post:drain` turns each directory into a draft article PR.
 //
+// It also backs the dana.lol /contact and /ama forms: POST /contact emails the
+// submission to Dana through the CONTACT send_email binding, which is locked to
+// that one recipient so a bug here can never make it an open relay.
+//
 // Deploy: `task post:worker:deploy`. Secrets, once, from the laptop:
 //   npx wrangler -c worker/wrangler.jsonc secret put INBOX_TOKEN       # bearer for the Shortcut + drain
 //   npx wrangler -c worker/wrangler.jsonc secret put ALLOWED_SENDERS   # comma-separated; mail from anyone else is rejected at SMTP time
@@ -11,5 +15,8 @@
   "main": "src/index.js",
   "compatibility_date": "2026-08-01",
   "r2_buckets": [{ "binding": "INBOX", "bucket_name": "dana-lol-post-inbox" }],
+  "send_email": [
+    { "name": "CONTACT", "destination_address": "danadotlol@gmail.com" },
+  ],
   "observability": { "enabled": true },
 }

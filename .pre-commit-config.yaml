@@ -60,6 +60,18 @@ repos:
     hooks:
       - id: actionlint
 
+  # Images are supposed to enter source/ through script/ingest-image, which
+  # writes optimized bytes; a photo dragged straight into an article directory
+  # skips it and ships a raw export. Lossless check only — it never second-guesses
+  # the quality the photo was encoded at, just the bytes nobody chose.
+  - repo: local
+    hooks:
+      - id: image-shrinkable
+        name: source images are already losslessly optimized
+        entry: script/check_image_shrinkable.rb
+        language: script
+        files: '^source/.*\.(jpe?g|JPE?G|png|PNG)$'
+
   # The site's redirects are declared twice — source/_redirects for Cloudflare
   # Pages, s3_website.yml's `redirects:` map for the S3 fallback — so a redirect
   # in only one of them works on one host and 404s on the other.
@@ -72,6 +84,18 @@ repos:
         files: '^(source/_redirects|s3_website\.yml)$'
         pass_filenames: false
 
+  # Text colours the site paints come from tokens in _theme.scss. A pair that
+  # falls under WCAG AA reads fine to whoever picked it and is invisible in the
+  # diff — this measures them so a Lighthouse run isn't the first to notice.
+  - repo: local
+    hooks:
+      - id: theme-contrast
+        name: _theme.scss text tokens clear WCAG AA
+        entry: script/check_contrast.rb
+        language: script
+        files: '^source/assets/_theme\.scss$'
+        pass_filenames: false
+
   # Conventional Commits — enforce `type(scope): summary` on commit messages so
   # history stays machine-parseable: it underpins release automation and gives
   # every contributor/agent the same commit grammar without re-explaining it.
@@ -79,11 +103,17 @@ repos:
   # it up on `pre-commit install`. Guards LOCAL commits — and since PRs
   # squash-merge, the PR *title* becomes the squash subject, so keep PR titles
   # conventional too.
+  #
+  # `post` is the one type beyond the hook's defaults (listing any type replaces
+  # them, hence the full set): a new article, released as a patch rather than
+  # the minor bump a `feat` would cut. Keep in step with pr-gates.yml and
+  # release-please-config.json's changelog-sections.
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
+        args: [build, chore, ci, docs, feat, fix, perf, post, refactor, revert, style, test]
 
   # This repo is public; the private-notes tree it grew up next to is not. A
   # reference to it anywhere in the tree — a README, a YAML comment, an alert

@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
 
-# print with pretty colors
-# (why isn't this part of the standard library?)
-gem 'awesome_print'
-
 # the static website generator
 gem 'middleman', '~> 4.6'
 
@@ -31,14 +27,11 @@ gem 'middleman-ogp'
 # for generating article summaries
 gem 'nokogiri'
 
-# for loading ENV vars from a .env file
-gem 'dotenv'
-
 # For feed.xml.builder
 gem 'builder'
 
 # For parsing Markdown
 gem 'redcarpet'
 
-# For suggesting alt text at image ingest (bin/ingest-image)
+# For suggesting alt text at image ingest (script/ingest-image)
 gem 'anthropic'
