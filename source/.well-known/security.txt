@@ -1,0 +1,4 @@
+Contact: https://www.dana.lol/contact
+Expires: 2027-10-23T00:00:00Z
+Preferred-Languages: en
+Canonical: https://www.dana.lol/.well-known/security.txt

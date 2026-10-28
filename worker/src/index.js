@@ -33,7 +33,8 @@ export default {
     const url = new URL(request.url)
     const { method } = request
 
-    // Door 3: the dana.lol contact + AMA forms. Public, so it sits before the gate.
+    // The dana.lol contact + AMA forms, not an inbox door. Public, so it sits
+    // before the gate.
     if (url.pathname === '/contact') {
       if (method !== 'POST') return new Response('method not allowed', { status: 405 })
       const origin = request.headers.get('origin') || ''
@@ -46,7 +47,8 @@ export default {
       return json({ ok: true }, 200, cors)
     }
 
-    if (request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
+    // An unset secret must not turn into the guessable "Bearer undefined".
+    if (!env.INBOX_TOKEN || request.headers.get('authorization') !== `Bearer ${env.INBOX_TOKEN}`) {
       return new Response('unauthorized', { status: 401 })
     }
 
