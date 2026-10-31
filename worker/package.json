@@ -8,9 +8,9 @@
     "test": "node --test"
   },
   "dependencies": {
-    "postal-mime": "^3.0.0"
+    "postal-mime": "^4.0.8"
   },
   "devDependencies": {
-    "wrangler": "^4.127.1"
+    "wrangler": "^4.154.0"
   }
 }
