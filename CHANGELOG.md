@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.1](https://github.com/adanalife/website/compare/v1.12.0...v1.12.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **headers:** serve every site-wide header from one /* block ([#359](https://github.com/adanalife/website/issues/359)) ([7f95dc0](https://github.com/adanalife/website/commit/7f95dc0e72c0fe470425a069ca55bc687f3c7b1d))
+
 ## [1.12.0](https://github.com/adanalife/website/compare/v1.11.3...v1.12.0) (2026-10-23)
 
 
