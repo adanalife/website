@@ -16,15 +16,6 @@ after_build do |builder|
     FileUtils.cp(src, dst) if File.exist?(src)
   end
 
-  # Staging serves the production build on its own hostnames; keep it out of
-  # search results. A header rather than a robots.txt Disallow, because a
-  # crawler that may not fetch a page never sees its noindex.
-  if ENV['STAGING'] == 'true'
-    File.open(File.join(builder.app.root, builder.app.config[:build_dir], '_headers'), 'a') do |f|
-      f.puts "\n/*\n  X-Robots-Tag: noindex"
-    end
-  end
-
   # Report-only CSP. The inline scripts, inline event handlers and <style>
   # blocks are allowed by hash, computed here from the built HTML so an edit to
   # any of them can't leave a stale hash behind.
@@ -51,8 +42,19 @@ after_build do |builder|
     "object-src 'none'",
     "frame-ancestors 'self'"
   ].join('; ')
+  # Cloudflare Pages applies only one `/*` block, so every site-wide header is
+  # written here as a single block.
+  headers = [
+    # Nothing on the site uses these; a third-party frame can't ask for them either.
+    'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+    "Content-Security-Policy-Report-Only: #{csp}"
+  ]
+  # Staging serves the production build on its own hostnames; keep it out of
+  # search results. A header rather than a robots.txt Disallow, because a
+  # crawler that may not fetch a page never sees its noindex.
+  headers << 'X-Robots-Tag: noindex' if ENV['STAGING'] == 'true'
   File.open(File.join(build_dir, '_headers'), 'a') do |f|
-    f.puts "\n/*\n  Content-Security-Policy-Report-Only: #{csp}"
+    f.puts "\n/*", headers.map { |h| "  #{h}" }
   end
 end
 

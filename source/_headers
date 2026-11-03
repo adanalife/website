@@ -15,6 +15,5 @@
 /assets/*
   Cache-Control: public, max-age=3600
 
-# Nothing on the site uses these; a third-party frame can't ask for them either.
-/*
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+# The `/*` rule is written by config.rb's after_build: Cloudflare Pages applies
+# only one `/*` block, so every site-wide header lives in that single block.
