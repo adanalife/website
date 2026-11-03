@@ -114,7 +114,7 @@ async function store (bucket, meta, photos, id) {
 }
 
 // Origins allowed to POST /contact cross-site: prod, staging, and per-PR previews.
-const CONTACT_ORIGINS = /^https:\/\/(www\.dana\.lol|staging\.dana\.lol|www\.whalecore\.com|[\w-]+\.dana-lol-staging\.pages\.dev)$/
+const CONTACT_ORIGINS = /^https:\/\/(www\.dana\.lol|staging\.dana\.lol|www\.whalecore\.com|[\w-]+\.dana-lol-stage-1\.pages\.dev)$/
 
 // Contact form: `message` + `email` (may be blank). AMA form: `message` only.
 // `website` is a honeypot the pages hide; humans never fill it.
