@@ -71,9 +71,6 @@ page '/feed.xml', layout: false
 # Define 404 page
 page '/404.html', directory_index: false
 
-# With alternative layout
-# page "/path/to/file.html", layout: :otherlayout
-
 # Ignore `photo.html.erb` to prevent it from being processed directly
 ignore "photo.html"
 ignore "photo.html.erb"
@@ -149,10 +146,6 @@ set :markdown,
   smartypants: true
 activate :syntax
 
-# activate :robots,
-#   rules: [{user_agent: '*', allow:  %w(/)}],
-#   sitemap: @app.data.settings.site.url + 'sitemap.xml'
-
 # Build-specific configuration
 configure :build do
   config[:host] = 'https://www.dana.lol'
@@ -167,9 +160,6 @@ configure :build do
   # losslessly optimized — they're optimized once, when they enter source/,
   # and the committed bytes are what ships. The -opt URLs still in the wild
   # 301 to the bare filenames via source/_redirects.
-
-  # Minify Javascript on build
-  # activate :minify_javascript
 end
 
 configure :development do
@@ -180,19 +170,6 @@ configure :development do
 end
 
 activate :blog do |blog|
-  # This will add a prefix to all links, template references and source paths
-  # blog.prefix = "blog"
-
-  # blog.permalink = "{year}/{month}/{day}/{title}.html"
-  # Matcher for blog source files
-  # blog.sources = "{year}-{month}-{day}-{title}.html"
-  # blog.taglink = "tags/{tag}.html"
-  # blog.layout = "layout"
-  # blog.summary_separator = /(READMORE)/
-  # blog.summary_length = 250
-  # blog.year_link = "{year}.html"
-  # blog.month_link = "{year}/{month}.html"
-  # blog.day_link = "{year}/{month}/{day}.html"
   blog.default_extension = '.md.erb'
 
   blog.tag_template = 'tag.html'
@@ -204,7 +181,6 @@ activate :blog do |blog|
   # Enable pagination
   blog.paginate = true
   blog.per_page = 10
-  # blog.page_link = "page/{num}"
 end
 
 # use Open Graph Protocol to generate URL previews
