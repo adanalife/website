@@ -1,6 +1,7 @@
 // The post-from-phone inbox: photos mailed to post@whalecore.com (or POSTed
-// from the iOS Shortcut) land in R2 as one message directory each, and
-// `task post:drain` turns each directory into a draft article PR.
+// from the iOS Shortcut) land in R2 as one message directory each, and the
+// drain (script/drain-inbox, on a schedule in CI) turns each into a draft
+// article PR, then moves it under archive/ as the untouched-originals corpus.
 //
 // It also backs the dana.lol /contact and /ama forms: POST /contact emails the
 // submission to Dana through the CONTACT send_email binding, which is locked to
