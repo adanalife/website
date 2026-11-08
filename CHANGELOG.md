@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.13.0](https://github.com/adanalife/website/compare/v1.12.0...v1.13.0) (2026-11-08)
+
+
+### Features
+
+* **theme:** write the theme tokens once as light-dark() pairs ([#362](https://github.com/adanalife/website/issues/362)) ([1c0f50e](https://github.com/adanalife/website/commit/1c0f50ee359e59c3ae1ddc49fe7acec050aff398))
+
+
+### Bug Fixes
+
+* **feed:** stop re-dating every entry on each deploy ([#366](https://github.com/adanalife/website/issues/366)) ([a4b794d](https://github.com/adanalife/website/commit/a4b794d08c8c6d0f38ee7a09c138d72704835efd))
+* **headers:** serve every site-wide header from one /* block ([#359](https://github.com/adanalife/website/issues/359)) ([7f95dc0](https://github.com/adanalife/website/commit/7f95dc0e72c0fe470425a069ca55bc687f3c7b1d))
+
 ## [1.12.0](https://github.com/adanalife/website/compare/v1.11.3...v1.12.0) (2026-10-23)
 
 
