@@ -33,4 +33,4 @@ jobs:
       # ("main", set in infra's terraform, independent of any git branch) —
       # its production alias is what serves www.whalecore.com. Pinning it
       # here means main merges land on whalecore.com.
-      run: npx wrangler pages deploy build/ --project-name dana-lol-staging --branch main
+      run: npx wrangler pages deploy build/ --project-name dana-lol-stage-1 --branch main
