@@ -2,11 +2,12 @@
 # frozen_string_literal: true
 
 # Every colour the site paints text in comes from a token in
-# source/assets/_theme.scss, declared once per theme. A pair that falls under
-# WCAG AA (4.5:1 for the body sizes this site uses — nothing is large enough or
-# bold enough to qualify for the 3:1 allowance) is invisible in the diff and
-# only shows up in a Lighthouse run nobody is watching. This exits non-zero when
-# a foreground token fails against its own theme's background.
+# source/assets/_theme.scss, as a light-dark() pair or once per theme block. A
+# pair that falls under WCAG AA (4.5:1 for the body sizes this site uses —
+# nothing is large enough or bold enough to qualify for the 3:1 allowance) is
+# invisible in the diff and only shows up in a Lighthouse run nobody is
+# watching. This exits non-zero when a foreground token fails against its own
+# theme's background.
 #
 # Only text pairs are checked. --color-border paints a decorative <hr> and
 # --color-btn-* sit over photographs, so neither has a fixed background to
@@ -51,6 +52,17 @@ themes = source.scan(/([^{}]+)\{([^}]*)\}/m).map do |selector, body|
   tokens = body.scan(/(--[\w-]+)\s*:\s*([^;]+);/).to_h
   [selector.strip.gsub(/\s+/, ' '), tokens]
 end.reject { |_, tokens| tokens.empty? }
+
+# A block of `light-dark(light, dark)` pairs holds both themes at once; measure
+# each side as its own theme.
+LIGHT_DARK = /\Alight-dark\(\s*([^,]+?)\s*,\s*([^)]+?)\s*\)\z/
+themes = themes.flat_map do |theme, tokens|
+  next [[theme, tokens]] unless tokens.values.any? { |v| v.strip.match?(LIGHT_DARK) }
+
+  %w[light dark].each_with_index.map do |side, i|
+    ["#{theme} (#{side})", tokens.transform_values { |v| v.strip.match(LIGHT_DARK)&.[](i + 1) || v }]
+  end
+end
 
 abort "No token blocks found in #{THEME} — has the file moved?" if themes.empty?
 

@@ -1,28 +1,30 @@
-// Theme variables — dark mode is driven by `data-theme="dark"|"light"` on <html>.
-// An inline script in layout.erb sets the attribute before first paint, falling
-// back to prefers-color-scheme. A footer toggle flips and persists via localStorage.
+// Theme variables — each token is one `light-dark(light, dark)` pair, resolved
+// against <html>'s color-scheme. An inline script in layout.erb sets
+// `data-theme="dark"|"light"` before first paint (falling back to
+// prefers-color-scheme), and a footer toggle flips and persists it via
+// localStorage; the attribute pins color-scheme, which picks the side of each pair.
+// With no script at all, the color-scheme meta tag follows the OS.
 
-:root,
+:root {
+  color-scheme: light dark;
+  --color-bg: light-dark(#fffff8, #1a1a1a);
+  --color-text: light-dark(#111, #e8e6d8);
+  --color-border: light-dark(#ccc, #444);
+  --color-muted: light-dark(#767676, #888);
+  --color-selection: light-dark(#b4d5fe, #2d4a7a);
+  --color-btn-text: light-dark(white, #e8e6d8);
+  --color-btn-overlay: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.08));
+}
+
 [data-theme='light'] {
-  --color-bg: #fffff8;
-  --color-text: #111;
-  --color-border: #ccc;
-  --color-muted: #767676;
-  --color-selection: #b4d5fe;
-  --color-btn-text: white;
-  --color-btn-overlay: rgba(0, 0, 0, 0.1);
+  color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --color-bg: #1a1a1a;
-  --color-text: #e8e6d8;
-  --color-border: #444;
-  --color-muted: #888;
-  --color-selection: #2d4a7a;
-  --color-btn-text: var(--color-text);
-  --color-btn-overlay: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
 }
 
+// light-dark() takes colors only, so the image filters keep their own dark rules.
 [data-theme='dark'] img {
   filter: brightness(0.9) contrast(1.1);
 }
