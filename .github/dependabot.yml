@@ -23,15 +23,13 @@ updates:
   #   schedule        is weekly on Monday 13:00 UTC, so a week's bumps arrive as
   #                   one batch to review rather than trickling in daily.
   #
-  # Minor and patch bumps batch into one PR per ecosystem. A major is left out
-  # of every non-Actions group so a breaking change arrives on its own,
-  # attributable to a single dependency instead of hiding among a dozen safe
-  # ones. Security updates ignore groups entirely and always arrive alone.
-  #
-  # The Actions group takes majors too, unlike the others. An action major is
-  # normally a runner or Node version bump rather than an API break, so the
-  # attributability that keeps majors solo elsewhere buys little here, and
-  # holding them out leaves a standing queue of one-line PRs nobody merges.
+  # Every ecosystem batches into one weekly PR, majors included, and a second
+  # group per ecosystem catches security updates, which Dependabot otherwise
+  # opens one PR per advisory on whatever day it lands. Each solo PR costs a
+  # full CI run and touches the same lockfile as its siblings, so the first
+  # merge leaves the rest conflicting -- and rebase-strategy is disabled, so
+  # nothing repairs them. A red group is bisected by hand; that is cheaper
+  # than the queue of single-bump PRs it replaces.
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -40,6 +38,10 @@ updates:
       time: "13:00"
     groups:
       actions:
+        patterns:
+          - "*"
+      actions-security:
+        applies-to: security-updates
         patterns:
           - "*"
     cooldown:
@@ -55,9 +57,28 @@ updates:
       ruby:
         patterns:
           - "*"
-        update-types:
-          - minor
-          - patch
+      ruby-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+    rebase-strategy: disabled
+  - package-ecosystem: npm
+    directory: /worker
+    schedule:
+      interval: weekly
+      day: monday
+      time: "13:00"
+    groups:
+      worker:
+        patterns:
+          - "*"
+      worker-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
     cooldown:
       default-days: 7
       semver-major-days: 14
