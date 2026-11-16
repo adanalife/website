@@ -67,7 +67,7 @@ end
 abort "No token blocks found in #{THEME} — has the file moved?" if themes.empty?
 
 problems = themes.flat_map do |theme, tokens|
-  TEXT_PAIRS.filter_map do |fg_token, bg_token|
+  TEXT_PAIRS.map do |fg_token, bg_token|
     fg, bg = tokens.values_at(fg_token, bg_token)
     next unless fg && bg
 
@@ -76,7 +76,7 @@ problems = themes.flat_map do |theme, tokens|
 
     format('%<theme>s: %<fg>s (%<fgv>s) on %<bg>s (%<bgv>s) is %<ratio>.2f:1',
            theme: theme, fg: fg_token, fgv: fg.strip, bg: bg_token, bgv: bg.strip, ratio: ratio)
-  end
+  end.compact
 end
 
 if problems.empty?
