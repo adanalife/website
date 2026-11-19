@@ -18,7 +18,10 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
       xml.updated article.date.to_time.iso8601 # checkout mtime would re-date every entry on each deploy
       xml.author { xml.name "Dana" }
       # xml.summary article.summary, "type" => "html"
-      xml.content article.body, "type" => "html"
+      # A feed reader resolves a root-relative URL against its own origin, so
+      # every in-site link and image in the body is written out in full.
+      body = article.body.gsub(%r{(\s(?:src|href)=["'])/(?!/)}) { "#{$1}#{site_url}/" }
+      xml.content body, "type" => "html"
     end
   end
 end
