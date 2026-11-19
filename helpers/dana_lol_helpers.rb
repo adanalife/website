@@ -90,7 +90,9 @@ module DanaLolHelpers
     @@marginnote ||= 0
     icon = opts[:icon] || '&#8853;' # expand icon looks like: ⊕
     content_tag(:label, for: "mn-#{@@marginnote += 1}", class: 'margin-toggle') { icon } +
-    input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle') +
+    # With no icon there is nothing to tap, so the note starts open: a narrow
+    # screen shows only a checked note, a wide one shows every note anyway.
+    input_tag(:checkbox, id: "mn-#{@@marginnote}", class: 'margin-toggle', checked: icon.empty?) +
     content_tag(:span, class: 'marginnote') { content || yield }
   end
   alias_method :mn, :marginnote
